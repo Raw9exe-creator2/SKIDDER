@@ -1,10 +1,11 @@
 local ClickGUI = {}
-local TweenService = game:GetService("TweenService")
-local UserInputService = game:GetService("UserInputService")
-local CoreGui = game:GetService("CoreGui")
 
 function ClickGUI.new()
     local self = {}
+    
+    local TweenService = game:GetService("TweenService")
+    local UserInputService = game:GetService("UserInputService")
+    local CoreGui = game:GetService("CoreGui")
     
     self.ScreenGui = Instance.new("ScreenGui")
     self.ScreenGui.Name = "ClickGUI"
@@ -258,13 +259,15 @@ function ClickGUI:CreateSlider(tab, name, min, max, default, callback)
         end
     end)
     
-    UserInputService.InputEnded:Connect(function(input)
+    local uis = game:GetService("UserInputService")
+    
+    uis.InputEnded:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             dragging = false
         end
     end)
     
-    UserInputService.InputChanged:Connect(function(input)
+    uis.InputChanged:Connect(function(input)
         if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
             local mousePos = input.Position.X
             local barPos = Bar.AbsolutePosition.X
