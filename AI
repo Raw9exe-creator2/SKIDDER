@@ -5,56 +5,60 @@ local RunService = game:GetService("RunService")
 
 local Themes = {
     Dark = {
-        TabBar = Color3.fromRGB(20, 20, 25),
-        TabButton = Color3.fromRGB(30, 30, 38),
-        TabButtonHover = Color3.fromRGB(45, 45, 60),
-        TabButtonActive = Color3.fromRGB(60, 60, 85),
-        Frame = Color3.fromRGB(22, 22, 28),
-        TopBar = Color3.fromRGB(30, 30, 38),
-        Element = Color3.fromRGB(35, 35, 45),
-        ElementHover = Color3.fromRGB(45, 45, 55),
-        Stroke = Color3.fromRGB(80, 80, 110),
-        Text = Color3.fromRGB(255, 255, 255),
-        Accent = Color3.fromRGB(100, 150, 255)
+        TabBar = Color3.fromRGB(12, 13, 15),
+        TabButton = Color3.fromRGB(22, 28, 38),
+        TabButtonHover = Color3.fromRGB(32, 38, 51),
+        TabButtonActive = Color3.fromRGB(152, 181, 255),
+        Frame = Color3.fromRGB(12, 13, 15),
+        TopBar = Color3.fromRGB(22, 28, 38),
+        Element = Color3.fromRGB(32, 38, 51),
+        ElementHover = Color3.fromRGB(42, 50, 66),
+        Stroke = Color3.fromRGB(52, 66, 89),
+        Text = Color3.fromRGB(210, 210, 210),
+        TextDim = Color3.fromRGB(180, 180, 180),
+        Accent = Color3.fromRGB(152, 181, 255)
     },
     Blue = {
-        TabBar = Color3.fromRGB(15, 25, 35),
-        TabButton = Color3.fromRGB(25, 40, 60),
-        TabButtonHover = Color3.fromRGB(35, 55, 80),
-        TabButtonActive = Color3.fromRGB(50, 80, 120),
-        Frame = Color3.fromRGB(18, 28, 40),
-        TopBar = Color3.fromRGB(25, 40, 60),
-        Element = Color3.fromRGB(30, 45, 65),
-        ElementHover = Color3.fromRGB(40, 60, 85),
-        Stroke = Color3.fromRGB(70, 110, 160),
-        Text = Color3.fromRGB(255, 255, 255),
-        Accent = Color3.fromRGB(80, 150, 255)
+        TabBar = Color3.fromRGB(10, 15, 25),
+        TabButton = Color3.fromRGB(20, 30, 50),
+        TabButtonHover = Color3.fromRGB(30, 45, 70),
+        TabButtonActive = Color3.fromRGB(100, 150, 255),
+        Frame = Color3.fromRGB(10, 15, 25),
+        TopBar = Color3.fromRGB(20, 30, 50),
+        Element = Color3.fromRGB(30, 45, 70),
+        ElementHover = Color3.fromRGB(40, 60, 90),
+        Stroke = Color3.fromRGB(50, 80, 130),
+        Text = Color3.fromRGB(200, 220, 255),
+        TextDim = Color3.fromRGB(150, 180, 220),
+        Accent = Color3.fromRGB(100, 150, 255)
     },
     Purple = {
-        TabBar = Color3.fromRGB(25, 15, 35),
-        TabButton = Color3.fromRGB(40, 25, 60),
-        TabButtonHover = Color3.fromRGB(55, 35, 80),
-        TabButtonActive = Color3.fromRGB(80, 50, 120),
-        Frame = Color3.fromRGB(28, 18, 40),
-        TopBar = Color3.fromRGB(40, 25, 60),
-        Element = Color3.fromRGB(45, 30, 65),
-        ElementHover = Color3.fromRGB(60, 40, 85),
-        Stroke = Color3.fromRGB(110, 70, 160),
-        Text = Color3.fromRGB(255, 255, 255),
-        Accent = Color3.fromRGB(150, 80, 255)
+        TabBar = Color3.fromRGB(15, 10, 25),
+        TabButton = Color3.fromRGB(30, 20, 50),
+        TabButtonHover = Color3.fromRGB(45, 30, 70),
+        TabButtonActive = Color3.fromRGB(180, 120, 255),
+        Frame = Color3.fromRGB(15, 10, 25),
+        TopBar = Color3.fromRGB(30, 20, 50),
+        Element = Color3.fromRGB(45, 30, 70),
+        ElementHover = Color3.fromRGB(60, 40, 90),
+        Stroke = Color3.fromRGB(80, 50, 130),
+        Text = Color3.fromRGB(220, 200, 255),
+        TextDim = Color3.fromRGB(180, 150, 220),
+        Accent = Color3.fromRGB(180, 120, 255)
     },
     Red = {
-        TabBar = Color3.fromRGB(30, 15, 15),
-        TabButton = Color3.fromRGB(50, 25, 25),
-        TabButtonHover = Color3.fromRGB(70, 35, 35),
-        TabButtonActive = Color3.fromRGB(100, 50, 50),
-        Frame = Color3.fromRGB(35, 18, 18),
-        TopBar = Color3.fromRGB(50, 25, 25),
-        Element = Color3.fromRGB(55, 30, 30),
-        ElementHover = Color3.fromRGB(75, 40, 40),
-        Stroke = Color3.fromRGB(130, 70, 70),
-        Text = Color3.fromRGB(255, 255, 255),
-        Accent = Color3.fromRGB(255, 80, 80)
+        TabBar = Color3.fromRGB(20, 10, 10),
+        TabButton = Color3.fromRGB(40, 20, 20),
+        TabButtonHover = Color3.fromRGB(60, 30, 30),
+        TabButtonActive = Color3.fromRGB(255, 100, 100),
+        Frame = Color3.fromRGB(20, 10, 10),
+        TopBar = Color3.fromRGB(40, 20, 20),
+        Element = Color3.fromRGB(60, 30, 30),
+        ElementHover = Color3.fromRGB(80, 40, 40),
+        Stroke = Color3.fromRGB(120, 50, 50),
+        Text = Color3.fromRGB(255, 200, 200),
+        TextDim = Color3.fromRGB(220, 150, 150),
+        Accent = Color3.fromRGB(255, 100, 100)
     }
 }
 
@@ -90,27 +94,21 @@ function ZOV:Create(config)
     TabBar.Size = UDim2.new(0, 70, 0, 0)
     TabBar.Position = UDim2.new(0, 10, 0.5, 0)
     TabBar.AnchorPoint = Vector2.new(0, 0.5)
-    TabBar.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+    TabBar.BackgroundColor3 = Color3.fromRGB(12, 13, 15)
+    TabBar.BackgroundTransparency = 0.05
     TabBar.BorderSizePixel = 0
     TabBar.Parent = ScreenGui
     
     local TabBarCorner = Instance.new("UICorner")
-    TabBarCorner.CornerRadius = UDim.new(0, 12)
+    TabBarCorner.CornerRadius = UDim.new(0, 10)
     TabBarCorner.Parent = TabBar
     
     local TabBarStroke = Instance.new("UIStroke")
-    TabBarStroke.Color = Color3.fromRGB(70, 70, 90)
-    TabBarStroke.Thickness = 2
-    TabBarStroke.Transparency = 0.3
+    TabBarStroke.Color = Color3.fromRGB(52, 66, 89)
+    TabBarStroke.Thickness = 1
+    TabBarStroke.Transparency = 0.5
+    TabBarStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     TabBarStroke.Parent = TabBar
-    
-    local TabBarGradient = Instance.new("UIGradient")
-    TabBarGradient.Color = ColorSequence.new{
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 25, 30)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 15, 20))
-    }
-    TabBarGradient.Rotation = 90
-    TabBarGradient.Parent = TabBar
     
     local TabLayout = Instance.new("UIListLayout")
     TabLayout.Padding = UDim.new(0, 5)
@@ -127,19 +125,22 @@ function ZOV:Create(config)
     SettingsButton.Size = UDim2.new(0, 60, 0, 60)
     SettingsButton.Position = UDim2.new(0.5, -30, 1, -70)
     SettingsButton.AnchorPoint = Vector2.new(0, 0)
-    SettingsButton.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
+    SettingsButton.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
+    SettingsButton.BackgroundTransparency = 0
     SettingsButton.Image = "rbxassetid://6031280882"
-    SettingsButton.ImageColor3 = Color3.fromRGB(160, 160, 180)
+    SettingsButton.ImageColor3 = Color3.fromRGB(152, 181, 255)
+    SettingsButton.ImageTransparency = 0.7
     SettingsButton.Parent = TabBar
     
     local SettingsCorner = Instance.new("UICorner")
-    SettingsCorner.CornerRadius = UDim.new(0, 10)
+    SettingsCorner.CornerRadius = UDim.new(0, 5)
     SettingsCorner.Parent = SettingsButton
     
     local SettingsStroke = Instance.new("UIStroke")
-    SettingsStroke.Color = Color3.fromRGB(90, 90, 120)
-    SettingsStroke.Thickness = 2
-    SettingsStroke.Transparency = 0.6
+    SettingsStroke.Color = Color3.fromRGB(52, 66, 89)
+    SettingsStroke.Thickness = 1
+    SettingsStroke.Transparency = 0.5
+    SettingsStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     SettingsStroke.Parent = SettingsButton
     
     UserInputService.InputBegan:Connect(function(input, gpe)
