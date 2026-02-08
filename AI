@@ -29,7 +29,7 @@ function ZOV:create_ui()
     
     local Container = Instance.new("Frame")
     Container.Name = "Container"
-    Container.Size = UDim2.new(0, 465, 0, 320)
+    Container.Size = UDim2.new(0, 590, 0, 405)
     Container.Position = UDim2.new(0.5, 0, 0.5, 0)
     Container.AnchorPoint = Vector2.new(0.5, 0.5)
     Container.BackgroundColor3 = Color3.fromRGB(12, 13, 15)
@@ -58,7 +58,7 @@ function ZOV:create_ui()
     
     local Tabs = Instance.new("ScrollingFrame")
     Tabs.Name = "Tabs"
-    Tabs.Size = UDim2.new(0, 86, 0, 237)
+    Tabs.Size = UDim2.new(0, 110, 0, 300)
     Tabs.Position = UDim2.new(0.026, 0, 0.111, 0)
     Tabs.BackgroundTransparency = 1
     Tabs.BorderSizePixel = 0
@@ -69,13 +69,13 @@ function ZOV:create_ui()
     Tabs.Parent = Handler
     
     local TabsLayout = Instance.new("UIListLayout")
-    TabsLayout.Padding = UDim.new(0, 4)
+    TabsLayout.Padding = UDim.new(0, 5)
     TabsLayout.SortOrder = Enum.SortOrder.LayoutOrder
     TabsLayout.Parent = Tabs
     
     local SettingsDivider = Instance.new("Frame")
     SettingsDivider.Name = "SettingsDivider"
-    SettingsDivider.Size = UDim2.new(0, 100, 0, 1)
+    SettingsDivider.Size = UDim2.new(0, 125, 0, 1)
     SettingsDivider.Position = UDim2.new(0.01, 0, 0.85, 0)
     SettingsDivider.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
     SettingsDivider.BackgroundTransparency = 0.5
@@ -85,7 +85,7 @@ function ZOV:create_ui()
     local SettingsTab = Instance.new("TextButton")
     SettingsTab.Name = "SettingsTab"
     SettingsTab.Text = ""
-    SettingsTab.Size = UDim2.new(0, 86, 0, 25)
+    SettingsTab.Size = UDim2.new(0, 110, 0, 32)
     SettingsTab.Position = UDim2.new(0.026, 0, 0.87, 0)
     SettingsTab.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
     SettingsTab.BackgroundTransparency = 1
@@ -99,13 +99,13 @@ function ZOV:create_ui()
     
     local SettingsLabel = Instance.new("TextLabel")
     SettingsLabel.Text = "Settings"
-    SettingsLabel.Size = UDim2.new(0, 67, 0, 11)
+    SettingsLabel.Size = UDim2.new(0, 85, 0, 14)
     SettingsLabel.Position = UDim2.new(0.24, 0, 0.5, 0)
     SettingsLabel.AnchorPoint = Vector2.new(0, 0.5)
     SettingsLabel.BackgroundTransparency = 1
     SettingsLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     SettingsLabel.TextTransparency = 0.7
-    SettingsLabel.TextSize = 9
+    SettingsLabel.TextSize = 11
     SettingsLabel.Font = Enum.Font.GothamSemibold
     SettingsLabel.TextXAlignment = Enum.TextXAlignment.Left
     SettingsLabel.Parent = SettingsTab
@@ -120,7 +120,7 @@ function ZOV:create_ui()
     
     local SettingsIcon = Instance.new("ImageLabel")
     SettingsIcon.Image = "rbxassetid://6031280882"
-    SettingsIcon.Size = UDim2.new(0, 8, 0, 8)
+    SettingsIcon.Size = UDim2.new(0, 10, 0, 10)
     SettingsIcon.Position = UDim2.new(0.1, 0, 0.5, 0)
     SettingsIcon.AnchorPoint = Vector2.new(0, 0.5)
     SettingsIcon.BackgroundTransparency = 1
@@ -131,13 +131,13 @@ function ZOV:create_ui()
     local ClientName = Instance.new("TextLabel")
     ClientName.Name = "ClientName"
     ClientName.Text = "ZOV"
-    ClientName.Size = UDim2.new(0, 60, 0, 20)
+    ClientName.Size = UDim2.new(0, 75, 0, 25)
     ClientName.Position = UDim2.new(0.056, 0, 0.055, 0)
     ClientName.AnchorPoint = Vector2.new(0, 0.5)
     ClientName.BackgroundTransparency = 1
     ClientName.TextColor3 = Color3.fromRGB(152, 181, 255)
     ClientName.TextTransparency = 0.2
-    ClientName.TextSize = 18
+    ClientName.TextSize = 22
     ClientName.Font = Enum.Font.Creepster
     ClientName.TextXAlignment = Enum.TextXAlignment.Left
     ClientName.Parent = Handler
@@ -151,7 +151,7 @@ function ZOV:create_ui()
     
     local Pin = Instance.new("Frame")
     Pin.Name = "Pin"
-    Pin.Size = UDim2.new(0, 1.3, 0, 11)
+    Pin.Size = UDim2.new(0, 2, 0, 14)
     Pin.Position = UDim2.new(0.026, 0, 0.136, 0)
     Pin.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
     Pin.BorderSizePixel = 0
@@ -164,7 +164,7 @@ function ZOV:create_ui()
     local Icon = Instance.new("ImageLabel")
     Icon.Name = "Icon"
     Icon.Image = "rbxassetid://107819132007001"
-    Icon.Size = UDim2.new(0, 12, 0, 12)
+    Icon.Size = UDim2.new(0, 15, 0, 15)
     Icon.Position = UDim2.new(0.025, 0, 0.055, 0)
     Icon.AnchorPoint = Vector2.new(0, 0.5)
     Icon.BackgroundTransparency = 1
@@ -187,15 +187,15 @@ function ZOV:create_ui()
     
     local ResizeHandle = Instance.new("Frame")
     ResizeHandle.Name = "ResizeHandle"
-    ResizeHandle.Size = UDim2.new(0, 15, 0, 15)
-    ResizeHandle.Position = UDim2.new(1, -15, 1, -15)
+    ResizeHandle.Size = UDim2.new(0, 18, 0, 18)
+    ResizeHandle.Position = UDim2.new(1, -18, 1, -18)
     ResizeHandle.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
     ResizeHandle.BackgroundTransparency = 0.3
     ResizeHandle.BorderSizePixel = 0
     ResizeHandle.Parent = Handler
     
     local ResizeCorner = Instance.new("UICorner")
-    ResizeCorner.CornerRadius = UDim.new(0, 3)
+    ResizeCorner.CornerRadius = UDim.new(0, 4)
     ResizeCorner.Parent = ResizeHandle
     
     local ResizeIcon = Instance.new("TextLabel")
@@ -203,13 +203,13 @@ function ZOV:create_ui()
     ResizeIcon.BackgroundTransparency = 1
     ResizeIcon.Text = "⋰"
     ResizeIcon.TextColor3 = Color3.fromRGB(152, 181, 255)
-    ResizeIcon.TextSize = 12
+    ResizeIcon.TextSize = 14
     ResizeIcon.Font = Enum.Font.GothamBold
     ResizeIcon.Parent = ResizeHandle
     
     local SettingsLeftSection = Instance.new("ScrollingFrame")
     SettingsLeftSection.Name = "SettingsLeftSection"
-    SettingsLeftSection.Size = UDim2.new(0, 162, 0, 297)
+    SettingsLeftSection.Size = UDim2.new(0, 205, 0, 375)
     SettingsLeftSection.Position = UDim2.new(0.259, 0, 0.5, 0)
     SettingsLeftSection.AnchorPoint = Vector2.new(0, 0.5)
     SettingsLeftSection.BackgroundTransparency = 1
@@ -222,7 +222,7 @@ function ZOV:create_ui()
     SettingsLeftSection.Parent = self._sections
     
     local SettingsLeftLayout = Instance.new("UIListLayout")
-    SettingsLeftLayout.Padding = UDim.new(0, 7)
+    SettingsLeftLayout.Padding = UDim.new(0, 9)
     SettingsLeftLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     SettingsLeftLayout.SortOrder = Enum.SortOrder.LayoutOrder
     SettingsLeftLayout.Parent = SettingsLeftSection
@@ -233,7 +233,7 @@ function ZOV:create_ui()
     
     local SettingsRightSection = Instance.new("ScrollingFrame")
     SettingsRightSection.Name = "SettingsRightSection"
-    SettingsRightSection.Size = UDim2.new(0, 162, 0, 297)
+    SettingsRightSection.Size = UDim2.new(0, 205, 0, 375)
     SettingsRightSection.Position = UDim2.new(0.629, 0, 0.5, 0)
     SettingsRightSection.AnchorPoint = Vector2.new(0, 0.5)
     SettingsRightSection.BackgroundTransparency = 1
@@ -246,7 +246,7 @@ function ZOV:create_ui()
     SettingsRightSection.Parent = self._sections
     
     local SettingsRightLayout = Instance.new("UIListLayout")
-    SettingsRightLayout.Padding = UDim.new(0, 7)
+    SettingsRightLayout.Padding = UDim.new(0, 9)
     SettingsRightLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     SettingsRightLayout.SortOrder = Enum.SortOrder.LayoutOrder
     SettingsRightLayout.Parent = SettingsRightSection
@@ -448,7 +448,7 @@ function ZOV:CreateTab(title, icon)
     local Tab = Instance.new("TextButton")
     Tab.Name = "Tab"
     Tab.Text = ""
-    Tab.Size = UDim2.new(0, 86, 0, 25)
+    Tab.Size = UDim2.new(0, 110, 0, 32)
     Tab.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
     Tab.BackgroundTransparency = 1
     Tab.BorderSizePixel = 0
@@ -462,13 +462,13 @@ function ZOV:CreateTab(title, icon)
     
     local TabLabel = Instance.new("TextLabel")
     TabLabel.Text = title
-    TabLabel.Size = UDim2.new(0, 67, 0, 11)
+    TabLabel.Size = UDim2.new(0, 85, 0, 14)
     TabLabel.Position = UDim2.new(0.24, 0, 0.5, 0)
     TabLabel.AnchorPoint = Vector2.new(0, 0.5)
     TabLabel.BackgroundTransparency = 1
     TabLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     TabLabel.TextTransparency = 0.7
-    TabLabel.TextSize = 9
+    TabLabel.TextSize = 11
     TabLabel.Font = Enum.Font.GothamSemibold
     TabLabel.TextXAlignment = Enum.TextXAlignment.Left
     TabLabel.Parent = Tab
@@ -483,7 +483,7 @@ function ZOV:CreateTab(title, icon)
     
     local TabIcon = Instance.new("ImageLabel")
     TabIcon.Image = icon or ""
-    TabIcon.Size = UDim2.new(0, 8, 0, 8)
+    TabIcon.Size = UDim2.new(0, 10, 0, 10)
     TabIcon.Position = UDim2.new(0.1, 0, 0.5, 0)
     TabIcon.AnchorPoint = Vector2.new(0, 0.5)
     TabIcon.BackgroundTransparency = 1
@@ -493,7 +493,7 @@ function ZOV:CreateTab(title, icon)
     
     local LeftSection = Instance.new("ScrollingFrame")
     LeftSection.Name = "LeftSection"
-    LeftSection.Size = UDim2.new(0, 162, 0, 297)
+    LeftSection.Size = UDim2.new(0, 205, 0, 375)
     LeftSection.Position = UDim2.new(0.259, 0, 0.5, 0)
     LeftSection.AnchorPoint = Vector2.new(0, 0.5)
     LeftSection.BackgroundTransparency = 1
@@ -506,7 +506,7 @@ function ZOV:CreateTab(title, icon)
     LeftSection.Parent = self._sections
     
     local LeftLayout = Instance.new("UIListLayout")
-    LeftLayout.Padding = UDim.new(0, 7)
+    LeftLayout.Padding = UDim.new(0, 9)
     LeftLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     LeftLayout.SortOrder = Enum.SortOrder.LayoutOrder
     LeftLayout.Parent = LeftSection
@@ -517,7 +517,7 @@ function ZOV:CreateTab(title, icon)
     
     local RightSection = Instance.new("ScrollingFrame")
     RightSection.Name = "RightSection"
-    RightSection.Size = UDim2.new(0, 162, 0, 297)
+    RightSection.Size = UDim2.new(0, 205, 0, 375)
     RightSection.Position = UDim2.new(0.629, 0, 0.5, 0)
     RightSection.AnchorPoint = Vector2.new(0, 0.5)
     RightSection.BackgroundTransparency = 1
@@ -530,7 +530,7 @@ function ZOV:CreateTab(title, icon)
     RightSection.Parent = self._sections
     
     local RightLayout = Instance.new("UIListLayout")
-    RightLayout.Padding = UDim.new(0, 7)
+    RightLayout.Padding = UDim.new(0, 9)
     RightLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     RightLayout.SortOrder = Enum.SortOrder.LayoutOrder
     RightLayout.Parent = RightSection
@@ -569,7 +569,7 @@ function ZOV:CreateTab(title, icon)
         
         local Module = Instance.new("Frame")
         Module.Name = "Module"
-        Module.Size = UDim2.new(0, 241, 0, 93)
+        Module.Size = UDim2.new(0, 205, 0, 79)
         Module.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
         Module.BackgroundTransparency = 0.5
         Module.BorderSizePixel = 0
@@ -593,7 +593,7 @@ function ZOV:CreateTab(title, icon)
         local Header = Instance.new("TextButton")
         Header.Name = "Header"
         Header.Text = ""
-        Header.Size = UDim2.new(0, 241, 0, 93)
+        Header.Size = UDim2.new(0, 205, 0, 79)
         Header.BackgroundTransparency = 1
         Header.BorderSizePixel = 0
         Header.AutoButtonColor = false
@@ -668,7 +668,7 @@ function ZOV:CreateTab(title, icon)
         
         local Divider1 = Instance.new("Frame")
         Divider1.Name = "Divider"
-        Divider1.Size = UDim2.new(0, 241, 0, 1)
+        Divider1.Size = UDim2.new(0, 205, 0, 1)
         Divider1.Position = UDim2.new(0.5, 0, 0.62, 0)
         Divider1.AnchorPoint = Vector2.new(0.5, 0)
         Divider1.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
@@ -678,7 +678,7 @@ function ZOV:CreateTab(title, icon)
         
         local Divider2 = Instance.new("Frame")
         Divider2.Name = "Divider"
-        Divider2.Size = UDim2.new(0, 241, 0, 1)
+        Divider2.Size = UDim2.new(0, 205, 0, 1)
         Divider2.Position = UDim2.new(0.5, 0, 1, 0)
         Divider2.AnchorPoint = Vector2.new(0.5, 0)
         Divider2.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
@@ -688,7 +688,7 @@ function ZOV:CreateTab(title, icon)
         
         local Options = Instance.new("Frame")
         Options.Name = "Options"
-        Options.Size = UDim2.new(0, 241, 0, 8)
+        Options.Size = UDim2.new(0, 205, 0, 8)
         Options.Position = UDim2.new(0, 0, 1, 0)
         Options.BackgroundTransparency = 1
         Options.BorderSizePixel = 0
@@ -718,7 +718,7 @@ function ZOV:CreateTab(title, icon)
             
             if self._state then
                 TweenService:Create(self._module, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-                    Size = UDim2.fromOffset(241, 93 + self._size)
+                    Size = UDim2.fromOffset(205, 79 + self._size)
                 }):Play()
                 
                 TweenService:Create(self._toggle, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
@@ -731,7 +731,7 @@ function ZOV:CreateTab(title, icon)
                 }):Play()
             else
                 TweenService:Create(self._module, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-                    Size = UDim2.fromOffset(241, 93)
+                    Size = UDim2.fromOffset(205, 79)
                 }):Play()
                 
                 TweenService:Create(self._toggle, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
@@ -761,14 +761,14 @@ function ZOV:CreateTab(title, icon)
             self._size = self._size + 30
             
             if self._state then
-                self._module.Size = UDim2.fromOffset(241, 93 + self._size)
+                self._module.Size = UDim2.fromOffset(205, 79 + self._size)
             end
             
-            self._options.Size = UDim2.fromOffset(241, self._size)
+            self._options.Size = UDim2.fromOffset(205, self._size)
             
             local ToggleFrame = Instance.new("Frame")
             ToggleFrame.Name = "Toggle"
-            ToggleFrame.Size = UDim2.new(0, 207, 0, 25)
+            ToggleFrame.Size = UDim2.new(0, 175, 0, 21)
             ToggleFrame.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
             ToggleFrame.BackgroundTransparency = 0.1
             ToggleFrame.BorderSizePixel = 0
@@ -877,15 +877,15 @@ function ZOV:CreateTab(title, icon)
             self._size = self._size + 30
             
             if self._state then
-                self._module.Size = UDim2.fromOffset(241, 93 + self._size)
+                self._module.Size = UDim2.fromOffset(205, 79 + self._size)
             end
             
-            self._options.Size = UDim2.fromOffset(241, self._size)
+            self._options.Size = UDim2.fromOffset(205, self._size)
             
             local ButtonFrame = Instance.new("TextButton")
             ButtonFrame.Name = "Button"
             ButtonFrame.Text = ""
-            ButtonFrame.Size = UDim2.new(0, 207, 0, 25)
+            ButtonFrame.Size = UDim2.new(0, 175, 0, 21)
             ButtonFrame.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
             ButtonFrame.BackgroundTransparency = 0.1
             ButtonFrame.BorderSizePixel = 0
@@ -905,7 +905,7 @@ function ZOV:CreateTab(title, icon)
             ButtonLabel.TextSize = 12
             ButtonLabel.Font = Enum.Font.GothamSemibold
             ButtonLabel.TextXAlignment = Enum.TextXAlignment.Left
-            ButtonLabel.Parent = ButtonFrame
+            ButtonFrame.Parent = ButtonFrame
             
             ButtonFrame.MouseButton1Click:Connect(function()
                 TweenService:Create(ButtonFrame, TweenInfo.new(0.1), {
@@ -953,7 +953,7 @@ function ZOV:CreateSettings()
         
         local Module = Instance.new("Frame")
         Module.Name = "Module"
-        Module.Size = UDim2.new(0, 241, 0, 93)
+        Module.Size = UDim2.new(0, 205, 0, 79)
         Module.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
         Module.BackgroundTransparency = 0.5
         Module.BorderSizePixel = 0
@@ -977,7 +977,7 @@ function ZOV:CreateSettings()
         local Header = Instance.new("TextButton")
         Header.Name = "Header"
         Header.Text = ""
-        Header.Size = UDim2.new(0, 241, 0, 93)
+        Header.Size = UDim2.new(0, 205, 0, 79)
         Header.BackgroundTransparency = 1
         Header.BorderSizePixel = 0
         Header.AutoButtonColor = false
@@ -1052,7 +1052,7 @@ function ZOV:CreateSettings()
         
         local Divider1 = Instance.new("Frame")
         Divider1.Name = "Divider"
-        Divider1.Size = UDim2.new(0, 241, 0, 1)
+        Divider1.Size = UDim2.new(0, 205, 0, 1)
         Divider1.Position = UDim2.new(0.5, 0, 0.62, 0)
         Divider1.AnchorPoint = Vector2.new(0.5, 0)
         Divider1.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
@@ -1062,7 +1062,7 @@ function ZOV:CreateSettings()
         
         local Divider2 = Instance.new("Frame")
         Divider2.Name = "Divider"
-        Divider2.Size = UDim2.new(0, 241, 0, 1)
+        Divider2.Size = UDim2.new(0, 205, 0, 1)
         Divider2.Position = UDim2.new(0.5, 0, 1, 0)
         Divider2.AnchorPoint = Vector2.new(0.5, 0)
         Divider2.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
@@ -1072,7 +1072,7 @@ function ZOV:CreateSettings()
         
         local Options = Instance.new("Frame")
         Options.Name = "Options"
-        Options.Size = UDim2.new(0, 241, 0, 8)
+        Options.Size = UDim2.new(0, 205, 0, 8)
         Options.Position = UDim2.new(0, 0, 1, 0)
         Options.BackgroundTransparency = 1
         Options.BorderSizePixel = 0
@@ -1102,7 +1102,7 @@ function ZOV:CreateSettings()
             
             if self._state then
                 TweenService:Create(self._module, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-                    Size = UDim2.fromOffset(241, 93 + self._size)
+                    Size = UDim2.fromOffset(205, 79 + self._size)
                 }):Play()
                 
                 TweenService:Create(self._toggle, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
@@ -1115,7 +1115,7 @@ function ZOV:CreateSettings()
                 }):Play()
             else
                 TweenService:Create(self._module, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-                    Size = UDim2.fromOffset(241, 93)
+                    Size = UDim2.fromOffset(205, 79)
                 }):Play()
                 
                 TweenService:Create(self._toggle, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
@@ -1145,14 +1145,14 @@ function ZOV:CreateSettings()
             self._size = self._size + 30
             
             if self._state then
-                self._module.Size = UDim2.fromOffset(241, 93 + self._size)
+                self._module.Size = UDim2.fromOffset(205, 79 + self._size)
             end
             
-            self._options.Size = UDim2.fromOffset(241, self._size)
+            self._options.Size = UDim2.fromOffset(205, self._size)
             
             local ToggleFrame = Instance.new("Frame")
             ToggleFrame.Name = "Toggle"
-            ToggleFrame.Size = UDim2.new(0, 207, 0, 25)
+            ToggleFrame.Size = UDim2.new(0, 175, 0, 21)
             ToggleFrame.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
             ToggleFrame.BackgroundTransparency = 0.1
             ToggleFrame.BorderSizePixel = 0
@@ -1261,15 +1261,15 @@ function ZOV:CreateSettings()
             self._size = self._size + 30
             
             if self._state then
-                self._module.Size = UDim2.fromOffset(241, 93 + self._size)
+                self._module.Size = UDim2.fromOffset(205, 79 + self._size)
             end
             
-            self._options.Size = UDim2.fromOffset(241, self._size)
+            self._options.Size = UDim2.fromOffset(205, self._size)
             
             local ButtonFrame = Instance.new("TextButton")
             ButtonFrame.Name = "Button"
             ButtonFrame.Text = ""
-            ButtonFrame.Size = UDim2.new(0, 207, 0, 25)
+            ButtonFrame.Size = UDim2.new(0, 175, 0, 21)
             ButtonFrame.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
             ButtonFrame.BackgroundTransparency = 0.1
             ButtonFrame.BorderSizePixel = 0
