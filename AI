@@ -679,6 +679,358 @@ function ZOV:Create(config)
         return Tab
     end
     
+    local SettingsTab = {
+        Name = "Settings",
+        Elements = {},
+        IsSettings = true
+    }
+    
+    local SettingsFrame = Instance.new("Frame")
+    SettingsFrame.Name = "SettingsFrame"
+    SettingsFrame.Size = UDim2.new(0, 480, 0, 580)
+    SettingsFrame.Position = UDim2.new(0, 90, 0.5, -290)
+    SettingsFrame.BackgroundColor3 = Color3.fromRGB(22, 22, 28)
+    SettingsFrame.BorderSizePixel = 0
+    SettingsFrame.Visible = false
+    SettingsFrame.Active = true
+    SettingsFrame.Draggable = true
+    SettingsFrame.Parent = ScreenGui
+    
+    local SettingsFrameCorner = Instance.new("UICorner")
+    SettingsFrameCorner.CornerRadius = UDim.new(0, 14)
+    SettingsFrameCorner.Parent = SettingsFrame
+    
+    local SettingsFrameStroke = Instance.new("UIStroke")
+    SettingsFrameStroke.Color = Color3.fromRGB(80, 80, 110)
+    SettingsFrameStroke.Thickness = 2
+    SettingsFrameStroke.Transparency = 0.3
+    SettingsFrameStroke.Parent = SettingsFrame
+    
+    local SettingsFrameGradient = Instance.new("UIGradient")
+    SettingsFrameGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(28, 28, 35)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(18, 18, 25))
+    }
+    SettingsFrameGradient.Rotation = 135
+    SettingsFrameGradient.Parent = SettingsFrame
+    
+    local SettingsShadow = Instance.new("ImageLabel")
+    SettingsShadow.Name = "Shadow"
+    SettingsShadow.Size = UDim2.new(1, 40, 1, 40)
+    SettingsShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+    SettingsShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    SettingsShadow.BackgroundTransparency = 1
+    SettingsShadow.Image = "rbxassetid://5554236805"
+    SettingsShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    SettingsShadow.ImageTransparency = 0.5
+    SettingsShadow.ScaleType = Enum.ScaleType.Slice
+    SettingsShadow.SliceCenter = Rect.new(23, 23, 277, 277)
+    SettingsShadow.ZIndex = -1
+    SettingsShadow.Parent = SettingsFrame
+    
+    local SettingsTopBar = Instance.new("Frame")
+    SettingsTopBar.Size = UDim2.new(1, 0, 0, 55)
+    SettingsTopBar.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
+    SettingsTopBar.BorderSizePixel = 0
+    SettingsTopBar.Parent = SettingsFrame
+    
+    local SettingsTopCorner = Instance.new("UICorner")
+    SettingsTopCorner.CornerRadius = UDim.new(0, 14)
+    SettingsTopCorner.Parent = SettingsTopBar
+    
+    local SettingsTopFix = Instance.new("Frame")
+    SettingsTopFix.Size = UDim2.new(1, 0, 0, 14)
+    SettingsTopFix.Position = UDim2.new(0, 0, 1, -14)
+    SettingsTopFix.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
+    SettingsTopFix.BorderSizePixel = 0
+    SettingsTopFix.Parent = SettingsTopBar
+    
+    local SettingsTopGradient = Instance.new("UIGradient")
+    SettingsTopGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(35, 35, 45)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(25, 25, 35))
+    }
+    SettingsTopGradient.Rotation = 90
+    SettingsTopGradient.Parent = SettingsTopBar
+    
+    local SettingsTopStroke = Instance.new("UIStroke")
+    SettingsTopStroke.Color = Color3.fromRGB(80, 80, 110)
+    SettingsTopStroke.Thickness = 1
+    SettingsTopStroke.Transparency = 0.5
+    SettingsTopStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    SettingsTopStroke.Parent = SettingsTopBar
+    
+    local SettingsTitle = Instance.new("TextLabel")
+    SettingsTitle.Size = UDim2.new(1, -80, 1, 0)
+    SettingsTitle.Position = UDim2.new(0, 25, 0, 0)
+    SettingsTitle.BackgroundTransparency = 1
+    SettingsTitle.Text = "Settings"
+    SettingsTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SettingsTitle.TextSize = 22
+    SettingsTitle.Font = Enum.Font.GothamBold
+    SettingsTitle.TextXAlignment = Enum.TextXAlignment.Left
+    SettingsTitle.Parent = SettingsTopBar
+    
+    local SettingsCloseButton = Instance.new("TextButton")
+    SettingsCloseButton.Size = UDim2.new(0, 40, 0, 40)
+    SettingsCloseButton.Position = UDim2.new(1, -50, 0.5, -20)
+    SettingsCloseButton.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
+    SettingsCloseButton.Text = "×"
+    SettingsCloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SettingsCloseButton.TextSize = 28
+    SettingsCloseButton.Font = Enum.Font.GothamBold
+    SettingsCloseButton.Parent = SettingsTopBar
+    
+    local SettingsCloseCorner = Instance.new("UICorner")
+    SettingsCloseCorner.CornerRadius = UDim.new(0, 8)
+    SettingsCloseCorner.Parent = SettingsCloseButton
+    
+    local SettingsCloseStroke = Instance.new("UIStroke")
+    SettingsCloseStroke.Color = Color3.fromRGB(90, 90, 120)
+    SettingsCloseStroke.Thickness = 1.5
+    SettingsCloseStroke.Transparency = 0.5
+    SettingsCloseStroke.Parent = SettingsCloseButton
+    
+    SettingsCloseButton.MouseEnter:Connect(function()
+        TweenService:Create(SettingsCloseButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(200, 50, 50)}):Play()
+    end)
+    
+    SettingsCloseButton.MouseLeave:Connect(function()
+        TweenService:Create(SettingsCloseButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 40, 50)}):Play()
+    end)
+    
+    SettingsCloseButton.MouseButton1Click:Connect(function()
+        SettingsFrame.Visible = false
+        TweenService:Create(SettingsButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(30, 30, 38)}):Play()
+        TweenService:Create(SettingsButton, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(160, 160, 180)}):Play()
+        TweenService:Create(SettingsStroke, TweenInfo.new(0.2), {Transparency = 0.6}):Play()
+    end)
+    
+    local SettingsContainer = Instance.new("ScrollingFrame")
+    SettingsContainer.Size = UDim2.new(1, -30, 1, -80)
+    SettingsContainer.Position = UDim2.new(0, 15, 0, 70)
+    SettingsContainer.BackgroundTransparency = 1
+    SettingsContainer.BorderSizePixel = 0
+    SettingsContainer.ScrollBarThickness = 4
+    SettingsContainer.ScrollBarImageColor3 = Color3.fromRGB(120, 120, 160)
+    SettingsContainer.Parent = SettingsFrame
+    
+    local SettingsLayout = Instance.new("UIListLayout")
+    SettingsLayout.Padding = UDim.new(0, 10)
+    SettingsLayout.Parent = SettingsContainer
+    
+    SettingsButton.MouseEnter:Connect(function()
+        TweenService:Create(SettingsButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {BackgroundColor3 = Color3.fromRGB(45, 45, 60)}):Play()
+        TweenService:Create(SettingsButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+        TweenService:Create(SettingsStroke, TweenInfo.new(0.3), {Transparency = 0.2}):Play()
+    end)
+    
+    SettingsButton.MouseLeave:Connect(function()
+        if not SettingsFrame.Visible then
+            TweenService:Create(SettingsButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {BackgroundColor3 = Color3.fromRGB(30, 30, 38)}):Play()
+            TweenService:Create(SettingsButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {ImageColor3 = Color3.fromRGB(160, 160, 180)}):Play()
+            TweenService:Create(SettingsStroke, TweenInfo.new(0.3), {Transparency = 0.6}):Play()
+        end
+    end)
+    
+    SettingsButton.MouseButton1Click:Connect(function()
+        SettingsFrame.Visible = not SettingsFrame.Visible
+        if SettingsFrame.Visible then
+            TweenService:Create(SettingsButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {BackgroundColor3 = Color3.fromRGB(60, 60, 85)}):Play()
+            TweenService:Create(SettingsButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+            TweenService:Create(SettingsStroke, TweenInfo.new(0.3), {Transparency = 0.1}):Play()
+        else
+            TweenService:Create(SettingsButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {BackgroundColor3 = Color3.fromRGB(30, 30, 38)}):Play()
+            TweenService:Create(SettingsButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {ImageColor3 = Color3.fromRGB(160, 160, 180)}):Play()
+            TweenService:Create(SettingsStroke, TweenInfo.new(0.3), {Transparency = 0.6}):Play()
+        end
+    end)
+    
+    local UIToggle = Instance.new("Frame")
+    UIToggle.Size = UDim2.new(1, 0, 0, 40)
+    UIToggle.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+    UIToggle.BorderSizePixel = 0
+    UIToggle.Parent = SettingsContainer
+    
+    local UIToggleCorner = Instance.new("UICorner")
+    UIToggleCorner.CornerRadius = UDim.new(0, 8)
+    UIToggleCorner.Parent = UIToggle
+    
+    local UIToggleLabel = Instance.new("TextLabel")
+    UIToggleLabel.Size = UDim2.new(1, -60, 1, 0)
+    UIToggleLabel.Position = UDim2.new(0, 15, 0, 0)
+    UIToggleLabel.BackgroundTransparency = 1
+    UIToggleLabel.Text = "Click GUI (RightShift)"
+    UIToggleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    UIToggleLabel.TextSize = 15
+    UIToggleLabel.Font = Enum.Font.Gotham
+    UIToggleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    UIToggleLabel.Parent = UIToggle
+    
+    local UISwitch = Instance.new("Frame")
+    UISwitch.Size = UDim2.new(0, 45, 0, 24)
+    UISwitch.Position = UDim2.new(1, -55, 0.5, -12)
+    UISwitch.BackgroundColor3 = Color3.fromRGB(60, 180, 60)
+    UISwitch.BorderSizePixel = 0
+    UISwitch.Parent = UIToggle
+    
+    local UISwitchCorner = Instance.new("UICorner")
+    UISwitchCorner.CornerRadius = UDim.new(1, 0)
+    UISwitchCorner.Parent = UISwitch
+    
+    local UICircle = Instance.new("Frame")
+    UICircle.Size = UDim2.new(0, 18, 0, 18)
+    UICircle.Position = UDim2.new(1, -21, 0.5, -9)
+    UICircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    UICircle.BorderSizePixel = 0
+    UICircle.Parent = UISwitch
+    
+    local UICircleCorner = Instance.new("UICorner")
+    UICircleCorner.CornerRadius = UDim.new(1, 0)
+    UICircleCorner.Parent = UICircle
+    
+    local ThemeDropdown = Instance.new("Frame")
+    ThemeDropdown.Size = UDim2.new(1, 0, 0, 40)
+    ThemeDropdown.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+    ThemeDropdown.BorderSizePixel = 0
+    ThemeDropdown.Parent = SettingsContainer
+    ThemeDropdown.ClipsDescendants = true
+    
+    local ThemeDropdownCorner = Instance.new("UICorner")
+    ThemeDropdownCorner.CornerRadius = UDim.new(0, 8)
+    ThemeDropdownCorner.Parent = ThemeDropdown
+    
+    local ThemeLabel = Instance.new("TextLabel")
+    ThemeLabel.Size = UDim2.new(1, -40, 0, 40)
+    ThemeLabel.Position = UDim2.new(0, 15, 0, 0)
+    ThemeLabel.BackgroundTransparency = 1
+    ThemeLabel.Text = "Theme: Dark"
+    ThemeLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ThemeLabel.TextSize = 15
+    ThemeLabel.Font = Enum.Font.Gotham
+    ThemeLabel.TextXAlignment = Enum.TextXAlignment.Left
+    ThemeLabel.Parent = ThemeDropdown
+    
+    local ThemeArrow = Instance.new("TextLabel")
+    ThemeArrow.Size = UDim2.new(0, 20, 0, 40)
+    ThemeArrow.Position = UDim2.new(1, -30, 0, 0)
+    ThemeArrow.BackgroundTransparency = 1
+    ThemeArrow.Text = "▼"
+    ThemeArrow.TextColor3 = Color3.fromRGB(200, 200, 200)
+    ThemeArrow.TextSize = 12
+    ThemeArrow.Font = Enum.Font.Gotham
+    ThemeArrow.Parent = ThemeDropdown
+    
+    local ThemeOptionsList = Instance.new("Frame")
+    ThemeOptionsList.Size = UDim2.new(1, 0, 0, 0)
+    ThemeOptionsList.Position = UDim2.new(0, 0, 0, 40)
+    ThemeOptionsList.BackgroundTransparency = 1
+    ThemeOptionsList.Parent = ThemeDropdown
+    
+    local ThemeOptionsLayout = Instance.new("UIListLayout")
+    ThemeOptionsLayout.Parent = ThemeOptionsList
+    
+    local themeExpanded = false
+    local themeOptions = {"Dark", "Blue", "Purple", "Red"}
+    
+    for _, themeName in ipairs(themeOptions) do
+        local ThemeOption = Instance.new("TextButton")
+        ThemeOption.Size = UDim2.new(1, 0, 0, 35)
+        ThemeOption.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
+        ThemeOption.Text = themeName
+        ThemeOption.TextColor3 = Color3.fromRGB(255, 255, 255)
+        ThemeOption.TextSize = 14
+        ThemeOption.Font = Enum.Font.Gotham
+        ThemeOption.BorderSizePixel = 0
+        ThemeOption.Parent = ThemeOptionsList
+        
+        ThemeOption.MouseButton1Click:Connect(function()
+            ThemeLabel.Text = "Theme: " .. themeName
+            GUI:ApplyTheme(themeName)
+            themeExpanded = false
+            TweenService:Create(ThemeDropdown, TweenInfo.new(0.2), {Size = UDim2.new(1, 0, 0, 40)}):Play()
+            ThemeArrow.Text = "▼"
+        end)
+    end
+    
+    local ThemeButton = Instance.new("TextButton")
+    ThemeButton.Size = UDim2.new(1, 0, 0, 40)
+    ThemeButton.BackgroundTransparency = 1
+    ThemeButton.Text = ""
+    ThemeButton.ZIndex = 2
+    ThemeButton.Parent = ThemeDropdown
+    
+    ThemeButton.MouseButton1Click:Connect(function()
+        themeExpanded = not themeExpanded
+        local newSize = themeExpanded and (40 + #themeOptions * 35) or 40
+        TweenService:Create(ThemeDropdown, TweenInfo.new(0.2), {Size = UDim2.new(1, 0, 0, newSize)}):Play()
+        ThemeArrow.Text = themeExpanded and "▲" or "▼"
+    end)
+    
+    local AutoLoadToggle = Instance.new("Frame")
+    AutoLoadToggle.Size = UDim2.new(1, 0, 0, 40)
+    AutoLoadToggle.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+    AutoLoadToggle.BorderSizePixel = 0
+    AutoLoadToggle.Parent = SettingsContainer
+    
+    local AutoLoadCorner = Instance.new("UICorner")
+    AutoLoadCorner.CornerRadius = UDim.new(0, 8)
+    AutoLoadCorner.Parent = AutoLoadToggle
+    
+    local AutoLoadLabel = Instance.new("TextLabel")
+    AutoLoadLabel.Size = UDim2.new(1, -60, 1, 0)
+    AutoLoadLabel.Position = UDim2.new(0, 15, 0, 0)
+    AutoLoadLabel.BackgroundTransparency = 1
+    AutoLoadLabel.Text = "Auto Load Theme"
+    AutoLoadLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    AutoLoadLabel.TextSize = 15
+    AutoLoadLabel.Font = Enum.Font.Gotham
+    AutoLoadLabel.TextXAlignment = Enum.TextXAlignment.Left
+    AutoLoadLabel.Parent = AutoLoadToggle
+    
+    local AutoLoadSwitch = Instance.new("Frame")
+    AutoLoadSwitch.Size = UDim2.new(0, 45, 0, 24)
+    AutoLoadSwitch.Position = UDim2.new(1, -55, 0.5, -12)
+    AutoLoadSwitch.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    AutoLoadSwitch.BorderSizePixel = 0
+    AutoLoadSwitch.Parent = AutoLoadToggle
+    
+    local AutoLoadSwitchCorner = Instance.new("UICorner")
+    AutoLoadSwitchCorner.CornerRadius = UDim.new(1, 0)
+    AutoLoadSwitchCorner.Parent = AutoLoadSwitch
+    
+    local AutoLoadCircle = Instance.new("Frame")
+    AutoLoadCircle.Size = UDim2.new(0, 18, 0, 18)
+    AutoLoadCircle.Position = UDim2.new(0, 3, 0.5, -9)
+    AutoLoadCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    AutoLoadCircle.BorderSizePixel = 0
+    AutoLoadCircle.Parent = AutoLoadSwitch
+    
+    local AutoLoadCircleCorner = Instance.new("UICorner")
+    AutoLoadCircleCorner.CornerRadius = UDim.new(1, 0)
+    AutoLoadCircleCorner.Parent = AutoLoadCircle
+    
+    local AutoLoadButton = Instance.new("TextButton")
+    AutoLoadButton.Size = UDim2.new(1, 0, 1, 0)
+    AutoLoadButton.BackgroundTransparency = 1
+    AutoLoadButton.Text = ""
+    AutoLoadButton.Parent = AutoLoadToggle
+    
+    AutoLoadButton.MouseButton1Click:Connect(function()
+        GUI.Settings.AutoLoad = not GUI.Settings.AutoLoad
+        TweenService:Create(AutoLoadSwitch, TweenInfo.new(0.2), {BackgroundColor3 = GUI.Settings.AutoLoad and Color3.fromRGB(60, 180, 60) or Color3.fromRGB(50, 50, 50)}):Play()
+        TweenService:Create(AutoLoadCircle, TweenInfo.new(0.2), {Position = GUI.Settings.AutoLoad and UDim2.new(1, -21, 0.5, -9) or UDim2.new(0, 3, 0.5, -9)}):Play()
+    end)
+    
+    SettingsTab.Frame = SettingsFrame
+    SettingsTab.Container = SettingsContainer
+    SettingsTab.Button = SettingsButton
+    SettingsTab.ButtonStroke = SettingsStroke
+    SettingsTab.TopBar = SettingsTopBar
+    SettingsTab.FrameStroke = SettingsFrameStroke
+    
+    table.insert(GUI.Tabs, SettingsTab)
+    
     return GUI
 end
 
