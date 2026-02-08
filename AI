@@ -7,7 +7,8 @@ function ZOV:Create(config)
     local GUI = {
         Tabs = {},
         CurrentTab = nil,
-        Visible = true
+        Visible = true,
+        FirstTab = nil
     }
     
     local ScreenGui = Instance.new("ScreenGui")
@@ -357,6 +358,15 @@ function ZOV:Create(config)
         end
         
         table.insert(GUI.Tabs, Tab)
+        
+        if not GUI.FirstTab then
+            GUI.FirstTab = Tab
+            task.wait(0.1)
+            TabFrame.Visible = true
+            TabButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+            GUI.CurrentTab = Tab
+        end
+        
         return Tab
     end
     
