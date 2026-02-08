@@ -29,9 +29,9 @@ function ZOV:Create(config)
     local TabBar = Instance.new("Frame")
     TabBar.Name = "TabBar"
     TabBar.Size = UDim2.new(0, 70, 0, 0)
-    TabBar.Position = UDim2.new(1, -80, 0.5, 0)
+    TabBar.Position = UDim2.new(0, 10, 0.5, 0)
     TabBar.AnchorPoint = Vector2.new(0, 0.5)
-    TabBar.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
+    TabBar.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
     TabBar.BorderSizePixel = 0
     TabBar.Parent = ScreenGui
     
@@ -40,10 +40,18 @@ function ZOV:Create(config)
     TabBarCorner.Parent = TabBar
     
     local TabBarStroke = Instance.new("UIStroke")
-    TabBarStroke.Color = Color3.fromRGB(60, 60, 70)
-    TabBarStroke.Thickness = 1
-    TabBarStroke.Transparency = 0.5
+    TabBarStroke.Color = Color3.fromRGB(70, 70, 90)
+    TabBarStroke.Thickness = 2
+    TabBarStroke.Transparency = 0.3
     TabBarStroke.Parent = TabBar
+    
+    local TabBarGradient = Instance.new("UIGradient")
+    TabBarGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 25, 30)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 15, 20))
+    }
+    TabBarGradient.Rotation = 90
+    TabBarGradient.Parent = TabBar
     
     local TabLayout = Instance.new("UIListLayout")
     TabLayout.Padding = UDim.new(0, 5)
@@ -71,9 +79,9 @@ function ZOV:Create(config)
         local TabButton = Instance.new("ImageButton")
         TabButton.Name = name
         TabButton.Size = UDim2.new(0, 60, 0, 60)
-        TabButton.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
+        TabButton.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
         TabButton.Image = icon or ""
-        TabButton.ImageColor3 = Color3.fromRGB(180, 180, 200)
+        TabButton.ImageColor3 = Color3.fromRGB(160, 160, 180)
         TabButton.Parent = TabBar
         
         local TabButtonCorner = Instance.new("UICorner")
@@ -81,23 +89,31 @@ function ZOV:Create(config)
         TabButtonCorner.Parent = TabButton
         
         local TabButtonStroke = Instance.new("UIStroke")
-        TabButtonStroke.Color = Color3.fromRGB(80, 80, 100)
-        TabButtonStroke.Thickness = 1.5
-        TabButtonStroke.Transparency = 0.7
+        TabButtonStroke.Color = Color3.fromRGB(90, 90, 120)
+        TabButtonStroke.Thickness = 2
+        TabButtonStroke.Transparency = 0.6
         TabButtonStroke.Parent = TabButton
+        
+        local TabButtonGradient = Instance.new("UIGradient")
+        TabButtonGradient.Color = ColorSequence.new{
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(35, 35, 45)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(25, 25, 35))
+        }
+        TabButtonGradient.Rotation = 135
+        TabButtonGradient.Parent = TabButton
         
         local TabLabel = Instance.new("TextLabel")
         TabLabel.Name = "TabLabel"
-        TabLabel.Size = UDim2.new(0, 0, 0, 35)
-        TabLabel.Position = UDim2.new(0, -10, 0.5, -17.5)
-        TabLabel.AnchorPoint = Vector2.new(1, 0)
-        TabLabel.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
+        TabLabel.Size = UDim2.new(0, 0, 0, 40)
+        TabLabel.Position = UDim2.new(1, 10, 0.5, -20)
+        TabLabel.AnchorPoint = Vector2.new(0, 0)
+        TabLabel.BackgroundColor3 = Color3.fromRGB(25, 25, 32)
         TabLabel.BorderSizePixel = 0
         TabLabel.Text = name
         TabLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-        TabLabel.TextSize = 16
+        TabLabel.TextSize = 17
         TabLabel.Font = Enum.Font.GothamBold
-        TabLabel.TextXAlignment = Enum.TextXAlignment.Right
+        TabLabel.TextXAlignment = Enum.TextXAlignment.Left
         TabLabel.TextTransparency = 1
         TabLabel.BackgroundTransparency = 1
         TabLabel.Parent = TabButton
@@ -112,31 +128,41 @@ function ZOV:Create(config)
         LabelPadding.Parent = TabLabel
         
         local LabelStroke = Instance.new("UIStroke")
-        LabelStroke.Color = Color3.fromRGB(60, 60, 70)
-        LabelStroke.Thickness = 1
+        LabelStroke.Color = Color3.fromRGB(70, 70, 90)
+        LabelStroke.Thickness = 2
         LabelStroke.Transparency = 1
         LabelStroke.Parent = TabLabel
         
+        local LabelGradient = Instance.new("UIGradient")
+        LabelGradient.Color = ColorSequence.new{
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 30, 40)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 30))
+        }
+        LabelGradient.Rotation = 90
+        LabelGradient.Parent = TabLabel
+        
         TabButton.MouseEnter:Connect(function()
-            TweenService:Create(TabButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(50, 50, 60)}):Play()
-            TweenService:Create(TabButton, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-            TweenService:Create(TabButtonStroke, TweenInfo.new(0.2), {Transparency = 0.3}):Play()
+            TweenService:Create(TabButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {BackgroundColor3 = Color3.fromRGB(45, 45, 60)}):Play()
+            TweenService:Create(TabButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+            TweenService:Create(TabButtonStroke, TweenInfo.new(0.3), {Transparency = 0.2}):Play()
+            TweenService:Create(TabButtonStroke, TweenInfo.new(0.3), {Color = Color3.fromRGB(120, 120, 160)}):Play()
             
-            local textSize = game:GetService("TextService"):GetTextSize(name, 16, Enum.Font.GothamBold, Vector2.new(math.huge, 35))
-            TweenService:Create(TabLabel, TweenInfo.new(0.3), {Size = UDim2.new(0, textSize.X + 30, 0, 35)}):Play()
+            local textSize = game:GetService("TextService"):GetTextSize(name, 17, Enum.Font.GothamBold, Vector2.new(math.huge, 40))
+            TweenService:Create(TabLabel, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {Size = UDim2.new(0, textSize.X + 30, 0, 40)}):Play()
             TweenService:Create(TabLabel, TweenInfo.new(0.3), {TextTransparency = 0}):Play()
             TweenService:Create(TabLabel, TweenInfo.new(0.3), {BackgroundTransparency = 0}):Play()
-            TweenService:Create(LabelStroke, TweenInfo.new(0.3), {Transparency = 0.5}):Play()
+            TweenService:Create(LabelStroke, TweenInfo.new(0.3), {Transparency = 0.3}):Play()
         end)
         
         TabButton.MouseLeave:Connect(function()
             if GUI.CurrentTab ~= Tab then
-                TweenService:Create(TabButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(35, 35, 40)}):Play()
-                TweenService:Create(TabButton, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(180, 180, 200)}):Play()
-                TweenService:Create(TabButtonStroke, TweenInfo.new(0.2), {Transparency = 0.7}):Play()
+                TweenService:Create(TabButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {BackgroundColor3 = Color3.fromRGB(30, 30, 38)}):Play()
+                TweenService:Create(TabButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {ImageColor3 = Color3.fromRGB(160, 160, 180)}):Play()
+                TweenService:Create(TabButtonStroke, TweenInfo.new(0.3), {Transparency = 0.6}):Play()
+                TweenService:Create(TabButtonStroke, TweenInfo.new(0.3), {Color = Color3.fromRGB(90, 90, 120)}):Play()
             end
             
-            TweenService:Create(TabLabel, TweenInfo.new(0.2), {Size = UDim2.new(0, 0, 0, 35)}):Play()
+            TweenService:Create(TabLabel, TweenInfo.new(0.2), {Size = UDim2.new(0, 0, 0, 40)}):Play()
             TweenService:Create(TabLabel, TweenInfo.new(0.2), {TextTransparency = 1}):Play()
             TweenService:Create(TabLabel, TweenInfo.new(0.2), {BackgroundTransparency = 1}):Play()
             TweenService:Create(LabelStroke, TweenInfo.new(0.2), {Transparency = 1}):Play()
@@ -144,58 +170,134 @@ function ZOV:Create(config)
         
         local TabFrame = Instance.new("Frame")
         TabFrame.Name = name .. "Frame"
-        TabFrame.Size = UDim2.new(0, 450, 0, 550)
-        TabFrame.Position = UDim2.new(1, -560, 0.5, -275)
-        TabFrame.BackgroundColor3 = Color3.fromRGB(28, 28, 33)
+        TabFrame.Size = UDim2.new(0, 480, 0, 580)
+        TabFrame.Position = UDim2.new(0, 90, 0.5, -290)
+        TabFrame.BackgroundColor3 = Color3.fromRGB(22, 22, 28)
         TabFrame.BorderSizePixel = 0
         TabFrame.Visible = false
+        TabFrame.Active = true
+        TabFrame.Draggable = true
         TabFrame.Parent = ScreenGui
         
         local FrameCorner = Instance.new("UICorner")
-        FrameCorner.CornerRadius = UDim.new(0, 12)
+        FrameCorner.CornerRadius = UDim.new(0, 14)
         FrameCorner.Parent = TabFrame
         
         local FrameStroke = Instance.new("UIStroke")
-        FrameStroke.Color = Color3.fromRGB(60, 60, 70)
-        FrameStroke.Thickness = 1
-        FrameStroke.Transparency = 0.5
+        FrameStroke.Color = Color3.fromRGB(80, 80, 110)
+        FrameStroke.Thickness = 2
+        FrameStroke.Transparency = 0.3
         FrameStroke.Parent = TabFrame
         
+        local FrameGradient = Instance.new("UIGradient")
+        FrameGradient.Color = ColorSequence.new{
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(28, 28, 35)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(18, 18, 25))
+        }
+        FrameGradient.Rotation = 135
+        FrameGradient.Parent = TabFrame
+        
+        local Shadow = Instance.new("ImageLabel")
+        Shadow.Name = "Shadow"
+        Shadow.Size = UDim2.new(1, 40, 1, 40)
+        Shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+        Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+        Shadow.BackgroundTransparency = 1
+        Shadow.Image = "rbxassetid://5554236805"
+        Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+        Shadow.ImageTransparency = 0.5
+        Shadow.ScaleType = Enum.ScaleType.Slice
+        Shadow.SliceCenter = Rect.new(23, 23, 277, 277)
+        Shadow.ZIndex = -1
+        Shadow.Parent = TabFrame
+        
         local TopBar = Instance.new("Frame")
-        TopBar.Size = UDim2.new(1, 0, 0, 50)
-        TopBar.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
+        TopBar.Size = UDim2.new(1, 0, 0, 55)
+        TopBar.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
         TopBar.BorderSizePixel = 0
         TopBar.Parent = TabFrame
         
         local TopCorner = Instance.new("UICorner")
-        TopCorner.CornerRadius = UDim.new(0, 12)
+        TopCorner.CornerRadius = UDim.new(0, 14)
         TopCorner.Parent = TopBar
         
         local TopFix = Instance.new("Frame")
-        TopFix.Size = UDim2.new(1, 0, 0, 10)
-        TopFix.Position = UDim2.new(0, 0, 1, -10)
-        TopFix.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
+        TopFix.Size = UDim2.new(1, 0, 0, 14)
+        TopFix.Position = UDim2.new(0, 0, 1, -14)
+        TopFix.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
         TopFix.BorderSizePixel = 0
         TopFix.Parent = TopBar
         
+        local TopGradient = Instance.new("UIGradient")
+        TopGradient.Color = ColorSequence.new{
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(35, 35, 45)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(25, 25, 35))
+        }
+        TopGradient.Rotation = 90
+        TopGradient.Parent = TopBar
+        
+        local TopStroke = Instance.new("UIStroke")
+        TopStroke.Color = Color3.fromRGB(80, 80, 110)
+        TopStroke.Thickness = 1
+        TopStroke.Transparency = 0.5
+        TopStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        TopStroke.Parent = TopBar
+        
         local Title = Instance.new("TextLabel")
-        Title.Size = UDim2.new(1, -20, 1, 0)
-        Title.Position = UDim2.new(0, 20, 0, 0)
+        Title.Size = UDim2.new(1, -80, 1, 0)
+        Title.Position = UDim2.new(0, 25, 0, 0)
         Title.BackgroundTransparency = 1
         Title.Text = name
         Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-        Title.TextSize = 20
+        Title.TextSize = 22
         Title.Font = Enum.Font.GothamBold
         Title.TextXAlignment = Enum.TextXAlignment.Left
         Title.Parent = TopBar
         
+        local CloseButton = Instance.new("TextButton")
+        CloseButton.Size = UDim2.new(0, 40, 0, 40)
+        CloseButton.Position = UDim2.new(1, -50, 0.5, -20)
+        CloseButton.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
+        CloseButton.Text = "×"
+        CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        CloseButton.TextSize = 28
+        CloseButton.Font = Enum.Font.GothamBold
+        CloseButton.Parent = TopBar
+        
+        local CloseCorner = Instance.new("UICorner")
+        CloseCorner.CornerRadius = UDim.new(0, 8)
+        CloseCorner.Parent = CloseButton
+        
+        local CloseStroke = Instance.new("UIStroke")
+        CloseStroke.Color = Color3.fromRGB(90, 90, 120)
+        CloseStroke.Thickness = 1.5
+        CloseStroke.Transparency = 0.5
+        CloseStroke.Parent = CloseButton
+        
+        CloseButton.MouseEnter:Connect(function()
+            TweenService:Create(CloseButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(200, 50, 50)}):Play()
+        end)
+        
+        CloseButton.MouseLeave:Connect(function()
+            TweenService:Create(CloseButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 40, 50)}):Play()
+        end)
+        
+        CloseButton.MouseButton1Click:Connect(function()
+            TabFrame.Visible = false
+            TweenService:Create(TabButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(30, 30, 38)}):Play()
+            TweenService:Create(TabButton, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(160, 160, 180)}):Play()
+            TweenService:Create(TabButtonStroke, TweenInfo.new(0.2), {Transparency = 0.6}):Play()
+            TweenService:Create(TabButtonStroke, TweenInfo.new(0.2), {Color = Color3.fromRGB(90, 90, 120)}):Play()
+            GUI.CurrentTab = nil
+        end)
+        
         local Container = Instance.new("ScrollingFrame")
-        Container.Size = UDim2.new(1, -20, 1, -70)
-        Container.Position = UDim2.new(0, 10, 0, 60)
+        Container.Size = UDim2.new(1, -30, 1, -80)
+        Container.Position = UDim2.new(0, 15, 0, 70)
         Container.BackgroundTransparency = 1
         Container.BorderSizePixel = 0
-        Container.ScrollBarThickness = 3
-        Container.ScrollBarImageColor3 = Color3.fromRGB(100, 100, 100)
+        Container.ScrollBarThickness = 4
+        Container.ScrollBarImageColor3 = Color3.fromRGB(120, 120, 160)
         Container.Parent = TabFrame
         
         local ContainerLayout = Instance.new("UIListLayout")
@@ -205,19 +307,22 @@ function ZOV:Create(config)
         TabButton.MouseButton1Click:Connect(function()
             if GUI.CurrentTab and GUI.CurrentTab ~= Tab then
                 GUI.CurrentTab.Frame.Visible = false
-                TweenService:Create(GUI.CurrentTab.Button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(35, 35, 40)}):Play()
-                TweenService:Create(GUI.CurrentTab.Button, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(180, 180, 200)}):Play()
-                TweenService:Create(GUI.CurrentTab.ButtonStroke, TweenInfo.new(0.2), {Transparency = 0.7}):Play()
+                TweenService:Create(GUI.CurrentTab.Button, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(30, 30, 38)}):Play()
+                TweenService:Create(GUI.CurrentTab.Button, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(160, 160, 180)}):Play()
+                TweenService:Create(GUI.CurrentTab.ButtonStroke, TweenInfo.new(0.2), {Transparency = 0.6}):Play()
+                TweenService:Create(GUI.CurrentTab.ButtonStroke, TweenInfo.new(0.2), {Color = Color3.fromRGB(90, 90, 120)}):Play()
             end
             TabFrame.Visible = not TabFrame.Visible
             if TabFrame.Visible then
-                TweenService:Create(TabButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(60, 60, 80)}):Play()
-                TweenService:Create(TabButton, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-                TweenService:Create(TabButtonStroke, TweenInfo.new(0.2), {Transparency = 0.2}):Play()
+                TweenService:Create(TabButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {BackgroundColor3 = Color3.fromRGB(60, 60, 85)}):Play()
+                TweenService:Create(TabButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+                TweenService:Create(TabButtonStroke, TweenInfo.new(0.3), {Transparency = 0.1}):Play()
+                TweenService:Create(TabButtonStroke, TweenInfo.new(0.3), {Color = Color3.fromRGB(140, 140, 200)}):Play()
             else
-                TweenService:Create(TabButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(35, 35, 40)}):Play()
-                TweenService:Create(TabButton, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(180, 180, 200)}):Play()
-                TweenService:Create(TabButtonStroke, TweenInfo.new(0.2), {Transparency = 0.7}):Play()
+                TweenService:Create(TabButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {BackgroundColor3 = Color3.fromRGB(30, 30, 38)}):Play()
+                TweenService:Create(TabButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {ImageColor3 = Color3.fromRGB(160, 160, 180)}):Play()
+                TweenService:Create(TabButtonStroke, TweenInfo.new(0.3), {Transparency = 0.6}):Play()
+                TweenService:Create(TabButtonStroke, TweenInfo.new(0.3), {Color = Color3.fromRGB(90, 90, 120)}):Play()
             end
             GUI.CurrentTab = TabFrame.Visible and Tab or nil
         end)
@@ -457,9 +562,10 @@ function ZOV:Create(config)
             GUI.FirstTab = Tab
             task.wait(0.1)
             TabFrame.Visible = true
-            TweenService:Create(TabButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(60, 60, 80)}):Play()
-            TweenService:Create(TabButton, TweenInfo.new(0.2), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-            TweenService:Create(TabButtonStroke, TweenInfo.new(0.2), {Transparency = 0.2}):Play()
+            TweenService:Create(TabButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {BackgroundColor3 = Color3.fromRGB(60, 60, 85)}):Play()
+            TweenService:Create(TabButton, TweenInfo.new(0.3, Enum.EasingStyle.Quart), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+            TweenService:Create(TabButtonStroke, TweenInfo.new(0.3), {Transparency = 0.1}):Play()
+            TweenService:Create(TabButtonStroke, TweenInfo.new(0.3), {Color = Color3.fromRGB(140, 140, 200)}):Play()
             GUI.CurrentTab = Tab
         end
         
