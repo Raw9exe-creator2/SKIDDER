@@ -789,8 +789,8 @@ function Library:create_ui()
     HeaderDivider.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
     HeaderDivider.BackgroundTransparency = 0.3
     HeaderDivider.BorderSizePixel = 0
-    HeaderDivider.Position = UDim2.new(0.020, 0, 0.095, 0)
-    HeaderDivider.Size = UDim2.new(0, 125, 0, 1)
+    HeaderDivider.Position = UDim2.new(0.015, 0, 0.095, 0)
+    HeaderDivider.Size = UDim2.new(0, 110, 0, 1)
     HeaderDivider.Parent = Handler
     
     local HeaderDividerCorner = Instance.new('UICorner')
