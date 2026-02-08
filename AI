@@ -58,7 +58,7 @@ function ZOV:create_ui()
     
     local Tabs = Instance.new("ScrollingFrame")
     Tabs.Name = "Tabs"
-    Tabs.Size = UDim2.new(0, 129, 0, 401)
+    Tabs.Size = UDim2.new(0, 129, 0, 355)
     Tabs.Position = UDim2.new(0.026, 0, 0.111, 0)
     Tabs.BackgroundTransparency = 1
     Tabs.BorderSizePixel = 0
@@ -72,6 +72,61 @@ function ZOV:create_ui()
     TabsLayout.Padding = UDim.new(0, 4)
     TabsLayout.SortOrder = Enum.SortOrder.LayoutOrder
     TabsLayout.Parent = Tabs
+    
+    local SettingsDivider = Instance.new("Frame")
+    SettingsDivider.Name = "SettingsDivider"
+    SettingsDivider.Size = UDim2.new(0, 129, 0, 1)
+    SettingsDivider.Position = UDim2.new(0.026, 0, 0.85, 0)
+    SettingsDivider.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
+    SettingsDivider.BackgroundTransparency = 0.5
+    SettingsDivider.BorderSizePixel = 0
+    SettingsDivider.Parent = Handler
+    
+    local SettingsTab = Instance.new("TextButton")
+    SettingsTab.Name = "SettingsTab"
+    SettingsTab.Text = ""
+    SettingsTab.Size = UDim2.new(0, 129, 0, 38)
+    SettingsTab.Position = UDim2.new(0.026, 0, 0.87, 0)
+    SettingsTab.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
+    SettingsTab.BackgroundTransparency = 1
+    SettingsTab.BorderSizePixel = 0
+    SettingsTab.AutoButtonColor = false
+    SettingsTab.Parent = Handler
+    
+    local SettingsTabCorner = Instance.new("UICorner")
+    SettingsTabCorner.CornerRadius = UDim.new(0, 5)
+    SettingsTabCorner.Parent = SettingsTab
+    
+    local SettingsLabel = Instance.new("TextLabel")
+    SettingsLabel.Text = "Settings"
+    SettingsLabel.Size = UDim2.new(0, 100, 0, 16)
+    SettingsLabel.Position = UDim2.new(0.24, 0, 0.5, 0)
+    SettingsLabel.AnchorPoint = Vector2.new(0, 0.5)
+    SettingsLabel.BackgroundTransparency = 1
+    SettingsLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SettingsLabel.TextTransparency = 0.7
+    SettingsLabel.TextSize = 13
+    SettingsLabel.Font = Enum.Font.GothamSemibold
+    SettingsLabel.TextXAlignment = Enum.TextXAlignment.Left
+    SettingsLabel.Parent = SettingsTab
+    
+    local SettingsGradient = Instance.new("UIGradient")
+    SettingsGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+        ColorSequenceKeypoint.new(0.7, Color3.fromRGB(155, 155, 155)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(58, 58, 58))
+    }
+    SettingsGradient.Parent = SettingsLabel
+    
+    local SettingsIcon = Instance.new("ImageLabel")
+    SettingsIcon.Image = "rbxassetid://6031280882"
+    SettingsIcon.Size = UDim2.new(0, 12, 0, 12)
+    SettingsIcon.Position = UDim2.new(0.1, 0, 0.5, 0)
+    SettingsIcon.AnchorPoint = Vector2.new(0, 0.5)
+    SettingsIcon.BackgroundTransparency = 1
+    SettingsIcon.ImageTransparency = 0.8
+    SettingsIcon.ScaleType = Enum.ScaleType.Fit
+    SettingsIcon.Parent = SettingsTab
     
     local ClientName = Instance.new("TextLabel")
     ClientName.Name = "ClientName"
@@ -129,6 +184,71 @@ function ZOV:create_ui()
     local Sections = Instance.new("Folder")
     Sections.Name = "Sections"
     Sections.Parent = Handler
+    
+    local SettingsLeftSection = Instance.new("ScrollingFrame")
+    SettingsLeftSection.Name = "SettingsLeftSection"
+    SettingsLeftSection.Size = UDim2.new(0, 243, 0, 445)
+    SettingsLeftSection.Position = UDim2.new(0.259, 0, 0.5, 0)
+    SettingsLeftSection.AnchorPoint = Vector2.new(0, 0.5)
+    SettingsLeftSection.BackgroundTransparency = 1
+    SettingsLeftSection.BorderSizePixel = 0
+    SettingsLeftSection.ScrollBarThickness = 0
+    SettingsLeftSection.ScrollBarImageTransparency = 1
+    SettingsLeftSection.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    SettingsLeftSection.CanvasSize = UDim2.new(0, 0, 0.5, 0)
+    SettingsLeftSection.Visible = false
+    SettingsLeftSection.Parent = self._sections
+    
+    local SettingsLeftLayout = Instance.new("UIListLayout")
+    SettingsLeftLayout.Padding = UDim.new(0, 11)
+    SettingsLeftLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    SettingsLeftLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    SettingsLeftLayout.Parent = SettingsLeftSection
+    
+    local SettingsLeftPadding = Instance.new("UIPadding")
+    SettingsLeftPadding.PaddingTop = UDim.new(0, 1)
+    SettingsLeftPadding.Parent = SettingsLeftSection
+    
+    local SettingsRightSection = Instance.new("ScrollingFrame")
+    SettingsRightSection.Name = "SettingsRightSection"
+    SettingsRightSection.Size = UDim2.new(0, 243, 0, 445)
+    SettingsRightSection.Position = UDim2.new(0.629, 0, 0.5, 0)
+    SettingsRightSection.AnchorPoint = Vector2.new(0, 0.5)
+    SettingsRightSection.BackgroundTransparency = 1
+    SettingsRightSection.BorderSizePixel = 0
+    SettingsRightSection.ScrollBarThickness = 0
+    SettingsRightSection.ScrollBarImageTransparency = 1
+    SettingsRightSection.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    SettingsRightSection.CanvasSize = UDim2.new(0, 0, 0.5, 0)
+    SettingsRightSection.Visible = false
+    SettingsRightSection.Parent = self._sections
+    
+    local SettingsRightLayout = Instance.new("UIListLayout")
+    SettingsRightLayout.Padding = UDim.new(0, 11)
+    SettingsRightLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    SettingsRightLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    SettingsRightLayout.Parent = SettingsRightSection
+    
+    local SettingsRightPadding = Instance.new("UIPadding")
+    SettingsRightPadding.PaddingTop = UDim.new(0, 1)
+    SettingsRightPadding.Parent = SettingsRightSection
+    
+    local settings_tab_data = {
+        button = SettingsTab,
+        label = SettingsLabel,
+        gradient = SettingsGradient,
+        icon = SettingsIcon,
+        left_section = SettingsLeftSection,
+        right_section = SettingsRightSection,
+        order = 999,
+        is_settings = true
+    }
+    
+    SettingsTab.MouseButton1Click:Connect(function()
+        self:update_tabs(SettingsTab)
+    end)
+    
+    self._settings_tab = settings_tab_data
     
     self._ui = ScreenGui
     self._container = Container
@@ -219,6 +339,56 @@ function ZOV:update_tabs(selected_tab)
             
             tab_data.left_section.Visible = false
             tab_data.right_section.Visible = false
+        end
+    end
+    
+    if self._settings_tab then
+        if self._settings_tab.button == selected_tab then
+            TweenService:Create(self._pin, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                Position = UDim2.fromScale(0.026, 0.87)
+            }):Play()
+            
+            TweenService:Create(self._settings_tab.button, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                BackgroundTransparency = 0.5
+            }):Play()
+            
+            TweenService:Create(self._settings_tab.label, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                TextTransparency = 0.2,
+                TextColor3 = Color3.fromRGB(152, 181, 255)
+            }):Play()
+            
+            TweenService:Create(self._settings_tab.gradient, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                Offset = Vector2.new(1, 0)
+            }):Play()
+            
+            TweenService:Create(self._settings_tab.icon, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                ImageTransparency = 0.2,
+                ImageColor3 = Color3.fromRGB(152, 181, 255)
+            }):Play()
+            
+            self._settings_tab.left_section.Visible = true
+            self._settings_tab.right_section.Visible = true
+        else
+            TweenService:Create(self._settings_tab.button, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                BackgroundTransparency = 1
+            }):Play()
+            
+            TweenService:Create(self._settings_tab.label, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                TextTransparency = 0.7,
+                TextColor3 = Color3.fromRGB(255, 255, 255)
+            }):Play()
+            
+            TweenService:Create(self._settings_tab.gradient, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                Offset = Vector2.new(0, 0)
+            }):Play()
+            
+            TweenService:Create(self._settings_tab.icon, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                ImageTransparency = 0.8,
+                ImageColor3 = Color3.fromRGB(255, 255, 255)
+            }):Play()
+            
+            self._settings_tab.left_section.Visible = false
+            self._settings_tab.right_section.Visible = false
         end
     end
 end
@@ -721,6 +891,390 @@ function ZOV:CreateTab(title, icon)
     end
     
     return TabManager
+end
+
+function ZOV:CreateSettings()
+    local SettingsManager = {
+        _left = self._settings_tab.left_section,
+        _right = self._settings_tab.right_section
+    }
+    
+    function SettingsManager:CreateModule(settings)
+        local section = settings.section == "right" and self._right or self._left
+        
+        local Module = Instance.new("Frame")
+        Module.Name = "Module"
+        Module.Size = UDim2.new(0, 241, 0, 93)
+        Module.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
+        Module.BackgroundTransparency = 0.5
+        Module.BorderSizePixel = 0
+        Module.ClipsDescendants = true
+        Module.Parent = section
+        
+        local ModuleCorner = Instance.new("UICorner")
+        ModuleCorner.CornerRadius = UDim.new(0, 5)
+        ModuleCorner.Parent = Module
+        
+        local ModuleStroke = Instance.new("UIStroke")
+        ModuleStroke.Color = Color3.fromRGB(52, 66, 89)
+        ModuleStroke.Transparency = 0.5
+        ModuleStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        ModuleStroke.Parent = Module
+        
+        local ModuleLayout = Instance.new("UIListLayout")
+        ModuleLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        ModuleLayout.Parent = Module
+        
+        local Header = Instance.new("TextButton")
+        Header.Name = "Header"
+        Header.Text = ""
+        Header.Size = UDim2.new(0, 241, 0, 93)
+        Header.BackgroundTransparency = 1
+        Header.BorderSizePixel = 0
+        Header.AutoButtonColor = false
+        Header.Parent = Module
+        
+        local ModuleName = Instance.new("TextLabel")
+        ModuleName.Name = "ModuleName"
+        ModuleName.Text = settings.title or "Module"
+        ModuleName.Size = UDim2.new(0, 205, 0, 13)
+        ModuleName.Position = UDim2.new(0.073, 0, 0.24, 0)
+        ModuleName.AnchorPoint = Vector2.new(0, 0.5)
+        ModuleName.BackgroundTransparency = 1
+        ModuleName.TextColor3 = Color3.fromRGB(152, 181, 255)
+        ModuleName.TextTransparency = 0.2
+        ModuleName.TextSize = 13
+        ModuleName.Font = Enum.Font.GothamSemibold
+        ModuleName.TextXAlignment = Enum.TextXAlignment.Left
+        ModuleName.Parent = Header
+        
+        local Description = Instance.new("TextLabel")
+        Description.Name = "Description"
+        Description.Text = settings.description or ""
+        Description.Size = UDim2.new(0, 205, 0, 13)
+        Description.Position = UDim2.new(0.073, 0, 0.42, 0)
+        Description.AnchorPoint = Vector2.new(0, 0.5)
+        Description.BackgroundTransparency = 1
+        Description.TextColor3 = Color3.fromRGB(152, 181, 255)
+        Description.TextTransparency = 0.7
+        Description.TextSize = 10
+        Description.Font = Enum.Font.GothamSemibold
+        Description.TextXAlignment = Enum.TextXAlignment.Left
+        Description.Parent = Header
+        
+        local Toggle = Instance.new("Frame")
+        Toggle.Name = "Toggle"
+        Toggle.Size = UDim2.new(0, 25, 0, 12)
+        Toggle.Position = UDim2.new(0.82, 0, 0.757, 0)
+        Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        Toggle.BackgroundTransparency = 0.7
+        Toggle.BorderSizePixel = 0
+        Toggle.Parent = Header
+        
+        local ToggleCorner = Instance.new("UICorner")
+        ToggleCorner.CornerRadius = UDim.new(1, 0)
+        ToggleCorner.Parent = Toggle
+        
+        local Circle = Instance.new("Frame")
+        Circle.Name = "Circle"
+        Circle.Size = UDim2.new(0, 12, 0, 12)
+        Circle.Position = UDim2.new(0, 0, 0.5, 0)
+        Circle.AnchorPoint = Vector2.new(0, 0.5)
+        Circle.BackgroundColor3 = Color3.fromRGB(66, 80, 115)
+        Circle.BackgroundTransparency = 0.2
+        Circle.BorderSizePixel = 0
+        Circle.Parent = Toggle
+        
+        local CircleCorner = Instance.new("UICorner")
+        CircleCorner.CornerRadius = UDim.new(1, 0)
+        CircleCorner.Parent = Circle
+        
+        local ModuleIcon = Instance.new("ImageLabel")
+        ModuleIcon.Name = "Icon"
+        ModuleIcon.Image = "rbxassetid://79095934438045"
+        ModuleIcon.Size = UDim2.new(0, 15, 0, 15)
+        ModuleIcon.Position = UDim2.new(0.071, 0, 0.82, 0)
+        ModuleIcon.AnchorPoint = Vector2.new(0, 0.5)
+        ModuleIcon.BackgroundTransparency = 1
+        ModuleIcon.ImageColor3 = Color3.fromRGB(152, 181, 255)
+        ModuleIcon.ImageTransparency = 0.7
+        ModuleIcon.ScaleType = Enum.ScaleType.Fit
+        ModuleIcon.Parent = Header
+        
+        local Divider1 = Instance.new("Frame")
+        Divider1.Name = "Divider"
+        Divider1.Size = UDim2.new(0, 241, 0, 1)
+        Divider1.Position = UDim2.new(0.5, 0, 0.62, 0)
+        Divider1.AnchorPoint = Vector2.new(0.5, 0)
+        Divider1.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
+        Divider1.BackgroundTransparency = 0.5
+        Divider1.BorderSizePixel = 0
+        Divider1.Parent = Header
+        
+        local Divider2 = Instance.new("Frame")
+        Divider2.Name = "Divider"
+        Divider2.Size = UDim2.new(0, 241, 0, 1)
+        Divider2.Position = UDim2.new(0.5, 0, 1, 0)
+        Divider2.AnchorPoint = Vector2.new(0.5, 0)
+        Divider2.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
+        Divider2.BackgroundTransparency = 0.5
+        Divider2.BorderSizePixel = 0
+        Divider2.Parent = Header
+        
+        local Options = Instance.new("Frame")
+        Options.Name = "Options"
+        Options.Size = UDim2.new(0, 241, 0, 8)
+        Options.Position = UDim2.new(0, 0, 1, 0)
+        Options.BackgroundTransparency = 1
+        Options.BorderSizePixel = 0
+        Options.Parent = Module
+        
+        local OptionsPadding = Instance.new("UIPadding")
+        OptionsPadding.PaddingTop = UDim.new(0, 8)
+        OptionsPadding.Parent = Options
+        
+        local OptionsLayout = Instance.new("UIListLayout")
+        OptionsLayout.Padding = UDim.new(0, 5)
+        OptionsLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+        OptionsLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        OptionsLayout.Parent = Options
+        
+        local ModuleManager = {
+            _state = false,
+            _size = 0,
+            _module = Module,
+            _toggle = Toggle,
+            _circle = Circle,
+            _options = Options
+        }
+        
+        function ModuleManager:change_state(state)
+            self._state = state
+            
+            if self._state then
+                TweenService:Create(self._module, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                    Size = UDim2.fromOffset(241, 93 + self._size)
+                }):Play()
+                
+                TweenService:Create(self._toggle, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                    BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+                }):Play()
+                
+                TweenService:Create(self._circle, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                    BackgroundColor3 = Color3.fromRGB(152, 181, 255),
+                    Position = UDim2.fromScale(0.53, 0.5)
+                }):Play()
+            else
+                TweenService:Create(self._module, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                    Size = UDim2.fromOffset(241, 93)
+                }):Play()
+                
+                TweenService:Create(self._toggle, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                    BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+                }):Play()
+                
+                TweenService:Create(self._circle, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                    BackgroundColor3 = Color3.fromRGB(66, 80, 115),
+                    Position = UDim2.fromScale(0, 0.5)
+                }):Play()
+            end
+            
+            if settings.callback then
+                settings.callback(self._state)
+            end
+        end
+        
+        Header.MouseButton1Click:Connect(function()
+            ModuleManager:change_state(not ModuleManager._state)
+        end)
+        
+        function ModuleManager:CreateToggle(settings)
+            if self._size == 0 then
+                self._size = 11
+            end
+            
+            self._size = self._size + 30
+            
+            if self._state then
+                self._module.Size = UDim2.fromOffset(241, 93 + self._size)
+            end
+            
+            self._options.Size = UDim2.fromOffset(241, self._size)
+            
+            local ToggleFrame = Instance.new("Frame")
+            ToggleFrame.Name = "Toggle"
+            ToggleFrame.Size = UDim2.new(0, 207, 0, 25)
+            ToggleFrame.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+            ToggleFrame.BackgroundTransparency = 0.1
+            ToggleFrame.BorderSizePixel = 0
+            ToggleFrame.Parent = self._options
+            
+            local ToggleCorner = Instance.new("UICorner")
+            ToggleCorner.CornerRadius = UDim.new(0, 4)
+            ToggleCorner.Parent = ToggleFrame
+            
+            local ToggleLabel = Instance.new("TextLabel")
+            ToggleLabel.Text = settings.title or "Toggle"
+            ToggleLabel.Size = UDim2.new(1, -40, 1, 0)
+            ToggleLabel.Position = UDim2.new(0, 10, 0, 0)
+            ToggleLabel.BackgroundTransparency = 1
+            ToggleLabel.TextColor3 = Color3.fromRGB(210, 210, 210)
+            ToggleLabel.TextSize = 12
+            ToggleLabel.Font = Enum.Font.GothamSemibold
+            ToggleLabel.TextXAlignment = Enum.TextXAlignment.Left
+            ToggleLabel.Parent = ToggleFrame
+            
+            local ToggleSwitch = Instance.new("Frame")
+            ToggleSwitch.Size = UDim2.new(0, 25, 0, 12)
+            ToggleSwitch.Position = UDim2.new(1, -30, 0.5, -6)
+            ToggleSwitch.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+            ToggleSwitch.BackgroundTransparency = 0.7
+            ToggleSwitch.BorderSizePixel = 0
+            ToggleSwitch.Parent = ToggleFrame
+            
+            local SwitchCorner = Instance.new("UICorner")
+            SwitchCorner.CornerRadius = UDim.new(1, 0)
+            SwitchCorner.Parent = ToggleSwitch
+            
+            local SwitchCircle = Instance.new("Frame")
+            SwitchCircle.Size = UDim2.new(0, 12, 0, 12)
+            SwitchCircle.Position = UDim2.new(0, 0, 0.5, 0)
+            SwitchCircle.AnchorPoint = Vector2.new(0, 0.5)
+            SwitchCircle.BackgroundColor3 = Color3.fromRGB(66, 80, 115)
+            SwitchCircle.BackgroundTransparency = 0.2
+            SwitchCircle.BorderSizePixel = 0
+            SwitchCircle.Parent = ToggleSwitch
+            
+            local SwitchCircleCorner = Instance.new("UICorner")
+            SwitchCircleCorner.CornerRadius = UDim.new(1, 0)
+            SwitchCircleCorner.Parent = SwitchCircle
+            
+            local ToggleButton = Instance.new("TextButton")
+            ToggleButton.Size = UDim2.new(1, 0, 1, 0)
+            ToggleButton.BackgroundTransparency = 1
+            ToggleButton.Text = ""
+            ToggleButton.Parent = ToggleFrame
+            
+            local toggled = settings.default or false
+            
+            if toggled then
+                ToggleSwitch.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+                SwitchCircle.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+                SwitchCircle.Position = UDim2.fromScale(0.53, 0.5)
+            end
+            
+            ToggleButton.MouseButton1Click:Connect(function()
+                toggled = not toggled
+                
+                if toggled then
+                    TweenService:Create(ToggleSwitch, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+                        BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+                    }):Play()
+                    
+                    TweenService:Create(SwitchCircle, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+                        BackgroundColor3 = Color3.fromRGB(152, 181, 255),
+                        Position = UDim2.fromScale(0.53, 0.5)
+                    }):Play()
+                else
+                    TweenService:Create(ToggleSwitch, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+                        BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+                    }):Play()
+                    
+                    TweenService:Create(SwitchCircle, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+                        BackgroundColor3 = Color3.fromRGB(66, 80, 115),
+                        Position = UDim2.fromScale(0, 0.5)
+                    }):Play()
+                end
+                
+                if settings.callback then
+                    settings.callback(toggled)
+                end
+            end)
+            
+            ToggleFrame.MouseEnter:Connect(function()
+                TweenService:Create(ToggleFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+                    BackgroundColor3 = Color3.fromRGB(42, 50, 66)
+                }):Play()
+            end)
+            
+            ToggleFrame.MouseLeave:Connect(function()
+                TweenService:Create(ToggleFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+                    BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+                }):Play()
+            end)
+        end
+        
+        function ModuleManager:CreateButton(settings)
+            if self._size == 0 then
+                self._size = 11
+            end
+            
+            self._size = self._size + 30
+            
+            if self._state then
+                self._module.Size = UDim2.fromOffset(241, 93 + self._size)
+            end
+            
+            self._options.Size = UDim2.fromOffset(241, self._size)
+            
+            local ButtonFrame = Instance.new("TextButton")
+            ButtonFrame.Name = "Button"
+            ButtonFrame.Text = ""
+            ButtonFrame.Size = UDim2.new(0, 207, 0, 25)
+            ButtonFrame.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+            ButtonFrame.BackgroundTransparency = 0.1
+            ButtonFrame.BorderSizePixel = 0
+            ButtonFrame.AutoButtonColor = false
+            ButtonFrame.Parent = self._options
+            
+            local ButtonCorner = Instance.new("UICorner")
+            ButtonCorner.CornerRadius = UDim.new(0, 4)
+            ButtonCorner.Parent = ButtonFrame
+            
+            local ButtonLabel = Instance.new("TextLabel")
+            ButtonLabel.Text = settings.title or "Button"
+            ButtonLabel.Size = UDim2.new(1, -20, 1, 0)
+            ButtonLabel.Position = UDim2.new(0, 10, 0, 0)
+            ButtonLabel.BackgroundTransparency = 1
+            ButtonLabel.TextColor3 = Color3.fromRGB(210, 210, 210)
+            ButtonLabel.TextSize = 12
+            ButtonLabel.Font = Enum.Font.GothamSemibold
+            ButtonLabel.TextXAlignment = Enum.TextXAlignment.Left
+            ButtonLabel.Parent = ButtonFrame
+            
+            ButtonFrame.MouseButton1Click:Connect(function()
+                TweenService:Create(ButtonFrame, TweenInfo.new(0.1), {
+                    BackgroundColor3 = Color3.fromRGB(52, 60, 76)
+                }):Play()
+                
+                task.wait(0.1)
+                
+                TweenService:Create(ButtonFrame, TweenInfo.new(0.1), {
+                    BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+                }):Play()
+                
+                if settings.callback then
+                    settings.callback()
+                end
+            end)
+            
+            ButtonFrame.MouseEnter:Connect(function()
+                TweenService:Create(ButtonFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+                    BackgroundColor3 = Color3.fromRGB(42, 50, 66)
+                }):Play()
+            end)
+            
+            ButtonFrame.MouseLeave:Connect(function()
+                TweenService:Create(ButtonFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+                    BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+                }):Play()
+            end)
+        end
+        
+        return ModuleManager
+    end
+    
+    return SettingsManager
 end
 
 return ZOV
