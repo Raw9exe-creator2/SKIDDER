@@ -3,12 +3,71 @@ local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
+local Themes = {
+    Dark = {
+        TabBar = Color3.fromRGB(20, 20, 25),
+        TabButton = Color3.fromRGB(30, 30, 38),
+        TabButtonHover = Color3.fromRGB(45, 45, 60),
+        TabButtonActive = Color3.fromRGB(60, 60, 85),
+        Frame = Color3.fromRGB(22, 22, 28),
+        TopBar = Color3.fromRGB(30, 30, 38),
+        Element = Color3.fromRGB(35, 35, 45),
+        ElementHover = Color3.fromRGB(45, 45, 55),
+        Stroke = Color3.fromRGB(80, 80, 110),
+        Text = Color3.fromRGB(255, 255, 255),
+        Accent = Color3.fromRGB(100, 150, 255)
+    },
+    Blue = {
+        TabBar = Color3.fromRGB(15, 25, 35),
+        TabButton = Color3.fromRGB(25, 40, 60),
+        TabButtonHover = Color3.fromRGB(35, 55, 80),
+        TabButtonActive = Color3.fromRGB(50, 80, 120),
+        Frame = Color3.fromRGB(18, 28, 40),
+        TopBar = Color3.fromRGB(25, 40, 60),
+        Element = Color3.fromRGB(30, 45, 65),
+        ElementHover = Color3.fromRGB(40, 60, 85),
+        Stroke = Color3.fromRGB(70, 110, 160),
+        Text = Color3.fromRGB(255, 255, 255),
+        Accent = Color3.fromRGB(80, 150, 255)
+    },
+    Purple = {
+        TabBar = Color3.fromRGB(25, 15, 35),
+        TabButton = Color3.fromRGB(40, 25, 60),
+        TabButtonHover = Color3.fromRGB(55, 35, 80),
+        TabButtonActive = Color3.fromRGB(80, 50, 120),
+        Frame = Color3.fromRGB(28, 18, 40),
+        TopBar = Color3.fromRGB(40, 25, 60),
+        Element = Color3.fromRGB(45, 30, 65),
+        ElementHover = Color3.fromRGB(60, 40, 85),
+        Stroke = Color3.fromRGB(110, 70, 160),
+        Text = Color3.fromRGB(255, 255, 255),
+        Accent = Color3.fromRGB(150, 80, 255)
+    },
+    Red = {
+        TabBar = Color3.fromRGB(30, 15, 15),
+        TabButton = Color3.fromRGB(50, 25, 25),
+        TabButtonHover = Color3.fromRGB(70, 35, 35),
+        TabButtonActive = Color3.fromRGB(100, 50, 50),
+        Frame = Color3.fromRGB(35, 18, 18),
+        TopBar = Color3.fromRGB(50, 25, 25),
+        Element = Color3.fromRGB(55, 30, 30),
+        ElementHover = Color3.fromRGB(75, 40, 40),
+        Stroke = Color3.fromRGB(130, 70, 70),
+        Text = Color3.fromRGB(255, 255, 255),
+        Accent = Color3.fromRGB(255, 80, 80)
+    }
+}
+
 function ZOV:Create(config)
     local GUI = {
         Tabs = {},
         CurrentTab = nil,
         Visible = true,
-        FirstTab = nil
+        FirstTab = nil,
+        CurrentTheme = "Dark",
+        Settings = {
+            AutoLoad = false
+        }
     }
     
     local ScreenGui = Instance.new("ScreenGui")
@@ -60,8 +119,28 @@ function ZOV:Create(config)
     
     local TabPadding = Instance.new("UIPadding")
     TabPadding.PaddingTop = UDim.new(0, 5)
-    TabPadding.PaddingBottom = UDim.new(0, 5)
+    TabPadding.PaddingBottom = UDim.new(0, 75)
     TabPadding.Parent = TabBar
+    
+    local SettingsButton = Instance.new("ImageButton")
+    SettingsButton.Name = "Settings"
+    SettingsButton.Size = UDim2.new(0, 60, 0, 60)
+    SettingsButton.Position = UDim2.new(0.5, -30, 1, -70)
+    SettingsButton.AnchorPoint = Vector2.new(0, 0)
+    SettingsButton.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
+    SettingsButton.Image = "rbxassetid://6031280882"
+    SettingsButton.ImageColor3 = Color3.fromRGB(160, 160, 180)
+    SettingsButton.Parent = TabBar
+    
+    local SettingsCorner = Instance.new("UICorner")
+    SettingsCorner.CornerRadius = UDim.new(0, 10)
+    SettingsCorner.Parent = SettingsButton
+    
+    local SettingsStroke = Instance.new("UIStroke")
+    SettingsStroke.Color = Color3.fromRGB(90, 90, 120)
+    SettingsStroke.Thickness = 2
+    SettingsStroke.Transparency = 0.6
+    SettingsStroke.Parent = SettingsButton
     
     UserInputService.InputBegan:Connect(function(input, gpe)
         if not gpe and input.KeyCode == Enum.KeyCode.RightShift then
@@ -69,6 +148,31 @@ function ZOV:Create(config)
             ScreenGui.Enabled = GUI.Visible
         end
     end)
+    
+    function GUI:ApplyTheme(themeName)
+        local theme = Themes[themeName]
+        if not theme then return end
+        
+        GUI.CurrentTheme = themeName
+        
+        TweenService:Create(TabBar, TweenInfo.new(0.3), {BackgroundColor3 = theme.TabBar}):Play()
+        TabBarStroke.Color = theme.Stroke
+        
+        for _, tab in ipairs(GUI.Tabs) do
+            if tab.IsSettings then continue end
+            
+            if GUI.CurrentTab == tab then
+                TweenService:Create(tab.Button, TweenInfo.new(0.3), {BackgroundColor3 = theme.TabButtonActive}):Play()
+            else
+                TweenService:Create(tab.Button, TweenInfo.new(0.3), {BackgroundColor3 = theme.TabButton}):Play()
+            end
+            
+            tab.ButtonStroke.Color = theme.Stroke
+            TweenService:Create(tab.Frame, TweenInfo.new(0.3), {BackgroundColor3 = theme.Frame}):Play()
+            TweenService:Create(tab.TopBar, TweenInfo.new(0.3), {BackgroundColor3 = theme.TopBar}):Play()
+            tab.FrameStroke.Color = theme.Stroke
+        end
+    end
     
     function GUI:AddTab(name, icon)
         local Tab = {
@@ -331,6 +435,9 @@ function ZOV:Create(config)
         Tab.Container = Container
         Tab.Button = TabButton
         Tab.ButtonStroke = TabButtonStroke
+        Tab.TopBar = TopBar
+        Tab.FrameStroke = FrameStroke
+        Tab.IsSettings = false
         
         function Tab:Toggle(name, default, callback)
             local Toggle = Instance.new("Frame")
