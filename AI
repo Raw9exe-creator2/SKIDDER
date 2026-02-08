@@ -783,6 +783,20 @@ function Library:create_ui()
     Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Icon.Parent = Handler
     
+    -- Horizontal divider line below header
+    local HeaderDivider = Instance.new('Frame')
+    HeaderDivider.Name = 'HeaderDivider'
+    HeaderDivider.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
+    HeaderDivider.BackgroundTransparency = 0.3
+    HeaderDivider.BorderSizePixel = 0
+    HeaderDivider.Position = UDim2.new(0.026, 0, 0.095, 0)
+    HeaderDivider.Size = UDim2.new(0, 147, 0, 1)
+    HeaderDivider.Parent = Handler
+    
+    local HeaderDividerCorner = Instance.new('UICorner')
+    HeaderDividerCorner.CornerRadius = UDim.new(1, 0)
+    HeaderDividerCorner.Parent = HeaderDivider
+    
     local Divider = Instance.new('Frame')
     Divider.Name = 'Divider'
     Divider.BackgroundTransparency = 0.5
