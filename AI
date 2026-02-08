@@ -3049,12 +3049,6 @@ function Library:create_ui()
                 ModuleManager:change_state(not ModuleManager._state)
             end)
 
-            -- Add all the same methods as regular modules (checkbox, slider, dropdown, etc.)
-            ModuleManager.create_checkbox = function(self, settings)
-                -- Use the same create_checkbox implementation from regular modules
-                return self:create_checkbox(settings)
-            end
-
             return ModuleManager
         end
         
