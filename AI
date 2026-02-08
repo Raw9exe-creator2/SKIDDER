@@ -374,9 +374,12 @@ UIListLayout.Parent = NotificationContainer
 
 -- Function to create notifications
 function Library.SendNotification(settings)
+    local hasButtons = settings.buttons and #settings.buttons > 0
+    local initialHeight = hasButtons and 95 or 60
+    
     -- Create the notification frame (this will be managed by UIListLayout)
     local Notification = Instance.new("Frame")
-    Notification.Size = UDim2.new(1, 0, 0, 80)
+    Notification.Size = UDim2.new(1, 0, 0, initialHeight)
     Notification.BackgroundTransparency = 1
     Notification.BorderSizePixel = 0
     Notification.Name = "Notification"
@@ -390,7 +393,7 @@ function Library.SendNotification(settings)
 
     -- Create the inner frame for the notification's content
     local InnerFrame = Instance.new("Frame")
-    InnerFrame.Size = UDim2.new(1, 0, 0, 80)
+    InnerFrame.Size = UDim2.new(1, 0, 0, initialHeight)
     InnerFrame.Position = UDim2.new(1, 10, 0, 0)
     InnerFrame.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
     InnerFrame.BackgroundTransparency = 0.1
@@ -481,6 +484,67 @@ function Library.SendNotification(settings)
     Body.Parent = InnerFrame
     Body.ZIndex = 2
     
+    -- Button Container (only if buttons exist)
+    local ButtonContainer
+    if hasButtons then
+        ButtonContainer = Instance.new("Frame")
+        ButtonContainer.Size = UDim2.new(1, -24, 0, 28)
+        ButtonContainer.Position = UDim2.new(0, 12, 0, 68)
+        ButtonContainer.BackgroundTransparency = 1
+        ButtonContainer.Parent = InnerFrame
+        ButtonContainer.ZIndex = 2
+        
+        local buttonWidth = #settings.buttons == 1 and 1 or 0.48
+        local buttonGap = #settings.buttons == 2 and 0.04 or 0
+        
+        for i, buttonData in ipairs(settings.buttons) do
+            local Button = Instance.new("TextButton")
+            Button.Size = UDim2.new(buttonWidth, 0, 0, 28)
+            Button.Position = UDim2.new((i - 1) * (buttonWidth + buttonGap), 0, 0, 0)
+            Button.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+            Button.BorderSizePixel = 0
+            Button.Text = buttonData.text or "Button"
+            Button.TextColor3 = Color3.fromRGB(210, 210, 210)
+            Button.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.Medium, Enum.FontStyle.Normal)
+            Button.TextSize = 12
+            Button.AutoButtonColor = false
+            Button.Parent = ButtonContainer
+            Button.ZIndex = 3
+            
+            local ButtonCorner = Instance.new("UICorner")
+            ButtonCorner.CornerRadius = UDim.new(0, 6)
+            ButtonCorner.Parent = Button
+            
+            local ButtonStroke = Instance.new("UIStroke")
+            ButtonStroke.Color = Color3.fromRGB(52, 66, 89)
+            ButtonStroke.Transparency = 0.6
+            ButtonStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+            ButtonStroke.Parent = Button
+            
+            -- Hover effect
+            Button.MouseEnter:Connect(function()
+                TweenService:Create(Button, TweenInfo.new(0.2, Enum.EasingStyle.Quint), {
+                    BackgroundColor3 = Color3.fromRGB(42, 50, 66)
+                }):Play()
+            end)
+            
+            Button.MouseLeave:Connect(function()
+                TweenService:Create(Button, TweenInfo.new(0.2, Enum.EasingStyle.Quint), {
+                    BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+                }):Play()
+            end)
+            
+            -- Button click
+            Button.MouseButton1Click:Connect(function()
+                if buttonData.callback then
+                    buttonData.callback()
+                end
+                -- Close notification on button click
+                Notification:Destroy()
+            end)
+        end
+    end
+    
     -- Progress bar at bottom
     local ProgressBar = Instance.new("Frame")
     ProgressBar.Size = UDim2.new(1, 0, 0, 3)
@@ -504,8 +568,15 @@ function Library.SendNotification(settings)
     -- Force the size to adjust after the text is fully loaded and wrapped
     task.spawn(function()
         task.wait(0.05)
-        local totalHeight = math.max(60, Title.TextBounds.Y + Body.TextBounds.Y + 25)
+        local baseHeight = Title.TextBounds.Y + Body.TextBounds.Y + 25
+        local buttonHeight = hasButtons and 40 or 0
+        local totalHeight = math.max(initialHeight, baseHeight + buttonHeight)
         InnerFrame.Size = UDim2.new(1, 0, 0, totalHeight)
+        
+        -- Update button container position if buttons exist
+        if hasButtons and ButtonContainer then
+            ButtonContainer.Position = UDim2.new(0, 12, 0, baseHeight + 8)
+        end
     end)
 
     -- Use task.spawn to ensure the notification tweening happens asynchronously
