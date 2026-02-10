@@ -332,14 +332,17 @@ function LibraryV2.UI(Name)
             ChangelogWidget.Under.Text = "changelog"
         end
         
-        -- Добавить кнопку или обработчик клика
-        if ChangelogWidget:FindFirstChild("TextButton") then
-            ChangelogWidget.TextButton.Text = "VIEW"
-            ChangelogWidget.TextButton.MouseButton1Click:Connect(function()
-                LibraryV2:Notification("Changelog v1.0", "- Removed music system\n- Added Unload button\n- Fixed container sizes\n- Improved UI stability", "6031280882", 8)
+        -- Найти или создать TextButton для changelog
+        local changelogButton = ChangelogWidget:FindFirstChild("TextButton")
+        
+        if changelogButton and changelogButton:IsA("TextButton") then
+            -- Если TextButton существует, используем его
+            changelogButton.Text = "VIEW"
+            changelogButton.MouseButton1Click:Connect(function()
+                LibraryV2:Notification("📋 Changelog v1.0", "✅ Removed music system\n✅ Added Unload button\n✅ Fixed container sizes (340px)\n✅ Containers now clickable\n✅ Improved UI stability", "6031280882", 10)
             end)
         else
-            -- Создать кнопку если её нет
+            -- Создать новый TextButton
             local ChangelogButton = Instance.new("TextButton")
             ChangelogButton.Name = "ChangelogButton"
             ChangelogButton.Size = UDim2.new(0.8, 0, 0.3, 0)
@@ -353,16 +356,9 @@ function LibraryV2.UI(Name)
             ChangelogButton.Parent = ChangelogWidget
             
             ChangelogButton.MouseButton1Click:Connect(function()
-                LibraryV2:Notification("Changelog v1.0", "- Removed music system\n- Added Unload button\n- Fixed container sizes\n- Improved UI stability", "6031280882", 8)
+                LibraryV2:Notification("📋 Changelog v1.0", "✅ Removed music system\n✅ Added Unload button\n✅ Fixed container sizes (340px)\n✅ Containers now clickable\n✅ Improved UI stability", "6031280882", 10)
             end)
         end
-        
-        -- Добавить обработчик на сам виджет (Frame) используя InputBegan
-        ChangelogWidget.InputBegan:Connect(function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                LibraryV2:Notification("📋 Changelog v1.0", "✅ Removed music system\n✅ Added Unload button\n✅ Fixed container sizes (340px)\n✅ Containers now clickable\n✅ Improved UI stability", "6031280882", 10)
-            end
-        end)
     end
     
     Widgets.Discord.TextButton.MouseButton1Click:Connect(function()
