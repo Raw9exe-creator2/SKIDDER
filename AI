@@ -1027,7 +1027,7 @@ function Library:create_ui()
         SettingsSpacer.Name = 'SettingsSpacer'
         SettingsSpacer.BackgroundTransparency = 1
         SettingsSpacer.BorderSizePixel = 0
-        SettingsSpacer.Size = UDim2.new(0, 129, 0, 120)
+        SettingsSpacer.Size = UDim2.new(0, 129, 0, 200)
         SettingsSpacer.Parent = Tabs
         SettingsSpacer.LayoutOrder = 998
         
