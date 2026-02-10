@@ -431,7 +431,7 @@ function LibraryV2:Container(Name)
             --// Tween the container in (collapse)
             Container.CancelTweens()
             Tween(Container.Container.ImageLabel, {Rotation = 0}, 0.3)
-            local Tween = game:GetService("TweenService"):Create(Container.Container, TweenInfo.new(0.3), {Size = u2(0, 400, 0, 50)})
+            local Tween = game:GetService("TweenService"):Create(Container.Container, TweenInfo.new(0.3), {Size = u2(0, 360, 0, 50)})
             Tween:Play()
             
             -- Hide all assets
@@ -453,7 +453,7 @@ function LibraryV2:Container(Name)
                 v.Visible = true
             end
             
-            local Tween = game:GetService("TweenService"):Create(Container.Container, TweenInfo.new(0.3), {Size = u2(0, 400, 0, ((65)+55*#Container.Assets))})
+            local Tween = game:GetService("TweenService"):Create(Container.Container, TweenInfo.new(0.3), {Size = u2(0, 360, 0, ((65)+55*#Container.Assets))})
             Tween:Play()
     
             table.insert(Container.Tweens, Tween)
@@ -465,7 +465,7 @@ function LibraryV2:Container(Name)
     Container.Update()
     
     -- Start with container collapsed (elements hidden)
-    Container.Container.Size = u2(0, 400, 0, 50)
+    Container.Container.Size = u2(0, 360, 0, 50)
     Container.Container.ImageLabel.Rotation = 0
 
     Container.Container.ImageLabel.MouseButton1Down:Connect(function()
