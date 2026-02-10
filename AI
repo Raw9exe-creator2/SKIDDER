@@ -1011,9 +1011,10 @@ function Library:create_ui()
         local SettingsDivider = Instance.new('Frame')
         SettingsDivider.Name = 'SettingsDivider'
         SettingsDivider.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
-        SettingsDivider.BackgroundTransparency = 0.3
+        SettingsDivider.BackgroundTransparency = 0.5
         SettingsDivider.BorderSizePixel = 0
-        SettingsDivider.Size = UDim2.new(0, 147, 0, 1)
+        SettingsDivider.Size = UDim2.new(0, 163, 0, 1)
+        SettingsDivider.Position = UDim2.new(0.002, 0, 0, 0)
         SettingsDivider.Parent = Tabs
         SettingsDivider.LayoutOrder = 999
         
