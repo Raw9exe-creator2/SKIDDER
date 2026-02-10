@@ -1140,21 +1140,28 @@ function Library:create_ui()
             self:update_sections(SettingsLeftSection, SettingsRightSection)
         end)
 
+        -- Create a TabManager-like object for Settings
+        local SettingsTabManager = {}
+        local LibraryRef = self  -- Store reference to main Library object
+        
         function SettingsTabManager:create_module(settings: any)
-            if settings.section == 'right' then
-                settings.section = SettingsRightSection
-            else
-                settings.section = SettingsLeftSection
-            end
+            -- Temporarily store the sections
+            local tempLeftSection = SettingsLeftSection
+            local tempRightSection = SettingsRightSection
             
-            return self:create_tab("Settings", "rbxassetid://6031280882"):create_module(settings)
+            -- Determine which section to use
+            local targetSection = (settings.section == 'right') and tempRightSection or tempLeftSection
+            settings.section = targetSection
+            
+            -- Create a temporary tab manager to access create_module
+            local tempTab = LibraryRef:create_tab("_temp", "")
+            local module = tempTab:create_module(settings)
+            
+            return module
         end
 
         return SettingsTabManager
     end
-
-    function self:create_tab(title: string, icon: string)
-        local TabManager = {}
 
         local LayoutOrder = 0;
 
