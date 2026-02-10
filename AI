@@ -349,6 +349,7 @@ function LibraryV2.UI(Name)
             ChangelogButton.TextColor3 = Color3.fromRGB(255, 255, 255)
             ChangelogButton.Font = Enum.Font.GothamBold
             ChangelogButton.TextSize = 12
+            ChangelogButton.BorderSizePixel = 0
             ChangelogButton.Parent = ChangelogWidget
             
             ChangelogButton.MouseButton1Click:Connect(function()
@@ -356,9 +357,11 @@ function LibraryV2.UI(Name)
             end)
         end
         
-        -- Можно также сделать клик на весь виджет
-        ChangelogWidget.MouseButton1Click:Connect(function()
-            LibraryV2:Notification("📋 Changelog v1.0", "✅ Removed music system\n✅ Added Unload button\n✅ Fixed container sizes (340px)\n✅ Containers now clickable\n✅ Improved UI stability", "6031280882", 10)
+        -- Добавить обработчик на сам виджет (Frame) используя InputBegan
+        ChangelogWidget.InputBegan:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                LibraryV2:Notification("📋 Changelog v1.0", "✅ Removed music system\n✅ Added Unload button\n✅ Fixed container sizes (340px)\n✅ Containers now clickable\n✅ Improved UI stability", "6031280882", 10)
+            end
         end)
     end
     
