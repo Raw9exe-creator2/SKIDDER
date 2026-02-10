@@ -318,6 +318,45 @@ function LibraryV2.UI(Name)
         Widgets.Music.Visible = false
     end
     
+    --// Changelog Widget (заменяем "add widget")
+    if Widgets:FindFirstChild("Widget") then
+        local ChangelogWidget = Widgets.Widget
+        
+        -- Изменить текст
+        if ChangelogWidget:FindFirstChild("Under") then
+            ChangelogWidget.Under.Text = "changelog"
+        end
+        
+        -- Добавить кнопку или обработчик клика
+        if ChangelogWidget:FindFirstChild("TextButton") then
+            ChangelogWidget.TextButton.Text = "VIEW"
+            ChangelogWidget.TextButton.MouseButton1Click:Connect(function()
+                LibraryV2:Notification("Changelog v1.0", "- Removed music system\n- Added Unload button\n- Fixed container sizes\n- Improved UI stability", "6031280882", 8)
+            end)
+        else
+            -- Создать кнопку если её нет
+            local ChangelogButton = Instance.new("TextButton")
+            ChangelogButton.Name = "ChangelogButton"
+            ChangelogButton.Size = UDim2.new(0.8, 0, 0.3, 0)
+            ChangelogButton.Position = UDim2.new(0.1, 0, 0.6, 0)
+            ChangelogButton.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
+            ChangelogButton.Text = "VIEW CHANGELOG"
+            ChangelogButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            ChangelogButton.Font = Enum.Font.GothamBold
+            ChangelogButton.TextSize = 12
+            ChangelogButton.Parent = ChangelogWidget
+            
+            ChangelogButton.MouseButton1Click:Connect(function()
+                LibraryV2:Notification("Changelog v1.0", "- Removed music system\n- Added Unload button\n- Fixed container sizes\n- Improved UI stability", "6031280882", 8)
+            end)
+        end
+        
+        -- Можно также сделать клик на весь виджет
+        ChangelogWidget.MouseButton1Click:Connect(function()
+            LibraryV2:Notification("📋 Changelog v1.0", "✅ Removed music system\n✅ Added Unload button\n✅ Fixed container sizes (340px)\n✅ Containers now clickable\n✅ Improved UI stability", "6031280882", 10)
+        end)
+    end
+    
     Widgets.Discord.TextButton.MouseButton1Click:Connect(function()
         setclipboard("Xenon Server: https://discord.gg/DXrGhrxZ9v")
     end)
