@@ -183,7 +183,7 @@ function LibraryV2.UI(Name)
             
             -- Собираем виджеты, проверяя их существование
             local Widget1 = Widgets:FindFirstChild("Bookmarks")
-            local Widget2 = Widgets:FindFirstChild("Widget")
+            local Widget2 = Widgets:FindFirstChild("Widget") -- Changelog
             local Widget3 = Widgets:FindFirstChild("Discord")
             local Widget4 = Widgets:FindFirstChild("Unload") or Widgets:FindFirstChild("Music")
             
@@ -253,6 +253,11 @@ function LibraryV2.UI(Name)
             Tween(BottomMenu, {Position = BMPos}, 0.25)
             Tween(Tabs, {Position = TabsPos}, 0.25)
             Tween(TopMenu, {Position = TPos}, 0.25, true)
+            
+            -- Показать changelog при первом запуске
+            task.delay(1, function()
+                LibraryV2:Notification("📋 Welcome!", "Click on Changelog widget to see what's new!", "6031280882", 5)
+            end)
         end,
 
         Update = function()
