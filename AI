@@ -600,7 +600,7 @@ function LibraryV2:Container(Name)
     Container.Container.Size = u2(0, 340, 0, 50)
     Container.Container.ImageLabel.Rotation = 0
 
-    Container.Container.MouseButton1Down:Connect(function()
+    Container.Container.ImageLabel.MouseButton1Down:Connect(function()
         if Container.State then
             Container.In()
 
