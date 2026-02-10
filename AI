@@ -1022,6 +1022,15 @@ function Library:create_ui()
         DividerCorner.CornerRadius = UDim.new(1, 0)
         DividerCorner.Parent = SettingsDivider
         
+        -- Spacer before Settings tab to push it down
+        local SettingsSpacer = Instance.new('Frame')
+        SettingsSpacer.Name = 'SettingsSpacer'
+        SettingsSpacer.BackgroundTransparency = 1
+        SettingsSpacer.BorderSizePixel = 0
+        SettingsSpacer.Size = UDim2.new(0, 129, 0, 120)
+        SettingsSpacer.Parent = Tabs
+        SettingsSpacer.LayoutOrder = 998
+        
         -- Settings Tab Button
         local SettingsTab = Instance.new('TextButton')
         SettingsTab.FontFace = Font.new('rbxasset://fonts/families/SourceSansPro.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal)
