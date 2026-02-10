@@ -1163,6 +1163,9 @@ function Library:create_ui()
         return SettingsTabManager
     end
 
+    function self:create_tab(title: string, icon: string)
+        local TabManager = {}
+
         local LayoutOrder = 0;
 
         local font_params = Instance.new('GetTextBoundsParams')
