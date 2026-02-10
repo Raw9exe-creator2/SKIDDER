@@ -358,8 +358,8 @@ end
 -- Create Notification Container
 local NotificationContainer = Instance.new("Frame")
 NotificationContainer.Name = "RobloxCoreGuis"
-NotificationContainer.Size = UDim2.new(0, 300, 0, 0)  -- Fixed width (300px), dynamic height (Y)
-NotificationContainer.Position = UDim2.new(0.8, 0, 0, 10)  -- Right side, offset by 10 from top
+NotificationContainer.Size = UDim2.new(0, 220, 0, 0)  -- Reduced width from 300 to 220
+NotificationContainer.Position = UDim2.new(0.85, 0, 0, 10)  -- Right side, offset by 10 from top
 NotificationContainer.BackgroundTransparency = 1
 NotificationContainer.ClipsDescendants = false;
 NotificationContainer.Parent = game:GetService("CoreGui").RobloxGui:FindFirstChild("RobloxCoreGuis") or Instance.new("ScreenGui", game:GetService("CoreGui").RobloxGui)
@@ -369,13 +369,13 @@ NotificationContainer.AutomaticSize = Enum.AutomaticSize.Y
 local UIListLayout = Instance.new("UIListLayout")
 UIListLayout.FillDirection = Enum.FillDirection.Vertical
 UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout.Padding = UDim.new(0, 10)
+UIListLayout.Padding = UDim.new(0, 8)  -- Reduced padding from 10 to 8
 UIListLayout.Parent = NotificationContainer
 
 -- Function to create notifications
 function Library.SendNotification(settings)
     local hasButtons = settings.buttons and #settings.buttons > 0
-    local initialHeight = hasButtons and 95 or 60
+    local initialHeight = hasButtons and 75 or 50  -- Reduced heights
     
     -- Create the notification frame (this will be managed by UIListLayout)
     local Notification = Instance.new("Frame")
@@ -388,15 +388,15 @@ function Library.SendNotification(settings)
 
     -- Add rounded corners to outer frame
     local UICorner = Instance.new("UICorner")
-    UICorner.CornerRadius = UDim.new(0, 8)
+    UICorner.CornerRadius = UDim.new(0, 6)  -- Reduced from 8 to 6
     UICorner.Parent = Notification
 
     -- Create the inner frame for the notification's content
     local InnerFrame = Instance.new("Frame")
     InnerFrame.Size = UDim2.new(1, 0, 0, initialHeight)
     InnerFrame.Position = UDim2.new(1, 10, 0, 0)
-    InnerFrame.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
-    InnerFrame.BackgroundTransparency = 0.1
+    InnerFrame.BackgroundColor3 = Color3.fromRGB(22, 28, 38)  -- Dark background matching main UI
+    InnerFrame.BackgroundTransparency = 0.05  -- Slightly more opaque
     InnerFrame.BorderSizePixel = 0
     InnerFrame.Name = "InnerFrame"
     InnerFrame.Parent = Notification
@@ -404,7 +404,7 @@ function Library.SendNotification(settings)
 
     -- Add rounded corners to the inner frame
     local InnerUICorner = Instance.new("UICorner")
-    InnerUICorner.CornerRadius = UDim.new(0, 8)
+    InnerUICorner.CornerRadius = UDim.new(0, 6)  -- Reduced from 8 to 6
     InnerUICorner.Parent = InnerFrame
     
     -- Add stroke
@@ -417,12 +417,12 @@ function Library.SendNotification(settings)
     -- Add gradient overlay
     local GradientFrame = Instance.new("Frame")
     GradientFrame.Size = UDim2.new(1, 0, 1, 0)
-    GradientFrame.BackgroundTransparency = 0.7
+    GradientFrame.BackgroundTransparency = 0.8  -- More transparent
     GradientFrame.BorderSizePixel = 0
     GradientFrame.Parent = InnerFrame
     
     local GradientCorner = Instance.new("UICorner")
-    GradientCorner.CornerRadius = UDim.new(0, 8)
+    GradientCorner.CornerRadius = UDim.new(0, 6)
     GradientCorner.Parent = GradientFrame
     
     local UIGradient = Instance.new("UIGradient")
@@ -433,25 +433,25 @@ function Library.SendNotification(settings)
     UIGradient.Rotation = 45
     UIGradient.Parent = GradientFrame
     
-    -- Icon (left side)
+    -- Icon (left side) - smaller size
     local Icon = Instance.new("ImageLabel")
     Icon.Image = settings.icon or "rbxassetid://6031280882"
-    Icon.Size = UDim2.new(0, 24, 0, 24)
-    Icon.Position = UDim2.new(0, 12, 0, 12)
+    Icon.Size = UDim2.new(0, 18, 0, 18)  -- Reduced from 24 to 18
+    Icon.Position = UDim2.new(0, 8, 0, 8)  -- Reduced padding from 12 to 8
     Icon.BackgroundTransparency = 1
-    Icon.ImageColor3 = Color3.fromRGB(152, 181, 255)
+    Icon.ImageColor3 = Color3.fromRGB(152, 181, 255)  -- Light blue matching UI theme
     Icon.ScaleType = Enum.ScaleType.Fit
     Icon.Parent = InnerFrame
     Icon.ZIndex = 2
 
-    -- Title Label (with automatic size support)
+    -- Title Label (with automatic size support) - smaller text
     local Title = Instance.new("TextLabel")
     Title.Text = settings.title or "Notification"
-    Title.TextColor3 = Color3.fromRGB(152, 181, 255)
+    Title.TextColor3 = Color3.fromRGB(152, 181, 255)  -- Light blue
     Title.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
-    Title.TextSize = 14
-    Title.Size = UDim2.new(1, -50, 0, 20)
-    Title.Position = UDim2.new(0, 45, 0, 8)
+    Title.TextSize = 11  -- Reduced from 14 to 11
+    Title.Size = UDim2.new(1, -35, 0, 16)  -- Reduced height
+    Title.Position = UDim2.new(0, 32, 0, 6)  -- Adjusted position
     Title.BackgroundTransparency = 1
     Title.TextXAlignment = Enum.TextXAlignment.Left
     Title.TextYAlignment = Enum.TextYAlignment.Center
@@ -468,14 +468,14 @@ function Library.SendNotification(settings)
     }
     TitleGradient.Parent = Title
 
-    -- Body Text (with automatic size support)
+    -- Body Text (with automatic size support) - smaller text
     local Body = Instance.new("TextLabel")
     Body.Text = settings.text or "This is a notification message."
-    Body.TextColor3 = Color3.fromRGB(200, 200, 200)
+    Body.TextColor3 = Color3.fromRGB(200, 200, 200)  -- Light gray
     Body.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-    Body.TextSize = 11
-    Body.Size = UDim2.new(1, -50, 0, 30)
-    Body.Position = UDim2.new(0, 45, 0, 32)
+    Body.TextSize = 9  -- Reduced from 11 to 9
+    Body.Size = UDim2.new(1, -35, 0, 24)  -- Reduced height
+    Body.Position = UDim2.new(0, 32, 0, 24)  -- Adjusted position
     Body.BackgroundTransparency = 1
     Body.TextXAlignment = Enum.TextXAlignment.Left
     Body.TextYAlignment = Enum.TextYAlignment.Top
@@ -488,8 +488,8 @@ function Library.SendNotification(settings)
     local ButtonContainer
     if hasButtons then
         ButtonContainer = Instance.new("Frame")
-        ButtonContainer.Size = UDim2.new(1, -24, 0, 28)
-        ButtonContainer.Position = UDim2.new(0, 12, 0, 68)
+        ButtonContainer.Size = UDim2.new(1, -16, 0, 22)  -- Reduced height from 28 to 22
+        ButtonContainer.Position = UDim2.new(0, 8, 0, 52)  -- Adjusted position
         ButtonContainer.BackgroundTransparency = 1
         ButtonContainer.Parent = InnerFrame
         ButtonContainer.ZIndex = 2
@@ -1004,6 +1004,155 @@ function Library:create_ui()
         end
     end
 
+    function self:create_settings_tab()
+        local SettingsTabManager = {}
+        
+        -- Create Settings Tab Button with divider above it
+        local SettingsDivider = Instance.new('Frame')
+        SettingsDivider.Name = 'SettingsDivider'
+        SettingsDivider.BackgroundColor3 = Color3.fromRGB(52, 66, 89)
+        SettingsDivider.BackgroundTransparency = 0.3
+        SettingsDivider.BorderSizePixel = 0
+        SettingsDivider.Size = UDim2.new(0, 147, 0, 1)
+        SettingsDivider.Parent = Tabs
+        SettingsDivider.LayoutOrder = 999
+        
+        local DividerCorner = Instance.new('UICorner')
+        DividerCorner.CornerRadius = UDim.new(1, 0)
+        DividerCorner.Parent = SettingsDivider
+        
+        -- Settings Tab Button
+        local SettingsTab = Instance.new('TextButton')
+        SettingsTab.FontFace = Font.new('rbxasset://fonts/families/SourceSansPro.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+        SettingsTab.TextColor3 = Color3.fromRGB(0, 0, 0)
+        SettingsTab.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        SettingsTab.Text = ''
+        SettingsTab.AutoButtonColor = false
+        SettingsTab.BackgroundTransparency = 1
+        SettingsTab.Name = 'Tab'
+        SettingsTab.Size = UDim2.new(0, 129, 0, 38)
+        SettingsTab.BorderSizePixel = 0
+        SettingsTab.TextSize = 14
+        SettingsTab.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
+        SettingsTab.Parent = Tabs
+        SettingsTab.LayoutOrder = 1000
+        
+        local UICorner = Instance.new('UICorner')
+        UICorner.CornerRadius = UDim.new(0, 5)
+        UICorner.Parent = SettingsTab
+        
+        local TextLabel = Instance.new('TextLabel')
+        TextLabel.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+        TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel.TextTransparency = 0.7
+        TextLabel.Text = "Settings"
+        TextLabel.Size = UDim2.new(0, 60, 0, 16)
+        TextLabel.AnchorPoint = Vector2.new(0, 0.5)
+        TextLabel.Position = UDim2.new(0.24, 0, 0.5, 0)
+        TextLabel.BackgroundTransparency = 1
+        TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+        TextLabel.BorderSizePixel = 0
+        TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        TextLabel.TextSize = 13
+        TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel.Parent = SettingsTab
+        
+        local UIGradient = Instance.new('UIGradient')
+        UIGradient.Color = ColorSequence.new{
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+            ColorSequenceKeypoint.new(0.7, Color3.fromRGB(155, 155, 155)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(58, 58, 58))
+        }
+        UIGradient.Parent = TextLabel
+        
+        local Icon = Instance.new('ImageLabel')
+        Icon.ScaleType = Enum.ScaleType.Fit
+        Icon.ImageTransparency = 0.8
+        Icon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Icon.AnchorPoint = Vector2.new(0, 0.5)
+        Icon.BackgroundTransparency = 1
+        Icon.Position = UDim2.new(0.1, 0, 0.5, 0)
+        Icon.Name = 'Icon'
+        Icon.Image = "rbxassetid://6031280882"
+        Icon.Size = UDim2.new(0, 12, 0, 12)
+        Icon.BorderSizePixel = 0
+        Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Icon.Parent = SettingsTab
+
+        -- Settings Left Section
+        local SettingsLeftSection = Instance.new('ScrollingFrame')
+        SettingsLeftSection.Name = 'SettingsLeftSection'
+        SettingsLeftSection.AutomaticCanvasSize = Enum.AutomaticSize.XY
+        SettingsLeftSection.ScrollBarThickness = 0
+        SettingsLeftSection.Size = UDim2.new(0, 243, 0, 445)
+        SettingsLeftSection.Selectable = false
+        SettingsLeftSection.AnchorPoint = Vector2.new(0, 0.5)
+        SettingsLeftSection.ScrollBarImageTransparency = 1
+        SettingsLeftSection.BackgroundTransparency = 1
+        SettingsLeftSection.Position = UDim2.new(0.2594326436519623, 0, 0.5, 0)
+        SettingsLeftSection.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        SettingsLeftSection.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        SettingsLeftSection.BorderSizePixel = 0
+        SettingsLeftSection.CanvasSize = UDim2.new(0, 0, 0.5, 0)
+        SettingsLeftSection.Visible = false
+        SettingsLeftSection.Parent = Sections
+        
+        local UIListLayout = Instance.new('UIListLayout')
+        UIListLayout.Padding = UDim.new(0, 11)
+        UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+        UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        UIListLayout.Parent = SettingsLeftSection
+        
+        local UIPadding = Instance.new('UIPadding')
+        UIPadding.PaddingTop = UDim.new(0, 1)
+        UIPadding.Parent = SettingsLeftSection
+
+        -- Settings Right Section
+        local SettingsRightSection = Instance.new('ScrollingFrame')
+        SettingsRightSection.Name = 'SettingsRightSection'
+        SettingsRightSection.AutomaticCanvasSize = Enum.AutomaticSize.XY
+        SettingsRightSection.ScrollBarThickness = 0
+        SettingsRightSection.Size = UDim2.new(0, 243, 0, 445)
+        SettingsRightSection.Selectable = false
+        SettingsRightSection.AnchorPoint = Vector2.new(0, 0.5)
+        SettingsRightSection.ScrollBarImageTransparency = 1
+        SettingsRightSection.BackgroundTransparency = 1
+        SettingsRightSection.Position = UDim2.new(0.629, 0, 0.5, 0)
+        SettingsRightSection.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        SettingsRightSection.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        SettingsRightSection.BorderSizePixel = 0
+        SettingsRightSection.CanvasSize = UDim2.new(0, 0, 0.5, 0)
+        SettingsRightSection.Visible = false
+        SettingsRightSection.Parent = Sections
+        
+        local UIListLayout2 = Instance.new('UIListLayout')
+        UIListLayout2.Padding = UDim.new(0, 11)
+        UIListLayout2.HorizontalAlignment = Enum.HorizontalAlignment.Center
+        UIListLayout2.SortOrder = Enum.SortOrder.LayoutOrder
+        UIListLayout2.Parent = SettingsRightSection
+        
+        local UIPadding2 = Instance.new('UIPadding')
+        UIPadding2.PaddingTop = UDim.new(0, 1)
+        UIPadding2.Parent = SettingsRightSection
+
+        SettingsTab.MouseButton1Click:Connect(function()
+            self:update_tabs(SettingsTab, SettingsLeftSection, SettingsRightSection)
+            self:update_sections(SettingsLeftSection, SettingsRightSection)
+        end)
+
+        function SettingsTabManager:create_module(settings: any)
+            if settings.section == 'right' then
+                settings.section = SettingsRightSection
+            else
+                settings.section = SettingsLeftSection
+            end
+            
+            return self:create_tab("Settings", "rbxassetid://6031280882"):create_module(settings)
+        end
+
+        return SettingsTabManager
+    end
+
     function self:create_tab(title: string, icon: string)
         local TabManager = {}
 
@@ -1447,7 +1596,7 @@ function Library:create_ui()
                     return
                 end
 
-                if input.UserInputType ~= Enum.UserInputType.MouseButton3 then
+                if input.UserInputType ~= Enum.UserInputType.MouseButton1 then
                     return
                 end
                 
@@ -1881,7 +2030,7 @@ function Library:create_ui()
             
                 Checkbox.InputBegan:Connect(function(input, gameProcessed)
                     if gameProcessed then return end
-                    if input.UserInputType ~= Enum.UserInputType.MouseButton3 then return end
+                    if input.UserInputType ~= Enum.UserInputType.MouseButton1 then return end
                     if Library._choosing_keybind then return end
             
                     Library._choosing_keybind = true
@@ -1933,6 +2082,82 @@ function Library:create_ui()
                 Connections[settings.flag .. "_keypress"] = keyPressConnection
             
                 return CheckboxManager
+            end
+
+            function ModuleManager:create_toggle(settings: any)
+                LayoutOrderModule = LayoutOrderModule + 1
+                local ToggleManager = { _state = false }
+            
+                if self._size == 0 then
+                    self._size = 11
+                end
+                self._size += 25
+            
+                if ModuleManager._state then
+                    Module.Size = UDim2.fromOffset(241, 93 + self._size)
+                end
+                Options.Size = UDim2.fromOffset(241, self._size)
+            
+                local ToggleButton = Instance.new("TextButton")
+                ToggleButton.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+                ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                ToggleButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                ToggleButton.Text = settings.title or "Toggle"
+                ToggleButton.AutoButtonColor = false
+                ToggleButton.BackgroundTransparency = 0.1
+                ToggleButton.Name = "ToggleButton"
+                ToggleButton.Size = UDim2.new(0, 207, 0, 20)
+                ToggleButton.BorderSizePixel = 0
+                ToggleButton.TextSize = 11
+                ToggleButton.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+                ToggleButton.Parent = Options
+                ToggleButton.LayoutOrder = LayoutOrderModule
+            
+                local UICorner = Instance.new("UICorner")
+                UICorner.CornerRadius = UDim.new(0, 4)
+                UICorner.Parent = ToggleButton
+                
+                local UIStroke = Instance.new("UIStroke")
+                UIStroke.Color = Color3.fromRGB(52, 66, 89)
+                UIStroke.Transparency = 0.5
+                UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+                UIStroke.Parent = ToggleButton
+            
+                function ToggleManager:change_state(state: boolean)
+                    self._state = state
+                    if self._state then
+                        TweenService:Create(ToggleButton, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                            BackgroundColor3 = Color3.fromRGB(152, 181, 255),
+                            TextColor3 = Color3.fromRGB(255, 255, 255)
+                        }):Play()
+                        TweenService:Create(UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                            Color = Color3.fromRGB(152, 181, 255),
+                            Transparency = 0.3
+                        }):Play()
+                    else
+                        TweenService:Create(ToggleButton, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                            BackgroundColor3 = Color3.fromRGB(32, 38, 51),
+                            TextColor3 = Color3.fromRGB(255, 255, 255)
+                        }):Play()
+                        TweenService:Create(UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                            Color = Color3.fromRGB(52, 66, 89),
+                            Transparency = 0.5
+                        }):Play()
+                    end
+                    Library._config._flags[settings.flag] = self._state
+                    Config:save(game.GameId, Library._config)
+                    settings.callback(self._state)
+                end
+            
+                if Library:flag_type(settings.flag, "boolean") then
+                    ToggleManager:change_state(Library._config._flags[settings.flag])
+                end
+            
+                ToggleButton.MouseButton1Click:Connect(function()
+                    ToggleManager:change_state(not ToggleManager._state)
+                end)
+            
+                return ToggleManager
             end
 
             function ModuleManager:create_divider(settings: any)
