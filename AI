@@ -544,20 +544,31 @@ function LibraryV2:Container(Name)
         end,
 
         In = function()
-            --// Tween the container in
+            --// Tween the container in (collapse)
             Container.CancelTweens()
             Tween(Container.Container.ImageLabel, {Rotation = 0}, 0.3)
             local Tween = game:GetService("TweenService"):Create(Container.Container, TweenInfo.new(0.3), {Size = u2(0, 422, 0, 50)})
             Tween:Play()
+            
+            -- Hide all assets
+            for i,v in pairs(Container.Assets) do
+                v.Visible = false
+            end
     
             Tween.Completed:Wait()
             table.insert(Container.Tweens, Tween)
         end,
 
         Out = function()
-            --// Tween the container out
+            --// Tween the container out (expand)
             Container.CancelTweens()
             Tween(Container.Container.ImageLabel, {Rotation = 180}, 0.3)
+            
+            -- Show all assets
+            for i,v in pairs(Container.Assets) do
+                v.Visible = true
+            end
+            
             local Tween = game:GetService("TweenService"):Create(Container.Container, TweenInfo.new(0.3), {Size = u2(0, 422, 0, ((65)+55*#Container.Assets))})
             Tween:Play()
     
@@ -568,6 +579,10 @@ function LibraryV2:Container(Name)
 
     Container.Container.Parent = self._UI.Lib.Holder
     Container.Update()
+    
+    -- Start with container collapsed (elements hidden)
+    Container.Container.Size = u2(0, 422, 0, 50)
+    Container.Container.ImageLabel.Rotation = 0
 
     Container.Container.ImageLabel.MouseButton1Down:Connect(function()
         if Container.State then
@@ -604,7 +619,7 @@ function LibraryV2:Button(Name, Callback)
     }
     table.insert(self.Assets, Button.Asset)
 
-    Button.Asset.Visible = true
+    Button.Asset.Visible = false  -- Start hidden
     Button.Asset.Parent = self.Container.ScrollingFrame
     Button.Update()
 
@@ -633,7 +648,7 @@ function LibraryV2:Toggle(Name, StartingState, Callback, RunOnStart)
     }
     table.insert(self.Assets, Toggle.Asset)
 
-    Toggle.Asset.Visible = true
+    Toggle.Asset.Visible = false  -- Start hidden
     Toggle.Asset.Parent = self.Container.ScrollingFrame
     Toggle.Update()
 
@@ -720,7 +735,7 @@ function LibraryV2:Dropdown(Name, List, Callback)
     table.insert(self.Assets, Dropdown.Asset)
     table.insert(self.Drops, Dropdown)
 
-    Dropdown.Asset.Visible = true
+    Dropdown.Asset.Visible = false  -- Start hidden
     Dropdown.Asset.Parent = self.Container.ScrollingFrame
     Dropdown.Update()
 
@@ -768,9 +783,9 @@ function LibraryV2:Label(Text)
             Label.Asset.Text = "  "..Label.Text
         end
     }
-    table.insert(self.Assets, Label)
+    table.insert(self.Assets, Label.Asset)  -- Fixed: should be Label.Asset, not Label
 
-    Label.Asset.Visible = true
+    Label.Asset.Visible = false  -- Start hidden
     Label.Asset.Parent = self.Container.ScrollingFrame
     Label.Update()
 
@@ -817,7 +832,7 @@ function LibraryV2:Keybind(Name, Starting_Key, Blacklisted_Keys, Callback)
     }
     table.insert(self.Assets, Keybind.Asset)
 
-    Keybind.Asset.Visible = true
+    Keybind.Asset.Visible = false  -- Start hidden
     Keybind.Asset.Parent = self.Container.ScrollingFrame
     Keybind.Update()
 
@@ -902,7 +917,7 @@ function LibraryV2:TextBox(Name, Callback)
     }
     table.insert(self.Assets, TextBox.Asset)
 
-    TextBox.Asset.Visible = true
+    TextBox.Asset.Visible = false  -- Start hidden
     TextBox.Asset.Parent = self.Container.ScrollingFrame
     TextBox.Update()
 
@@ -963,7 +978,7 @@ function LibraryV2:Slider(Name, Min, Max, Start, Callback, Use_Decimals)
     table.insert(self.Assets, Slider.Asset)
 
     Slider.Asset.Name = Slider.Name
-    Slider.Asset.Visible = true
+    Slider.Asset.Visible = false  -- Start hidden
     Slider.Asset.Parent = self.Container.ScrollingFrame
     Slider.Update()
 
