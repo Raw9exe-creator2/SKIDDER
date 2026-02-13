@@ -2095,6 +2095,10 @@ function Library:create_ui()
 
             function ModuleManager:create_dropdown(settings: any)
 
+                if not settings.options then
+                    settings.options = {}
+                end
+
                 if not settings.Order then
                     LayoutOrderModule = LayoutOrderModule + 1;
                 end;
