@@ -2416,8 +2416,10 @@ function Library:create_ui()
                     end
                 end
 
-                if #settings.options > 0 then
+                if settings.options and #settings.options > 0 then
                     DropdownManager._size = 3
+                    
+                    local maxOptions = settings.maximum_options or #settings.options
 
                     for index, value in settings.options do
                         local Option = Instance.new('TextButton')
@@ -2465,7 +2467,7 @@ function Library:create_ui()
                             DropdownManager:update(value)
                         end)
     
-                        if index > settings.maximum_options then
+                        if index > maxOptions then
                             continue
                         end
     
