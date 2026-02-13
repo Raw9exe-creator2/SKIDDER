@@ -2289,6 +2289,8 @@ function Library:create_ui()
                         end
                         
                         Library._config._flags[settings.flag] = selected
+                        Config:save(game.GameId, Library._config)
+                        settings.callback(selected)
                     else
                         CurrentOption.Text = (typeof(option) == "string" and option) or option.Name
                         for _, object in Options:GetChildren() do
@@ -2301,10 +2303,9 @@ function Library:create_ui()
                             end
                         end
                         Library._config._flags[settings.flag] = option
+                        Config:save(game.GameId, Library._config)
+                        settings.callback(option)
                     end
-                    
-                    Config:save(game.GameId, Library._config)
-                    settings.callback(option)
                 end
                 
                 local CurrentDropSizeState = 0;
