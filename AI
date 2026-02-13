@@ -2369,6 +2369,10 @@ function Library:create_ui()
                     local maxOptions = settings.maximum_options or #settings.options
 
                     for index, value in settings.options do
+                        if index > maxOptions then
+                            break
+                        end
+                        
                         local Option = Instance.new('TextButton')
                         Option.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
                         Option.Active = false
@@ -2413,10 +2417,6 @@ function Library:create_ui()
 
                             DropdownManager:update(value)
                         end)
-    
-                        if index > maxOptions then
-                            continue
-                        end
     
                         DropdownManager._size += 16
                         Options.Size = UDim2.fromOffset(207, DropdownManager._size)
