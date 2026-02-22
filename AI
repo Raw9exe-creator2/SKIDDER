@@ -682,6 +682,14 @@ function Library:create_ui()
     SearchStroke.Thickness = 2
     SearchStroke.Parent = SearchContainer
     
+    -- Неоновое свечение
+    local SearchGlow = Instance.new('UIStroke')
+    SearchGlow.Color = Color3.fromRGB(152, 181, 255)
+    SearchGlow.Transparency = 0.5
+    SearchGlow.Thickness = 4
+    SearchGlow.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    SearchGlow.Parent = SearchContainer
+    
     -- Тень для поиска
     local SearchShadow = Instance.new('ImageLabel')
     SearchShadow.Name = 'Shadow'
@@ -697,11 +705,23 @@ function Library:create_ui()
     SearchShadow.ZIndex = 99
     SearchShadow.Parent = SearchContainer
     
+    -- Иконка поиска
+    local SearchIcon = Instance.new('ImageLabel')
+    SearchIcon.Name = 'SearchIcon'
+    SearchIcon.Size = UDim2.new(0, 18, 0, 18)
+    SearchIcon.Position = UDim2.new(0, 8, 0.5, 0)
+    SearchIcon.AnchorPoint = Vector2.new(0, 0.5)
+    SearchIcon.BackgroundTransparency = 1
+    SearchIcon.Image = 'rbxassetid://10747381992'
+    SearchIcon.ImageColor3 = Color3.fromRGB(152, 181, 255)
+    SearchIcon.ZIndex = 101
+    SearchIcon.Parent = SearchContainer
+    
     local SearchBox = Instance.new('TextBox')
-    SearchBox.Size = UDim2.new(1, -10, 1, -6)
-    SearchBox.Position = UDim2.new(0, 5, 0, 3)
+    SearchBox.Size = UDim2.new(1, -40, 1, -6)
+    SearchBox.Position = UDim2.new(0, 30, 0, 3)
     SearchBox.BackgroundTransparency = 1
-    SearchBox.PlaceholderText = "🔍 Search..."
+    SearchBox.PlaceholderText = "Search..."
     SearchBox.PlaceholderColor3 = Color3.fromRGB(155, 155, 155)
     SearchBox.Text = ""
     SearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -1022,12 +1042,12 @@ function Library:create_ui()
         LeftSection.Name = 'LeftSection'
         LeftSection.AutomaticCanvasSize = Enum.AutomaticSize.XY
         LeftSection.ScrollBarThickness = 0
-        LeftSection.Size = UDim2.new(0, 243, 0, 390)
+        LeftSection.Size = UDim2.new(0, 243, 0, 400)
         LeftSection.Selectable = false
         LeftSection.AnchorPoint = Vector2.new(0, 0.5)
         LeftSection.ScrollBarImageTransparency = 1
         LeftSection.BackgroundTransparency = 1
-        LeftSection.Position = UDim2.new(0.2594326436519623, 0, 0.56, 0)
+        LeftSection.Position = UDim2.new(0.2594326436519623, 0, 0.52, 0)
         LeftSection.BorderColor3 = Color3.fromRGB(0, 0, 0)
         LeftSection.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         LeftSection.BorderSizePixel = 0
@@ -1049,12 +1069,12 @@ function Library:create_ui()
         RightSection.Name = 'RightSection'
         RightSection.AutomaticCanvasSize = Enum.AutomaticSize.XY
         RightSection.ScrollBarThickness = 0
-        RightSection.Size = UDim2.new(0, 243, 0, 390)
+        RightSection.Size = UDim2.new(0, 243, 0, 400)
         RightSection.Selectable = false
         RightSection.AnchorPoint = Vector2.new(0, 0.5)
         RightSection.ScrollBarImageTransparency = 1
         RightSection.BackgroundTransparency = 1
-        RightSection.Position = UDim2.new(0.6290000081062317, 0, 0.56, 0)
+        RightSection.Position = UDim2.new(0.6290000081062317, 0, 0.52, 0)
         RightSection.BorderColor3 = Color3.fromRGB(0, 0, 0)
         RightSection.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         RightSection.BorderSizePixel = 0
