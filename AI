@@ -667,8 +667,9 @@ function Library:create_ui()
     SearchContainer.Name = 'SearchContainer'
     SearchContainer.Size = UDim2.new(0, 200, 0, 30)
     SearchContainer.Position = UDim2.new(0.26, 0, 0.02, 0)
-    SearchContainer.BackgroundColor3 = self._theme.module
-    SearchContainer.BackgroundTransparency = 0.3
+    SearchContainer.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
+    SearchContainer.BackgroundTransparency = 0.1
+    SearchContainer.ZIndex = 10
     SearchContainer.Parent = Handler
     
     local SearchCorner = Instance.new('UICorner')
@@ -676,22 +677,39 @@ function Library:create_ui()
     SearchCorner.Parent = SearchContainer
     
     local SearchStroke = Instance.new('UIStroke')
-    SearchStroke.Color = self._theme.stroke
-    SearchStroke.Transparency = 0.5
+    SearchStroke.Color = Color3.fromRGB(152, 181, 255)
+    SearchStroke.Transparency = 0.3
+    SearchStroke.Thickness = 2
     SearchStroke.Parent = SearchContainer
+    
+    -- Тень для поиска
+    local SearchShadow = Instance.new('ImageLabel')
+    SearchShadow.Name = 'Shadow'
+    SearchShadow.Size = UDim2.new(1, 20, 1, 20)
+    SearchShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+    SearchShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    SearchShadow.BackgroundTransparency = 1
+    SearchShadow.Image = 'rbxassetid://5554236805'
+    SearchShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    SearchShadow.ImageTransparency = 0.7
+    SearchShadow.ScaleType = Enum.ScaleType.Slice
+    SearchShadow.SliceCenter = Rect.new(23, 23, 277, 277)
+    SearchShadow.ZIndex = 9
+    SearchShadow.Parent = SearchContainer
     
     local SearchBox = Instance.new('TextBox')
     SearchBox.Size = UDim2.new(1, -10, 1, -6)
     SearchBox.Position = UDim2.new(0, 5, 0, 3)
     SearchBox.BackgroundTransparency = 1
     SearchBox.PlaceholderText = "🔍 Search..."
-    SearchBox.PlaceholderColor3 = self._theme.text_secondary
+    SearchBox.PlaceholderColor3 = Color3.fromRGB(155, 155, 155)
     SearchBox.Text = ""
-    SearchBox.TextColor3 = self._theme.text
+    SearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
     SearchBox.TextSize = 12
     SearchBox.Font = Enum.Font.GothamSemibold
     SearchBox.ClearTextOnFocus = false
     SearchBox.TextXAlignment = Enum.TextXAlignment.Left
+    SearchBox.ZIndex = 11
     SearchBox.Parent = SearchContainer
     
     local ClearButton = Instance.new('TextButton')
@@ -700,20 +718,22 @@ function Library:create_ui()
     ClearButton.AnchorPoint = Vector2.new(0, 0.5)
     ClearButton.BackgroundTransparency = 1
     ClearButton.Text = "✕"
-    ClearButton.TextColor3 = self._theme.error
+    ClearButton.TextColor3 = Color3.fromRGB(255, 100, 100)
     ClearButton.TextSize = 14
     ClearButton.Visible = false
+    ClearButton.ZIndex = 11
     ClearButton.Parent = SearchContainer
     
     -- Слайдеры для позиции поиска
     local SearchSettingsBtn = Instance.new('TextButton')
     SearchSettingsBtn.Size = UDim2.new(0, 25, 0, 25)
     SearchSettingsBtn.Position = UDim2.new(1, 5, 0, 0)
-    SearchSettingsBtn.BackgroundColor3 = self._theme.module
-    SearchSettingsBtn.BackgroundTransparency = 0.3
+    SearchSettingsBtn.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
+    SearchSettingsBtn.BackgroundTransparency = 0.1
     SearchSettingsBtn.Text = "⚙"
-    SearchSettingsBtn.TextColor3 = self._theme.accent
+    SearchSettingsBtn.TextColor3 = Color3.fromRGB(152, 181, 255)
     SearchSettingsBtn.TextSize = 14
+    SearchSettingsBtn.ZIndex = 10
     SearchSettingsBtn.Parent = SearchContainer
     
     local SettingsCorner = Instance.new('UICorner')
@@ -724,7 +744,7 @@ function Library:create_ui()
     SearchSettings.Name = 'SearchSettings'
     SearchSettings.Size = UDim2.new(0, 220, 0, 120)
     SearchSettings.Position = UDim2.new(0, 0, 1, 5)
-    SearchSettings.BackgroundColor3 = self._theme.module
+    SearchSettings.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
     SearchSettings.BackgroundTransparency = 0.1
     SearchSettings.Visible = false
     SearchSettings.ZIndex = 100
@@ -735,7 +755,7 @@ function Library:create_ui()
     SettingsFrameCorner.Parent = SearchSettings
     
     local SettingsStroke = Instance.new('UIStroke')
-    SettingsStroke.Color = self._theme.stroke
+    SettingsStroke.Color = Color3.fromRGB(52, 66, 89)
     SettingsStroke.Transparency = 0.5
     SettingsStroke.Parent = SearchSettings
     
@@ -745,7 +765,7 @@ function Library:create_ui()
     SettingsTitle.Position = UDim2.new(0, 0, 0, 5)
     SettingsTitle.BackgroundTransparency = 1
     SettingsTitle.Text = "Search Position"
-    SettingsTitle.TextColor3 = self._theme.accent
+    SettingsTitle.TextColor3 = Color3.fromRGB(152, 181, 255)
     SettingsTitle.TextSize = 13
     SettingsTitle.Font = Enum.Font.GothamSemibold
     SettingsTitle.Parent = SearchSettings
@@ -756,7 +776,7 @@ function Library:create_ui()
     XLabel.Position = UDim2.new(0, 10, 0, 35)
     XLabel.BackgroundTransparency = 1
     XLabel.Text = "X:"
-    XLabel.TextColor3 = self._theme.text
+    XLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     XLabel.TextSize = 11
     XLabel.Font = Enum.Font.Gotham
     XLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -765,7 +785,7 @@ function Library:create_ui()
     local XSliderBG = Instance.new('Frame')
     XSliderBG.Size = UDim2.new(0, 160, 0, 6)
     XSliderBG.Position = UDim2.new(0, 45, 0, 42)
-    XSliderBG.BackgroundColor3 = self._theme.module_secondary
+    XSliderBG.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
     XSliderBG.BorderSizePixel = 0
     XSliderBG.Parent = SearchSettings
     
@@ -775,7 +795,7 @@ function Library:create_ui()
     
     local XSliderFill = Instance.new('Frame')
     XSliderFill.Size = UDim2.new(0.26, 0, 1, 0)
-    XSliderFill.BackgroundColor3 = self._theme.accent
+    XSliderFill.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
     XSliderFill.BorderSizePixel = 0
     XSliderFill.Parent = XSliderBG
     
@@ -787,7 +807,7 @@ function Library:create_ui()
     XSliderDot.Size = UDim2.new(0, 14, 0, 14)
     XSliderDot.Position = UDim2.new(0.26, 0, 0.5, 0)
     XSliderDot.AnchorPoint = Vector2.new(0.5, 0.5)
-    XSliderDot.BackgroundColor3 = self._theme.accent
+    XSliderDot.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
     XSliderDot.BorderSizePixel = 0
     XSliderDot.Parent = XSliderBG
     
@@ -801,7 +821,7 @@ function Library:create_ui()
     YLabel.Position = UDim2.new(0, 10, 0, 70)
     YLabel.BackgroundTransparency = 1
     YLabel.Text = "Y:"
-    YLabel.TextColor3 = self._theme.text
+    YLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     YLabel.TextSize = 11
     YLabel.Font = Enum.Font.Gotham
     YLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -810,7 +830,7 @@ function Library:create_ui()
     local YSliderBG = Instance.new('Frame')
     YSliderBG.Size = UDim2.new(0, 160, 0, 6)
     YSliderBG.Position = UDim2.new(0, 45, 0, 77)
-    YSliderBG.BackgroundColor3 = self._theme.module_secondary
+    YSliderBG.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
     YSliderBG.BorderSizePixel = 0
     YSliderBG.Parent = SearchSettings
     
@@ -820,7 +840,7 @@ function Library:create_ui()
     
     local YSliderFill = Instance.new('Frame')
     YSliderFill.Size = UDim2.new(0.02, 0, 1, 0)
-    YSliderFill.BackgroundColor3 = self._theme.accent
+    YSliderFill.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
     YSliderFill.BorderSizePixel = 0
     YSliderFill.Parent = YSliderBG
     
@@ -832,7 +852,7 @@ function Library:create_ui()
     YSliderDot.Size = UDim2.new(0, 14, 0, 14)
     YSliderDot.Position = UDim2.new(0.02, 0, 0.5, 0)
     YSliderDot.AnchorPoint = Vector2.new(0.5, 0.5)
-    YSliderDot.BackgroundColor3 = self._theme.accent
+    YSliderDot.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
     YSliderDot.BorderSizePixel = 0
     YSliderDot.Parent = YSliderBG
     
