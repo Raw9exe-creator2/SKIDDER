@@ -1138,7 +1138,7 @@ function Library:create_ui()
             Module.Parent = settings.section
             
             -- Регистрация модуля для поиска
-            self:register_module(Module, settings.title or "Module")
+            Library:register_module(Module, settings.title or "Module")
 
             local UIListLayout = Instance.new('UIListLayout')
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
