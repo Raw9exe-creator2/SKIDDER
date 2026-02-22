@@ -344,10 +344,22 @@ local Library = {
 Library.__index = Library
 
 
-function Library.new()
+function Library.new(search_settings)
+    search_settings = search_settings or {}
+    
     local self = setmetatable({
         _loaded = false,
         _tab = 0,
+        _search_settings = {
+            enabled = search_settings.enabled ~= false,
+            position_x = search_settings.position_x or 0.5,
+            position_y = search_settings.position_y or 0.04,
+            offset_x = search_settings.offset_x or -200,
+            offset_y = search_settings.offset_y or 0,
+            width = search_settings.width or 400,
+            height = search_settings.height or 32,
+            transparency = search_settings.transparency or 0.5
+        }
     }, Library)
     
     self:create_ui()
@@ -663,79 +675,86 @@ function Library:create_ui()
     UIScale.Parent = Container
     
     -- ============= СТРОКА ПОИСКА (ВИЗУАЛЬНО) =============
-    local SearchContainer = Instance.new('Frame')
-    SearchContainer.Name = 'SearchContainer'
-    SearchContainer.Size = UDim2.new(0, 400, 0, 32)
-    SearchContainer.Position = UDim2.new(0.5, -200, 0.04, 0)
-    SearchContainer.BackgroundColor3 = Color3.fromRGB(20, 24, 32)
-    SearchContainer.BackgroundTransparency = 0.5
-    SearchContainer.ZIndex = 100
-    SearchContainer.Parent = Handler
-    
-    local SearchCorner = Instance.new('UICorner')
-    SearchCorner.CornerRadius = UDim.new(0, 6)
-    SearchCorner.Parent = SearchContainer
-    
-    local SearchStroke = Instance.new('UIStroke')
-    SearchStroke.Color = Color3.fromRGB(60, 70, 90)
-    SearchStroke.Transparency = 0.8
-    SearchStroke.Thickness = 1
-    SearchStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-    SearchStroke.Parent = SearchContainer
-    
-    -- Иконка поиска
-    local SearchIcon = Instance.new('ImageLabel')
-    SearchIcon.Name = 'SearchIcon'
-    SearchIcon.Size = UDim2.new(0, 16, 0, 16)
-    SearchIcon.Position = UDim2.new(0, 10, 0.5, 0)
-    SearchIcon.AnchorPoint = Vector2.new(0, 0.5)
-    SearchIcon.BackgroundTransparency = 1
-    SearchIcon.Image = 'rbxassetid://10747381992'
-    SearchIcon.ImageColor3 = Color3.fromRGB(120, 130, 150)
-    SearchIcon.ImageTransparency = 0.3
-    SearchIcon.ZIndex = 101
-    SearchIcon.Parent = SearchContainer
-    
-    local SearchBox = Instance.new('TextBox')
-    SearchBox.Size = UDim2.new(1, -60, 1, 0)
-    SearchBox.Position = UDim2.new(0, 32, 0, 0)
-    SearchBox.BackgroundTransparency = 1
-    SearchBox.PlaceholderText = "Search modules..."
-    SearchBox.PlaceholderColor3 = Color3.fromRGB(100, 110, 130)
-    SearchBox.Text = ""
-    SearchBox.TextColor3 = Color3.fromRGB(200, 210, 230)
-    SearchBox.TextSize = 13
-    SearchBox.Font = Enum.Font.Gotham
-    SearchBox.ClearTextOnFocus = false
-    SearchBox.TextXAlignment = Enum.TextXAlignment.Left
-    SearchBox.ZIndex = 101
-    SearchBox.Parent = SearchContainer
-    
-    -- Кнопка X для очистки
-    local ClearButton = Instance.new('TextButton')
-    ClearButton.Size = UDim2.new(0, 24, 0, 24)
-    ClearButton.Position = UDim2.new(1, -28, 0.5, 0)
-    ClearButton.AnchorPoint = Vector2.new(0, 0.5)
-    ClearButton.BackgroundTransparency = 1
-    ClearButton.Text = "×"
-    ClearButton.TextColor3 = Color3.fromRGB(150, 160, 180)
-    ClearButton.TextSize = 18
-    ClearButton.Font = Enum.Font.GothamBold
-    ClearButton.Visible = false
-    ClearButton.ZIndex = 101
-    ClearButton.Parent = SearchContainer
-    
-    -- Показать/скрыть кнопку X
-    SearchBox.Changed:Connect(function(prop)
-        if prop == "Text" then
-            ClearButton.Visible = SearchBox.Text ~= ""
-        end
-    end)
-    
-    -- Очистка текста
-    ClearButton.MouseButton1Click:Connect(function()
+    if self._search_settings.enabled then
+        local SearchContainer = Instance.new('Frame')
+        SearchContainer.Name = 'SearchContainer'
+        SearchContainer.Size = UDim2.new(0, self._search_settings.width, 0, self._search_settings.height)
+        SearchContainer.Position = UDim2.new(
+            self._search_settings.position_x, 
+            self._search_settings.offset_x, 
+            self._search_settings.position_y, 
+            self._search_settings.offset_y
+        )
+        SearchContainer.BackgroundColor3 = Color3.fromRGB(20, 24, 32)
+        SearchContainer.BackgroundTransparency = self._search_settings.transparency
+        SearchContainer.ZIndex = 100
+        SearchContainer.Parent = Handler
+        
+        local SearchCorner = Instance.new('UICorner')
+        SearchCorner.CornerRadius = UDim.new(0, 6)
+        SearchCorner.Parent = SearchContainer
+        
+        local SearchStroke = Instance.new('UIStroke')
+        SearchStroke.Color = Color3.fromRGB(60, 70, 90)
+        SearchStroke.Transparency = 0.8
+        SearchStroke.Thickness = 1
+        SearchStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        SearchStroke.Parent = SearchContainer
+        
+        -- Иконка поиска
+        local SearchIcon = Instance.new('ImageLabel')
+        SearchIcon.Name = 'SearchIcon'
+        SearchIcon.Size = UDim2.new(0, 16, 0, 16)
+        SearchIcon.Position = UDim2.new(0, 10, 0.5, 0)
+        SearchIcon.AnchorPoint = Vector2.new(0, 0.5)
+        SearchIcon.BackgroundTransparency = 1
+        SearchIcon.Image = 'rbxassetid://10747381992'
+        SearchIcon.ImageColor3 = Color3.fromRGB(120, 130, 150)
+        SearchIcon.ImageTransparency = 0.3
+        SearchIcon.ZIndex = 101
+        SearchIcon.Parent = SearchContainer
+        
+        local SearchBox = Instance.new('TextBox')
+        SearchBox.Size = UDim2.new(1, -60, 1, 0)
+        SearchBox.Position = UDim2.new(0, 32, 0, 0)
+        SearchBox.BackgroundTransparency = 1
+        SearchBox.PlaceholderText = "Search modules..."
+        SearchBox.PlaceholderColor3 = Color3.fromRGB(100, 110, 130)
         SearchBox.Text = ""
-    end)
+        SearchBox.TextColor3 = Color3.fromRGB(200, 210, 230)
+        SearchBox.TextSize = 13
+        SearchBox.Font = Enum.Font.Gotham
+        SearchBox.ClearTextOnFocus = false
+        SearchBox.TextXAlignment = Enum.TextXAlignment.Left
+        SearchBox.ZIndex = 101
+        SearchBox.Parent = SearchContainer
+        
+        -- Кнопка X для очистки
+        local ClearButton = Instance.new('TextButton')
+        ClearButton.Size = UDim2.new(0, 24, 0, 24)
+        ClearButton.Position = UDim2.new(1, -28, 0.5, 0)
+        ClearButton.AnchorPoint = Vector2.new(0, 0.5)
+        ClearButton.BackgroundTransparency = 1
+        ClearButton.Text = "×"
+        ClearButton.TextColor3 = Color3.fromRGB(150, 160, 180)
+        ClearButton.TextSize = 18
+        ClearButton.Font = Enum.Font.GothamBold
+        ClearButton.Visible = false
+        ClearButton.ZIndex = 101
+        ClearButton.Parent = SearchContainer
+        
+        -- Показать/скрыть кнопку X
+        SearchBox.Changed:Connect(function(prop)
+            if prop == "Text" then
+                ClearButton.Visible = SearchBox.Text ~= ""
+            end
+        end)
+        
+        -- Очистка текста
+        ClearButton.MouseButton1Click:Connect(function()
+            SearchBox.Text = ""
+        end)
+    end
     
     self._ui = March
 
