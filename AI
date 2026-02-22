@@ -662,7 +662,7 @@ function Library:create_ui()
     local UIScale = Instance.new('UIScale')
     UIScale.Parent = Container
     
-    -- ============= СТРОКА ПОИСКА =============
+    -- ============= СТРОКА ПОИСКА (ВИЗУАЛЬНО) =============
     local SearchContainer = Instance.new('Frame')
     SearchContainer.Name = 'SearchContainer'
     SearchContainer.Size = UDim2.new(0, 400, 0, 32)
@@ -725,76 +725,16 @@ function Library:create_ui()
     ClearButton.ZIndex = 101
     ClearButton.Parent = SearchContainer
     
-    -- Функция поиска модулей
-    self._all_modules = {}
-    
-    function self:register_module(module_frame, module_title)
-        table.insert(self._all_modules, {
-            frame = module_frame,
-            title = module_title:lower(),
-            original_title = module_title,
-            elements = {}
-        })
-    end
-    
-    function self:register_element_to_module(module_title, element_name)
-        for _, module in ipairs(self._all_modules) do
-            if module.original_title == module_title then
-                table.insert(module.elements, element_name:lower())
-                break
-            end
-        end
-    end
-    
-    function self:filter_modules(search_text)
-        search_text = search_text:lower()
-        
-        if search_text == "" then
-            -- Показать все модули
-            for _, module in ipairs(self._all_modules) do
-                if module.frame and module.frame.Parent then
-                    module.frame.Visible = true
-                end
-            end
-            return
-        end
-        
-        -- Фильтровать модули
-        for _, module in ipairs(self._all_modules) do
-            local should_show = false
-            
-            -- Проверка по названию модуля
-            if string.find(module.title, search_text) then
-                should_show = true
-            end
-            
-            -- Проверка по элементам внутри модуля
-            if not should_show then
-                for _, element_name in ipairs(module.elements) do
-                    if string.find(element_name, search_text) then
-                        should_show = true
-                        break
-                    end
-                end
-            end
-            
-            if module.frame and module.frame.Parent then
-                module.frame.Visible = should_show
-            end
-        end
-    end
-    
-    ClearButton.MouseButton1Click:Connect(function()
-        SearchBox.Text = ""
-        ClearButton.Visible = false
-        self:filter_modules("")
-    end)
-    
+    -- Показать/скрыть кнопку X
     SearchBox.Changed:Connect(function(prop)
         if prop == "Text" then
             ClearButton.Visible = SearchBox.Text ~= ""
-            self:filter_modules(SearchBox.Text)
         end
+    end)
+    
+    -- Очистка текста
+    ClearButton.MouseButton1Click:Connect(function()
+        SearchBox.Text = ""
     end)
     
     self._ui = March
@@ -1116,8 +1056,7 @@ function Library:create_ui()
             local ModuleManager = {
                 _state = false,
                 _size = 0,
-                _multiplier = 0,
-                _module_title = settings.title or "Module"
+                _multiplier = 0
             }
 
             if settings.section == 'right' then
@@ -1136,9 +1075,6 @@ function Library:create_ui()
             Module.BorderSizePixel = 0
             Module.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
             Module.Parent = settings.section
-            
-            -- Регистрация модуля для поиска
-            Library:register_module(Module, settings.title or "Module")
 
             local UIListLayout = Instance.new('UIListLayout')
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -1731,9 +1667,6 @@ function Library:create_ui()
                     Module.Size = UDim2.fromOffset(241, 93 + self._size)
                 end
                 Options.Size = UDim2.fromOffset(241, self._size)
-                
-                -- Регистрация элемента для поиска
-                Library:register_element_to_module(self._module_title, settings.title or "Checkbox")
             
                 local Checkbox = Instance.new("TextButton")
                 Checkbox.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
