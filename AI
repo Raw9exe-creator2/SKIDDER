@@ -665,140 +665,121 @@ function Library:create_ui()
     -- ============= СТРОКА ПОИСКА =============
     local SearchContainer = Instance.new('Frame')
     SearchContainer.Name = 'SearchContainer'
-    SearchContainer.Size = UDim2.new(0, 511, 0, 29)
-    SearchContainer.Position = UDim2.new(0.25, 0, 0.03, 0)
-    SearchContainer.BackgroundColor3 = Color3.fromRGB(18, 22, 30)
-    SearchContainer.BackgroundTransparency = 0.2
+    SearchContainer.Size = UDim2.new(0, 400, 0, 32)
+    SearchContainer.Position = UDim2.new(0.5, -200, 0.04, 0)
+    SearchContainer.BackgroundColor3 = Color3.fromRGB(20, 24, 32)
+    SearchContainer.BackgroundTransparency = 0.5
     SearchContainer.ZIndex = 100
     SearchContainer.Parent = Handler
     
     local SearchCorner = Instance.new('UICorner')
-    SearchCorner.CornerRadius = UDim.new(0, 8)
+    SearchCorner.CornerRadius = UDim.new(0, 6)
     SearchCorner.Parent = SearchContainer
     
-    -- Основная граница
     local SearchStroke = Instance.new('UIStroke')
-    SearchStroke.Color = Color3.fromRGB(100, 130, 200)
-    SearchStroke.Transparency = 0.4
+    SearchStroke.Color = Color3.fromRGB(60, 70, 90)
+    SearchStroke.Transparency = 0.8
     SearchStroke.Thickness = 1
     SearchStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     SearchStroke.Parent = SearchContainer
     
-    -- Неоновое свечение (внешнее)
-    local SearchGlowOuter = Instance.new('ImageLabel')
-    SearchGlowOuter.Name = 'GlowOuter'
-    SearchGlowOuter.Size = UDim2.new(1, 40, 1, 40)
-    SearchGlowOuter.Position = UDim2.new(0.5, 0, 0.5, 0)
-    SearchGlowOuter.AnchorPoint = Vector2.new(0.5, 0.5)
-    SearchGlowOuter.BackgroundTransparency = 1
-    SearchGlowOuter.Image = 'rbxassetid://5554236805'
-    SearchGlowOuter.ImageColor3 = Color3.fromRGB(100, 130, 200)
-    SearchGlowOuter.ImageTransparency = 0.6
-    SearchGlowOuter.ScaleType = Enum.ScaleType.Slice
-    SearchGlowOuter.SliceCenter = Rect.new(23, 23, 277, 277)
-    SearchGlowOuter.ZIndex = 98
-    SearchGlowOuter.Parent = SearchContainer
-    
-    -- Неоновое свечение (внутреннее)
-    local SearchGlowInner = Instance.new('ImageLabel')
-    SearchGlowInner.Name = 'GlowInner'
-    SearchGlowInner.Size = UDim2.new(1, 20, 1, 20)
-    SearchGlowInner.Position = UDim2.new(0.5, 0, 0.5, 0)
-    SearchGlowInner.AnchorPoint = Vector2.new(0.5, 0.5)
-    SearchGlowInner.BackgroundTransparency = 1
-    SearchGlowInner.Image = 'rbxassetid://5554236805'
-    SearchGlowInner.ImageColor3 = Color3.fromRGB(120, 150, 220)
-    SearchGlowInner.ImageTransparency = 0.4
-    SearchGlowInner.ScaleType = Enum.ScaleType.Slice
-    SearchGlowInner.SliceCenter = Rect.new(23, 23, 277, 277)
-    SearchGlowInner.ZIndex = 99
-    SearchGlowInner.Parent = SearchContainer
-    
-    -- Тень для поиска
-    local SearchShadow = Instance.new('ImageLabel')
-    SearchShadow.Name = 'Shadow'
-    SearchShadow.Size = UDim2.new(1, 30, 1, 30)
-    SearchShadow.Position = UDim2.new(0.5, 0, 0.5, 3)
-    SearchShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-    SearchShadow.BackgroundTransparency = 1
-    SearchShadow.Image = 'rbxassetid://5554236805'
-    SearchShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-    SearchShadow.ImageTransparency = 0.5
-    SearchShadow.ScaleType = Enum.ScaleType.Slice
-    SearchShadow.SliceCenter = Rect.new(23, 23, 277, 277)
-    SearchShadow.ZIndex = 97
-    SearchShadow.Parent = SearchContainer
-    
     -- Иконка поиска
     local SearchIcon = Instance.new('ImageLabel')
     SearchIcon.Name = 'SearchIcon'
-    SearchIcon.Size = UDim2.new(0, 18, 0, 18)
-    SearchIcon.Position = UDim2.new(0, 8, 0.5, 0)
+    SearchIcon.Size = UDim2.new(0, 16, 0, 16)
+    SearchIcon.Position = UDim2.new(0, 10, 0.5, 0)
     SearchIcon.AnchorPoint = Vector2.new(0, 0.5)
     SearchIcon.BackgroundTransparency = 1
     SearchIcon.Image = 'rbxassetid://10747381992'
-    SearchIcon.ImageColor3 = Color3.fromRGB(152, 181, 255)
+    SearchIcon.ImageColor3 = Color3.fromRGB(120, 130, 150)
+    SearchIcon.ImageTransparency = 0.3
     SearchIcon.ZIndex = 101
     SearchIcon.Parent = SearchContainer
     
     local SearchBox = Instance.new('TextBox')
-    SearchBox.Size = UDim2.new(1, -40, 1, -6)
-    SearchBox.Position = UDim2.new(0, 30, 0, 3)
+    SearchBox.Size = UDim2.new(1, -60, 1, 0)
+    SearchBox.Position = UDim2.new(0, 32, 0, 0)
     SearchBox.BackgroundTransparency = 1
-    SearchBox.PlaceholderText = "Search..."
-    SearchBox.PlaceholderColor3 = Color3.fromRGB(155, 155, 155)
+    SearchBox.PlaceholderText = "Search modules..."
+    SearchBox.PlaceholderColor3 = Color3.fromRGB(100, 110, 130)
     SearchBox.Text = ""
-    SearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-    SearchBox.TextSize = 14
-    SearchBox.Font = Enum.Font.GothamSemibold
+    SearchBox.TextColor3 = Color3.fromRGB(200, 210, 230)
+    SearchBox.TextSize = 13
+    SearchBox.Font = Enum.Font.Gotham
     SearchBox.ClearTextOnFocus = false
     SearchBox.TextXAlignment = Enum.TextXAlignment.Left
     SearchBox.ZIndex = 101
     SearchBox.Parent = SearchContainer
     
+    -- Кнопка X для очистки
     local ClearButton = Instance.new('TextButton')
-    ClearButton.Size = UDim2.new(0, 20, 0, 20)
-    ClearButton.Position = UDim2.new(1, -25, 0.5, 0)
+    ClearButton.Size = UDim2.new(0, 24, 0, 24)
+    ClearButton.Position = UDim2.new(1, -28, 0.5, 0)
     ClearButton.AnchorPoint = Vector2.new(0, 0.5)
     ClearButton.BackgroundTransparency = 1
-    ClearButton.Text = "✕"
-    ClearButton.TextColor3 = Color3.fromRGB(255, 100, 100)
-    ClearButton.TextSize = 14
+    ClearButton.Text = "×"
+    ClearButton.TextColor3 = Color3.fromRGB(150, 160, 180)
+    ClearButton.TextSize = 18
+    ClearButton.Font = Enum.Font.GothamBold
     ClearButton.Visible = false
     ClearButton.ZIndex = 101
     ClearButton.Parent = SearchContainer
     
-    -- Функция поиска
-    self._all_elements = {}
+    -- Функция поиска модулей
+    self._all_modules = {}
     
-    function self:add_to_search(element_type, element_name, element_object, module_name)
-        table.insert(self._all_elements, {
-            type = element_type,
-            name = element_name:lower(),
-            original_name = element_name,
-            object = element_object,
-            module = module_name,
-            visible = true
+    function self:register_module(module_frame, module_title)
+        table.insert(self._all_modules, {
+            frame = module_frame,
+            title = module_title:lower(),
+            original_title = module_title,
+            elements = {}
         })
     end
     
-    function self:filter_elements(search_text)
+    function self:register_element_to_module(module_title, element_name)
+        for _, module in ipairs(self._all_modules) do
+            if module.original_title == module_title then
+                table.insert(module.elements, element_name:lower())
+                break
+            end
+        end
+    end
+    
+    function self:filter_modules(search_text)
         search_text = search_text:lower()
-        for _, element in ipairs(self._all_elements) do
-            local match = false
-            if search_text == "" then
-                match = true
-            else
-                if string.find(element.name, search_text) or 
-                   string.find(element.type:lower(), search_text) or
-                   (element.module and string.find(element.module:lower(), search_text)) then
-                    match = true
+        
+        if search_text == "" then
+            -- Показать все модули
+            for _, module in ipairs(self._all_modules) do
+                if module.frame and module.frame.Parent then
+                    module.frame.Visible = true
+                end
+            end
+            return
+        end
+        
+        -- Фильтровать модули
+        for _, module in ipairs(self._all_modules) do
+            local should_show = false
+            
+            -- Проверка по названию модуля
+            if string.find(module.title, search_text) then
+                should_show = true
+            end
+            
+            -- Проверка по элементам внутри модуля
+            if not should_show then
+                for _, element_name in ipairs(module.elements) do
+                    if string.find(element_name, search_text) then
+                        should_show = true
+                        break
+                    end
                 end
             end
             
-            element.visible = match
-            if element.object and element.object.Parent then
-                element.object.Visible = match
+            if module.frame and module.frame.Parent then
+                module.frame.Visible = should_show
             end
         end
     end
@@ -806,13 +787,13 @@ function Library:create_ui()
     ClearButton.MouseButton1Click:Connect(function()
         SearchBox.Text = ""
         ClearButton.Visible = false
-        self:filter_elements("")
+        self:filter_modules("")
     end)
     
     SearchBox.Changed:Connect(function(prop)
         if prop == "Text" then
             ClearButton.Visible = SearchBox.Text ~= ""
-            self:filter_elements(SearchBox.Text)
+            self:filter_modules(SearchBox.Text)
         end
     end)
     
@@ -1135,7 +1116,8 @@ function Library:create_ui()
             local ModuleManager = {
                 _state = false,
                 _size = 0,
-                _multiplier = 0
+                _multiplier = 0,
+                _module_title = settings.title or "Module"
             }
 
             if settings.section == 'right' then
@@ -1154,6 +1136,9 @@ function Library:create_ui()
             Module.BorderSizePixel = 0
             Module.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
             Module.Parent = settings.section
+            
+            -- Регистрация модуля для поиска
+            self:register_module(Module, settings.title or "Module")
 
             local UIListLayout = Instance.new('UIListLayout')
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -1746,6 +1731,9 @@ function Library:create_ui()
                     Module.Size = UDim2.fromOffset(241, 93 + self._size)
                 end
                 Options.Size = UDim2.fromOffset(241, self._size)
+                
+                -- Регистрация элемента для поиска
+                Library:register_element_to_module(self._module_title, settings.title or "Checkbox")
             
                 local Checkbox = Instance.new("TextButton")
                 Checkbox.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
