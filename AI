@@ -352,13 +352,13 @@ function Library.new(search_settings)
         _tab = 0,
         _search_settings = {
             enabled = search_settings.enabled ~= false,
-            position_x = search_settings.position_x or 0.5,
-            position_y = search_settings.position_y or 0.04,
-            offset_x = search_settings.offset_x or -200,
-            offset_y = search_settings.offset_y or 0,
-            width = search_settings.width or 400,
-            height = search_settings.height or 32,
-            transparency = search_settings.transparency or 0.5
+            position_x = search_settings.position_x or 0.53,
+            position_y = search_settings.position_y or 0.10,
+            offset_x = search_settings.offset_x or -187,
+            offset_y = search_settings.offset_y or -31,
+            width = search_settings.width or 501,
+            height = search_settings.height or 20,
+            transparency = search_settings.transparency or 0.27
         }
     }, Library)
     
@@ -592,28 +592,51 @@ function Library:create_ui()
     UIListLayout.Parent = Tabs
     
     local ClientName = Instance.new('TextLabel')
-    ClientName.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
-    ClientName.TextColor3 = Color3.fromRGB(152, 181, 255)
-    ClientName.TextTransparency = 0.20000000298023224
-    ClientName.Text = 'March'
+    ClientName.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+    ClientName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ClientName.TextTransparency = 0
+    ClientName.Text = 'VODKA'
     ClientName.Name = 'ClientName'
-    ClientName.Size = UDim2.new(0, 31, 0, 13)
+    ClientName.Size = UDim2.new(0, 60, 0, 16)
     ClientName.AnchorPoint = Vector2.new(0, 0.5)
     ClientName.Position = UDim2.new(0.0560000017285347, 0, 0.054999999701976776, 0)
     ClientName.BackgroundTransparency = 1
     ClientName.TextXAlignment = Enum.TextXAlignment.Left
     ClientName.BorderSizePixel = 0
     ClientName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    ClientName.TextSize = 13
+    ClientName.TextSize = 15
     ClientName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     ClientName.Parent = Handler
     
     local UIGradient = Instance.new('UIGradient')
     UIGradient.Color = ColorSequence.new{
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(155, 155, 155)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 100, 150)),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(150, 100, 255)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 200, 255))
     }
     UIGradient.Parent = ClientName
+    
+    -- Анимация градиента
+    task.spawn(function()
+        while true do
+            for i = 0, 1, 0.01 do
+                if UIGradient and UIGradient.Parent then
+                    UIGradient.Offset = Vector2.new(i, 0)
+                    task.wait(0.03)
+                else
+                    break
+                end
+            end
+            for i = 1, 0, -0.01 do
+                if UIGradient and UIGradient.Parent then
+                    UIGradient.Offset = Vector2.new(i, 0)
+                    task.wait(0.03)
+                else
+                    break
+                end
+            end
+        end
+    end)
     
     local Pin = Instance.new('Frame')
     Pin.Name = 'Pin'
