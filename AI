@@ -21,12 +21,32 @@ function Library.new(config)
     self.MainFrame.Size = UDim2.new(0, 750, 0, 500)
     self.MainFrame.Position = UDim2.new(0.5, -375, 0.5, -250)
     self.MainFrame.BackgroundColor3 = Color3.fromRGB(18, 20, 24)
+    self.MainFrame.BackgroundTransparency = 0.1
     self.MainFrame.BorderSizePixel = 0
     self.MainFrame.Parent = self.ScreenGui
+    
+    local Shadow = Instance.new("ImageLabel")
+    Shadow.Name = "Shadow"
+    Shadow.Size = UDim2.new(1, 40, 1, 40)
+    Shadow.Position = UDim2.new(0, -20, 0, -20)
+    Shadow.BackgroundTransparency = 1
+    Shadow.Image = "rbxassetid://6014261993"
+    Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    Shadow.ImageTransparency = 0.5
+    Shadow.ScaleType = Enum.ScaleType.Slice
+    Shadow.SliceCenter = Rect.new(49, 49, 450, 450)
+    Shadow.ZIndex = 0
+    Shadow.Parent = self.MainFrame
     
     local UICorner = Instance.new("UICorner")
     UICorner.CornerRadius = UDim.new(0, 10)
     UICorner.Parent = self.MainFrame
+    
+    local UIStroke = Instance.new("UIStroke")
+    UIStroke.Color = Color3.fromRGB(60, 70, 90)
+    UIStroke.Transparency = 0.7
+    UIStroke.Thickness = 1
+    UIStroke.Parent = self.MainFrame
     
     self:CreateTopBar()
     self:CreateSidebar()
@@ -43,6 +63,29 @@ function Library:CreateTopBar()
     self.TopBar = Instance.new("Frame")
     self.TopBar.Name = "TopBar"
     self.TopBar.Size = UDim2.new(1, 0, 0, 50)
+    self.TopBar.BackgroundColor3 = Color3.fromRGB(15, 17, 21)
+    self.TopBar.BackgroundTransparency = 0.05
+    self.TopBar.BorderSizePixel = 0
+    self.TopBar.Parent = self.MainFrame
+    
+    local TopCorner = Instance.new("UICorner")
+    TopCorner.CornerRadius = UDim.new(0, 10)
+    TopCorner.Parent = self.TopBar
+    
+    local TopGradient = Instance.new("UIGradient")
+    TopGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(20, 22, 26)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 17, 21))
+    }
+    TopGradient.Rotation = 90
+    TopGradient.Parent = self.TopBar
+    
+    local TopStroke = Instance.new("UIStroke")
+    TopStroke.Color = Color3.fromRGB(40, 45, 55)
+    TopStroke.Transparency = 0.8
+    TopStroke.Thickness = 1
+    TopStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    TopStroke.Parent = self.TopBar
     self.TopBar.BackgroundColor3 = Color3.fromRGB(15, 17, 21)
     self.TopBar.BorderSizePixel = 0
     self.TopBar.Parent = self.MainFrame
@@ -100,6 +143,24 @@ function Library:CreateTopBar()
     local CloseCorner = Instance.new("UICorner")
     CloseCorner.CornerRadius = UDim.new(0, 8)
     CloseCorner.Parent = CloseButton
+    
+    local CloseStroke = Instance.new("UIStroke")
+    CloseStroke.Color = Color3.fromRGB(255, 80, 80)
+    CloseStroke.Transparency = 0.9
+    CloseStroke.Thickness = 1
+    CloseStroke.Parent = CloseButton
+    
+    CloseButton.MouseEnter:Connect(function()
+        TweenService:Create(CloseButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 60, 60)}):Play()
+        TweenService:Create(CloseButton, TweenInfo.new(0.2), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+        TweenService:Create(CloseStroke, TweenInfo.new(0.2), {Transparency = 0.5}):Play()
+    end)
+    
+    CloseButton.MouseLeave:Connect(function()
+        TweenService:Create(CloseButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(25, 28, 32)}):Play()
+        TweenService:Create(CloseButton, TweenInfo.new(0.2), {TextColor3 = Color3.fromRGB(200, 200, 200)}):Play()
+        TweenService:Create(CloseStroke, TweenInfo.new(0.2), {Transparency = 0.9}):Play()
+    end)
     
     CloseButton.MouseButton1Click:Connect(function()
         self.ScreenGui:Destroy()
@@ -561,3 +622,172 @@ function Library:CreateModule(subTab, config)
 end
 
 return Library
+
+
+function Library:AddCheckbox(module, config)
+    local Checkbox = {}
+    
+    local CheckboxFrame = Instance.new("Frame")
+    CheckboxFrame.Size = UDim2.new(1, 0, 0, 35)
+    CheckboxFrame.BackgroundColor3 = Color3.fromRGB(30, 33, 37)
+    CheckboxFrame.BorderSizePixel = 0
+    CheckboxFrame.Parent = module.ElementContainer
+    
+    local CheckCorner = Instance.new("UICorner")
+    CheckCorner.CornerRadius = UDim.new(0, 8)
+    CheckCorner.Parent = CheckboxFrame
+    
+    local CheckButton = Instance.new("TextButton")
+    CheckButton.Size = UDim2.new(0, 22, 0, 22)
+    CheckButton.Position = UDim2.new(0, 10, 0.5, -11)
+    CheckButton.BackgroundColor3 = Color3.fromRGB(40, 43, 47)
+    CheckButton.BorderSizePixel = 0
+    CheckButton.Text = ""
+    CheckButton.Parent = CheckboxFrame
+    
+    local ButtonCorner = Instance.new("UICorner")
+    ButtonCorner.CornerRadius = UDim.new(0, 6)
+    ButtonCorner.Parent = CheckButton
+    
+    local CheckIcon = Instance.new("TextLabel")
+    CheckIcon.Size = UDim2.new(1, 0, 1, 0)
+    CheckIcon.BackgroundTransparency = 1
+    CheckIcon.Text = "✓"
+    CheckIcon.TextColor3 = Color3.fromRGB(255, 255, 255)
+    CheckIcon.TextSize = 16
+    CheckIcon.Font = Enum.Font.GothamBold
+    CheckIcon.Visible = false
+    CheckIcon.Parent = CheckButton
+    
+    local CheckLabel = Instance.new("TextLabel")
+    CheckLabel.Size = UDim2.new(1, -45, 1, 0)
+    CheckLabel.Position = UDim2.new(0, 40, 0, 0)
+    CheckLabel.BackgroundTransparency = 1
+    CheckLabel.Text = config.Name or "Checkbox"
+    CheckLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+    CheckLabel.TextSize = 13
+    CheckLabel.Font = Enum.Font.Gotham
+    CheckLabel.TextXAlignment = Enum.TextXAlignment.Left
+    CheckLabel.Parent = CheckboxFrame
+    
+    local checked = config.Default or false
+    
+    if checked then
+        CheckButton.BackgroundColor3 = Color3.fromRGB(100, 120, 255)
+        CheckIcon.Visible = true
+    end
+    
+    CheckButton.MouseButton1Click:Connect(function()
+        checked = not checked
+        if checked then
+            TweenService:Create(CheckButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(100, 120, 255)}):Play()
+            CheckIcon.Visible = true
+        else
+            TweenService:Create(CheckButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 43, 47)}):Play()
+            CheckIcon.Visible = false
+        end
+        if config.Callback then
+            config.Callback(checked)
+        end
+    end)
+    
+    return Checkbox
+end
+
+
+function Library:AddSlider(module, config)
+    local Slider = {}
+    
+    local SliderFrame = Instance.new("Frame")
+    SliderFrame.Size = UDim2.new(1, 0, 0, 50)
+    SliderFrame.BackgroundColor3 = Color3.fromRGB(30, 33, 37)
+    SliderFrame.BorderSizePixel = 0
+    SliderFrame.Parent = module.ElementContainer
+    
+    local SliderCorner = Instance.new("UICorner")
+    SliderCorner.CornerRadius = UDim.new(0, 8)
+    SliderCorner.Parent = SliderFrame
+    
+    local SliderLabel = Instance.new("TextLabel")
+    SliderLabel.Size = UDim2.new(0.7, 0, 0, 20)
+    SliderLabel.Position = UDim2.new(0, 10, 0, 8)
+    SliderLabel.BackgroundTransparency = 1
+    SliderLabel.Text = config.Name or "Slider"
+    SliderLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+    SliderLabel.TextSize = 13
+    SliderLabel.Font = Enum.Font.Gotham
+    SliderLabel.TextXAlignment = Enum.TextXAlignment.Left
+    SliderLabel.Parent = SliderFrame
+    
+    local ValueLabel = Instance.new("TextLabel")
+    ValueLabel.Size = UDim2.new(0.3, -10, 0, 20)
+    ValueLabel.Position = UDim2.new(0.7, 0, 0, 8)
+    ValueLabel.BackgroundTransparency = 1
+    ValueLabel.Text = tostring(config.Default or config.Min)
+    ValueLabel.TextColor3 = Color3.fromRGB(100, 120, 255)
+    ValueLabel.TextSize = 13
+    ValueLabel.Font = Enum.Font.GothamBold
+    ValueLabel.TextXAlignment = Enum.TextXAlignment.Right
+    ValueLabel.Parent = SliderFrame
+    
+    local SliderBar = Instance.new("Frame")
+    SliderBar.Size = UDim2.new(1, -20, 0, 6)
+    SliderBar.Position = UDim2.new(0, 10, 1, -14)
+    SliderBar.BackgroundColor3 = Color3.fromRGB(40, 43, 47)
+    SliderBar.BorderSizePixel = 0
+    SliderBar.Parent = SliderFrame
+    
+    local BarCorner = Instance.new("UICorner")
+    BarCorner.CornerRadius = UDim.new(1, 0)
+    BarCorner.Parent = SliderBar
+    
+    local SliderFill = Instance.new("Frame")
+    SliderFill.Size = UDim2.new(0, 0, 1, 0)
+    SliderFill.BackgroundColor3 = Color3.fromRGB(100, 120, 255)
+    SliderFill.BorderSizePixel = 0
+    SliderFill.Parent = SliderBar
+    
+    local FillCorner = Instance.new("UICorner")
+    FillCorner.CornerRadius = UDim.new(1, 0)
+    FillCorner.Parent = SliderFill
+    
+    local dragging = false
+    local value = config.Default or config.Min
+    local min = config.Min or 0
+    local max = config.Max or 100
+    
+    local function UpdateSlider(input)
+        local pos = math.clamp((input.Position.X - SliderBar.AbsolutePosition.X) / SliderBar.AbsoluteSize.X, 0, 1)
+        value = math.floor(min + (max - min) * pos)
+        ValueLabel.Text = tostring(value) .. (config.Suffix or "")
+        SliderFill.Size = UDim2.new(pos, 0, 1, 0)
+        if config.Callback then
+            config.Callback(value)
+        end
+    end
+    
+    SliderBar.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            UpdateSlider(input)
+        end
+    end)
+    
+    SliderBar.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end)
+    
+    UserInputService.InputChanged:Connect(function(input)
+        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            UpdateSlider(input)
+        end
+    end)
+    
+    local initialPos = (value - min) / (max - min)
+    SliderFill.Size = UDim2.new(initialPos, 0, 1, 0)
+    ValueLabel.Text = tostring(value) .. (config.Suffix or "")
+    
+    return Slider
+end
