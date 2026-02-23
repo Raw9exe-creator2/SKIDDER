@@ -644,6 +644,66 @@ function Library:create_ui()
     Sections.Name = 'Sections'
     Sections.Parent = Handler
     
+    local SearchBox = Instance.new('TextBox')
+    SearchBox.Name = 'SearchBox'
+    SearchBox.Size = UDim2.new(0, 200, 0, 30)
+    SearchBox.Position = UDim2.new(0.37, 0, 0.02, 0)
+    SearchBox.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
+    SearchBox.BackgroundTransparency = 0.3
+    SearchBox.BorderSizePixel = 0
+    SearchBox.PlaceholderText = "Search modules..."
+    SearchBox.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
+    SearchBox.Text = ""
+    SearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SearchBox.TextSize = 11
+    SearchBox.Font = Enum.Font.Gotham
+    SearchBox.ClearTextOnFocus = false
+    SearchBox.ZIndex = 10
+    SearchBox.Parent = Handler
+    
+    local SearchCorner = Instance.new('UICorner')
+    SearchCorner.CornerRadius = UDim.new(0, 6)
+    SearchCorner.Parent = SearchBox
+    
+    local SearchIcon = Instance.new('ImageLabel')
+    SearchIcon.Size = UDim2.fromOffset(16, 16)
+    SearchIcon.Position = UDim2.fromOffset(8, 7)
+    SearchIcon.BackgroundTransparency = 1
+    SearchIcon.Image = "rbxassetid://7072725342"
+    SearchIcon.ImageColor3 = Color3.fromRGB(152, 181, 255)
+    SearchIcon.ImageTransparency = 0.5
+    SearchIcon.ZIndex = 11
+    SearchIcon.Parent = SearchBox
+    
+    local SearchPadding = Instance.new('UIPadding')
+    SearchPadding.PaddingLeft = UDim.new(0, 28)
+    SearchPadding.PaddingRight = UDim.new(0, 8)
+    SearchPadding.Parent = SearchBox
+    
+    self._search_modules = {}
+    
+    function self:register_module(module_frame, module_name)
+        table.insert(self._search_modules, {
+            frame = module_frame,
+            name = module_name:lower()
+        })
+    end
+    
+    function self:filter_modules(query)
+        query = query:lower()
+        for _, module_data in ipairs(self._search_modules) do
+            if query == "" or module_data.name:find(query, 1, true) then
+                module_data.frame.Visible = true
+            else
+                module_data.frame.Visible = false
+            end
+        end
+    end
+    
+    SearchBox:GetPropertyChangedSignal("Text"):Connect(function()
+        self:filter_modules(SearchBox.Text)
+    end)
+    
     local Minimize = Instance.new('TextButton')
     Minimize.FontFace = Font.new('rbxasset://fonts/families/SourceSansPro.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal)
     Minimize.TextColor3 = Color3.fromRGB(0, 0, 0)
@@ -712,64 +772,6 @@ function Library:create_ui()
     PlayerDisplay.Font = Enum.Font.Gotham
     PlayerDisplay.TextTruncate = Enum.TextTruncate.AtEnd
     PlayerDisplay.Parent = PlayerInfo
-    
-    local SearchBox = Instance.new('TextBox')
-    SearchBox.Name = 'SearchBox'
-    SearchBox.Size = UDim2.new(0, 150, 0, 30)
-    SearchBox.Position = UDim2.new(0, 8, 0, 10)
-    SearchBox.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
-    SearchBox.BackgroundTransparency = 0.3
-    SearchBox.BorderSizePixel = 0
-    SearchBox.PlaceholderText = "Search modules..."
-    SearchBox.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
-    SearchBox.Text = ""
-    SearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-    SearchBox.TextSize = 11
-    SearchBox.Font = Enum.Font.Gotham
-    SearchBox.ClearTextOnFocus = false
-    SearchBox.Parent = Handler
-    
-    local SearchCorner = Instance.new('UICorner')
-    SearchCorner.CornerRadius = UDim.new(0, 6)
-    SearchCorner.Parent = SearchBox
-    
-    local SearchIcon = Instance.new('ImageLabel')
-    SearchIcon.Size = UDim2.fromOffset(16, 16)
-    SearchIcon.Position = UDim2.fromOffset(8, 7)
-    SearchIcon.BackgroundTransparency = 1
-    SearchIcon.Image = "rbxassetid://7072725342"
-    SearchIcon.ImageColor3 = Color3.fromRGB(152, 181, 255)
-    SearchIcon.ImageTransparency = 0.5
-    SearchIcon.Parent = SearchBox
-    
-    local SearchPadding = Instance.new('UIPadding')
-    SearchPadding.PaddingLeft = UDim.new(0, 28)
-    SearchPadding.PaddingRight = UDim.new(0, 8)
-    SearchPadding.Parent = SearchBox
-    
-    self._search_modules = {}
-    
-    function self:register_module(module_frame, module_name)
-        table.insert(self._search_modules, {
-            frame = module_frame,
-            name = module_name:lower()
-        })
-    end
-    
-    function self:filter_modules(query)
-        query = query:lower()
-        for _, module_data in ipairs(self._search_modules) do
-            if query == "" or module_data.name:find(query, 1, true) then
-                module_data.frame.Visible = true
-            else
-                module_data.frame.Visible = false
-            end
-        end
-    end
-    
-    SearchBox:GetPropertyChangedSignal("Text"):Connect(function()
-        self:filter_modules(SearchBox.Text)
-    end)
     
     local UIScale = Instance.new('UIScale')
     UIScale.Parent = Container    
