@@ -345,12 +345,12 @@ local Library = {
     
     _current_theme = 1,
     _themes = {
-        {Name="Amethyst",Accent=Color3.fromRGB(147,112,219),Main=Color3.fromRGB(18,15,25),Border=Color3.fromRGB(70,50,90),Element=Color3.fromRGB(28,22,40),Text=Color3.fromRGB(240,235,250),SubText=Color3.fromRGB(170,150,200),SelectedTab=Color3.fromRGB(35,25,50),EnabledToggle=Color3.fromRGB(147,112,219),SliderFill=Color3.fromRGB(147,112,219),PickerBg=Color3.fromRGB(22,18,32)},
-        {Name="Aqua",Accent=Color3.fromRGB(64,224,208),Main=Color3.fromRGB(12,20,25),Border=Color3.fromRGB(30,70,80),Element=Color3.fromRGB(18,30,38),Text=Color3.fromRGB(235,250,255),SubText=Color3.fromRGB(140,190,200),SelectedTab=Color3.fromRGB(20,35,42),EnabledToggle=Color3.fromRGB(64,224,208),SliderFill=Color3.fromRGB(64,224,208),PickerBg=Color3.fromRGB(15,25,30)},
-        {Name="Dark",Accent=Color3.fromRGB(100,149,237),Main=Color3.fromRGB(15,15,18),Border=Color3.fromRGB(40,40,45),Element=Color3.fromRGB(22,22,26),Text=Color3.fromRGB(240,240,245),SubText=Color3.fromRGB(150,150,160),SelectedTab=Color3.fromRGB(25,25,30),EnabledToggle=Color3.fromRGB(100,149,237),SliderFill=Color3.fromRGB(100,149,237),PickerBg=Color3.fromRGB(18,18,22)},
-        {Name="Sunset",Accent=Color3.fromRGB(255,140,105),Main=Color3.fromRGB(25,18,20),Border=Color3.fromRGB(80,50,60),Element=Color3.fromRGB(38,25,30),Text=Color3.fromRGB(255,235,230),SubText=Color3.fromRGB(210,170,160),SelectedTab=Color3.fromRGB(42,28,32),EnabledToggle=Color3.fromRGB(255,140,105),SliderFill=Color3.fromRGB(255,140,105),PickerBg=Color3.fromRGB(28,20,24)},
-        {Name="Forest",Accent=Color3.fromRGB(80,200,120),Main=Color3.fromRGB(15,22,18),Border=Color3.fromRGB(40,70,50),Element=Color3.fromRGB(22,35,28),Text=Color3.fromRGB(235,255,240),SubText=Color3.fromRGB(160,200,175),SelectedTab=Color3.fromRGB(25,38,30),EnabledToggle=Color3.fromRGB(80,200,120),SliderFill=Color3.fromRGB(80,200,120),PickerBg=Color3.fromRGB(18,28,22)},
-        {Name="Rose",Accent=Color3.fromRGB(255,105,180),Main=Color3.fromRGB(22,15,20),Border=Color3.fromRGB(80,50,70),Element=Color3.fromRGB(35,22,32),Text=Color3.fromRGB(255,235,245),SubText=Color3.fromRGB(220,170,200),SelectedTab=Color3.fromRGB(40,25,35),EnabledToggle=Color3.fromRGB(255,105,180),SliderFill=Color3.fromRGB(255,105,180),PickerBg=Color3.fromRGB(26,18,24)}
+        {Name="Amethyst",Accent=Color3.fromRGB(147,112,219),Main=Color3.fromRGB(18,15,25),Border=Color3.fromRGB(70,50,90),Element=Color3.fromRGB(28,22,40),Text=Color3.fromRGB(240,235,250),SubText=Color3.fromRGB(170,150,200),SelectedTab=Color3.fromRGB(35,25,50),EnabledToggle=Color3.fromRGB(147,112,219),SliderFill=Color3.fromRGB(147,112,219),PickerBg=Color3.fromRGB(22,18,32),Gradient1=Color3.fromRGB(120,90,180),Gradient2=Color3.fromRGB(180,140,255)},
+        {Name="Aqua",Accent=Color3.fromRGB(64,224,208),Main=Color3.fromRGB(12,20,25),Border=Color3.fromRGB(30,70,80),Element=Color3.fromRGB(18,30,38),Text=Color3.fromRGB(235,250,255),SubText=Color3.fromRGB(140,190,200),SelectedTab=Color3.fromRGB(20,35,42),EnabledToggle=Color3.fromRGB(64,224,208),SliderFill=Color3.fromRGB(64,224,208),PickerBg=Color3.fromRGB(15,25,30),Gradient1=Color3.fromRGB(50,180,170),Gradient2=Color3.fromRGB(80,255,240)},
+        {Name="Dark",Accent=Color3.fromRGB(100,149,237),Main=Color3.fromRGB(15,15,18),Border=Color3.fromRGB(40,40,45),Element=Color3.fromRGB(22,22,26),Text=Color3.fromRGB(240,240,245),SubText=Color3.fromRGB(150,150,160),SelectedTab=Color3.fromRGB(25,25,30),EnabledToggle=Color3.fromRGB(100,149,237),SliderFill=Color3.fromRGB(100,149,237),PickerBg=Color3.fromRGB(18,18,22),Gradient1=Color3.fromRGB(80,120,200),Gradient2=Color3.fromRGB(120,180,255)},
+        {Name="Sunset",Accent=Color3.fromRGB(255,140,105),Main=Color3.fromRGB(25,18,20),Border=Color3.fromRGB(80,50,60),Element=Color3.fromRGB(38,25,30),Text=Color3.fromRGB(255,235,230),SubText=Color3.fromRGB(210,170,160),SelectedTab=Color3.fromRGB(42,28,32),EnabledToggle=Color3.fromRGB(255,140,105),SliderFill=Color3.fromRGB(255,140,105),PickerBg=Color3.fromRGB(28,20,24),Gradient1=Color3.fromRGB(255,100,70),Gradient2=Color3.fromRGB(255,180,140)},
+        {Name="Forest",Accent=Color3.fromRGB(80,200,120),Main=Color3.fromRGB(15,22,18),Border=Color3.fromRGB(40,70,50),Element=Color3.fromRGB(22,35,28),Text=Color3.fromRGB(235,255,240),SubText=Color3.fromRGB(160,200,175),SelectedTab=Color3.fromRGB(25,38,30),EnabledToggle=Color3.fromRGB(80,200,120),SliderFill=Color3.fromRGB(80,200,120),PickerBg=Color3.fromRGB(18,28,22),Gradient1=Color3.fromRGB(60,160,100),Gradient2=Color3.fromRGB(100,240,150)},
+        {Name="Rose",Accent=Color3.fromRGB(255,105,180),Main=Color3.fromRGB(22,15,20),Border=Color3.fromRGB(80,50,70),Element=Color3.fromRGB(35,22,32),Text=Color3.fromRGB(255,235,245),SubText=Color3.fromRGB(220,170,200),SelectedTab=Color3.fromRGB(40,25,35),EnabledToggle=Color3.fromRGB(255,105,180),SliderFill=Color3.fromRGB(255,105,180),PickerBg=Color3.fromRGB(26,18,24),Gradient1=Color3.fromRGB(230,80,150),Gradient2=Color3.fromRGB(255,130,210)}
     }
 }
 Library.__index = Library
@@ -658,7 +658,7 @@ function Library:create_ui()
     
     local SearchBox = Instance.new('TextBox')
     SearchBox.Name = 'SearchBox'
-    SearchBox.Size = UDim2.new(0, 200, 0, 30)
+    SearchBox.Size = UDim2.new(0, 280, 0, 30)
     SearchBox.Position = UDim2.new(0.37, 0, 0.02, 0)
     SearchBox.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
     SearchBox.BackgroundTransparency = 0.3
@@ -677,19 +677,21 @@ function Library:create_ui()
     SearchCorner.CornerRadius = UDim.new(0, 6)
     SearchCorner.Parent = SearchBox
     
-    local SearchIcon = Instance.new('ImageLabel')
-    SearchIcon.Size = UDim2.fromOffset(16, 16)
-    SearchIcon.Position = UDim2.fromOffset(8, 7)
-    SearchIcon.BackgroundTransparency = 1
-    SearchIcon.Image = "rbxassetid://7072725342"
-    SearchIcon.ImageColor3 = Color3.fromRGB(152, 181, 255)
-    SearchIcon.ImageTransparency = 0.5
-    SearchIcon.ZIndex = 11
-    SearchIcon.Parent = SearchBox
+    local SearchGradient = Instance.new('UIGradient')
+    SearchGradient.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
+    })
+    SearchGradient.Rotation = 90
+    SearchGradient.Transparency = NumberSequence.new({
+        NumberSequenceKeypoint.new(0, 0.7),
+        NumberSequenceKeypoint.new(1, 0.8)
+    })
+    SearchGradient.Parent = SearchBox
     
     local SearchPadding = Instance.new('UIPadding')
-    SearchPadding.PaddingLeft = UDim.new(0, 28)
-    SearchPadding.PaddingRight = UDim.new(0, 8)
+    SearchPadding.PaddingLeft = UDim.new(0, 12)
+    SearchPadding.PaddingRight = UDim.new(0, 12)
     SearchPadding.Parent = SearchBox
     
     local function filter_modules(query)
@@ -854,7 +856,7 @@ function Library:create_ui()
                     obj.BackgroundColor3 = theme.Accent
                 end
             elseif obj:IsA('ImageLabel') then
-                if obj.Name == 'Icon' or obj.Name == 'PlayerIcon' or obj.Name == 'SearchIcon' then
+                if obj.Name == 'Icon' or obj.Name == 'PlayerIcon' then
                     obj.ImageColor3 = theme.Accent
                 end
             elseif obj:IsA('TextLabel') then
@@ -867,7 +869,8 @@ function Library:create_ui()
                 elseif obj.Name == 'Value' or obj.Name == 'CurrentOption' then
                     obj.TextColor3 = theme.Text
                 elseif obj.Parent and obj.Parent.Name == 'Tab' then
-                    if obj.Parent.BackgroundTransparency < 0.9 then
+                    local tab = obj.Parent
+                    if tab.BackgroundTransparency < 0.9 then
                         obj.TextColor3 = theme.Accent
                     else
                         obj.TextColor3 = theme.SubText
@@ -907,24 +910,73 @@ function Library:create_ui()
             elseif obj:IsA('UIGradient') then
                 if obj.Parent and (obj.Parent.Name == 'ClientName' or obj.Parent.Name == 'ModuleName') then
                     obj.Color = ColorSequence.new({
-                        ColorSequenceKeypoint.new(0, theme.Accent),
-                        ColorSequenceKeypoint.new(0.5, theme.Text),
-                        ColorSequenceKeypoint.new(1, theme.SubText)
+                        ColorSequenceKeypoint.new(0, theme.Gradient1),
+                        ColorSequenceKeypoint.new(0.5, theme.Accent),
+                        ColorSequenceKeypoint.new(1, theme.Gradient2)
                     })
                 elseif obj.Parent and obj.Parent.Parent and obj.Parent.Parent.Name == 'Tab' then
-                    obj.Color = ColorSequence.new({
-                        ColorSequenceKeypoint.new(0, theme.Text),
-                        ColorSequenceKeypoint.new(0.7, theme.SubText),
-                        ColorSequenceKeypoint.new(1, theme.Border)
-                    })
+                    local tab = obj.Parent.Parent
+                    if tab.BackgroundTransparency < 0.9 then
+                        obj.Color = ColorSequence.new({
+                            ColorSequenceKeypoint.new(0, theme.Accent),
+                            ColorSequenceKeypoint.new(0.7, theme.Gradient1),
+                            ColorSequenceKeypoint.new(1, theme.Gradient2)
+                        })
+                    else
+                        obj.Color = ColorSequence.new({
+                            ColorSequenceKeypoint.new(0, theme.Text),
+                            ColorSequenceKeypoint.new(0.7, theme.SubText),
+                            ColorSequenceKeypoint.new(1, theme.Border)
+                        })
+                    end
                 elseif obj.Parent and obj.Parent.Name == 'Fill' then
                     obj.Color = ColorSequence.new({
-                        ColorSequenceKeypoint.new(0, theme.SliderFill),
-                        ColorSequenceKeypoint.new(1, Color3.fromRGB(
-                            math.floor(theme.SliderFill.R * 255 * 0.6),
-                            math.floor(theme.SliderFill.G * 255 * 0.6),
-                            math.floor(theme.SliderFill.B * 255 * 0.6)
-                        ))
+                        ColorSequenceKeypoint.new(0, theme.Gradient1),
+                        ColorSequenceKeypoint.new(0.5, theme.SliderFill),
+                        ColorSequenceKeypoint.new(1, theme.Gradient2)
+                    })
+                elseif obj.Parent and obj.Parent.Name == 'SearchBox' then
+                    obj.Color = ColorSequence.new({
+                        ColorSequenceKeypoint.new(0, theme.Gradient1),
+                        ColorSequenceKeypoint.new(1, theme.Gradient2)
+                    })
+                    obj.Rotation = 90
+                    obj.Transparency = NumberSequence.new({
+                        NumberSequenceKeypoint.new(0, 0.85),
+                        NumberSequenceKeypoint.new(1, 0.9)
+                    })
+                elseif obj.Parent and obj.Parent.Name == 'Module' then
+                    obj.Color = ColorSequence.new({
+                        ColorSequenceKeypoint.new(0, theme.Element),
+                        ColorSequenceKeypoint.new(1, theme.Border)
+                    })
+                    obj.Rotation = 135
+                    obj.Transparency = NumberSequence.new({
+                        NumberSequenceKeypoint.new(0, 0.3),
+                        NumberSequenceKeypoint.new(1, 0.7)
+                    })
+                elseif obj.Parent and obj.Parent.Name == 'Button' then
+                    obj.Color = ColorSequence.new({
+                        ColorSequenceKeypoint.new(0, theme.Gradient1),
+                        ColorSequenceKeypoint.new(0.5, theme.Accent),
+                        ColorSequenceKeypoint.new(1, theme.Gradient2)
+                    })
+                    obj.Rotation = 45
+                elseif obj.Parent and (obj.Parent.Name == 'DoneButton' or obj.Parent.Name == 'CancelButton') then
+                    obj.Color = ColorSequence.new({
+                        ColorSequenceKeypoint.new(0, theme.Gradient1),
+                        ColorSequenceKeypoint.new(1, theme.Gradient2)
+                    })
+                    obj.Rotation = 90
+                elseif obj.Parent and obj.Parent.Name == 'PickerFrame' then
+                    obj.Color = ColorSequence.new({
+                        ColorSequenceKeypoint.new(0, theme.PickerBg),
+                        ColorSequenceKeypoint.new(1, theme.Element)
+                    })
+                    obj.Rotation = 180
+                    obj.Transparency = NumberSequence.new({
+                        NumberSequenceKeypoint.new(0, 0.2),
+                        NumberSequenceKeypoint.new(1, 0.5)
                     })
                 end
             end
@@ -935,6 +987,18 @@ function Library:create_ui()
             for _, notif in notifContainer:GetDescendants() do
                 if notif:IsA('Frame') and notif.Name == 'InnerFrame' then
                     notif.BackgroundColor3 = theme.Element
+                    local grad = notif:FindFirstChildOfClass('UIGradient')
+                    if grad then
+                        grad.Color = ColorSequence.new({
+                            ColorSequenceKeypoint.new(0, theme.Gradient1),
+                            ColorSequenceKeypoint.new(1, theme.Gradient2)
+                        })
+                        grad.Rotation = 45
+                        grad.Transparency = NumberSequence.new({
+                            NumberSequenceKeypoint.new(0, 0.8),
+                            NumberSequenceKeypoint.new(1, 0.9)
+                        })
+                    end
                 elseif notif:IsA('TextLabel') then
                     if notif.Name == 'Title' then
                         notif.TextColor3 = theme.Text
@@ -946,6 +1010,9 @@ function Library:create_ui()
                 end
             end
         end
+        
+        Library.SendNotification({title="Theme",text="Changed to "..theme.Name,duration=2})
+    end
         
         Library.SendNotification({title="Theme",text="Changed to "..theme.Name,duration=2})
     end
