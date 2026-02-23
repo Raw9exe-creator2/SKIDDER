@@ -18,10 +18,10 @@ function Library.new(config)
     
     self.MainFrame = Instance.new("Frame")
     self.MainFrame.Name = "MainFrame"
-    self.MainFrame.Size = UDim2.new(0, 750, 0, 500)
-    self.MainFrame.Position = UDim2.new(0.5, -375, 0.5, -250)
-    self.MainFrame.BackgroundColor3 = Color3.fromRGB(18, 20, 24)
-    self.MainFrame.BackgroundTransparency = 0.1
+    self.MainFrame.Size = UDim2.new(0, 820, 0, 520)
+    self.MainFrame.Position = UDim2.new(0.5, -410, 0.5, -260)
+    self.MainFrame.BackgroundColor3 = Color3.fromRGB(16, 18, 22)
+    self.MainFrame.BackgroundTransparency = 0.05
     self.MainFrame.BorderSizePixel = 0
     self.MainFrame.Parent = self.ScreenGui
     
@@ -170,16 +170,17 @@ end
 function Library:CreateSidebar()
     self.Sidebar = Instance.new("Frame")
     self.Sidebar.Name = "Sidebar"
-    self.Sidebar.Size = UDim2.new(0, 180, 1, -60)
-    self.Sidebar.Position = UDim2.new(0, 10, 0, 55)
+    self.Sidebar.Size = UDim2.new(0, 165, 1, -65)
+    self.Sidebar.Position = UDim2.new(0, 8, 0, 58)
     self.Sidebar.BackgroundTransparency = 1
     self.Sidebar.Parent = self.MainFrame
     
     self.TabContainer = Instance.new("ScrollingFrame")
-    self.TabContainer.Size = UDim2.new(1, 0, 1, -60)
+    self.TabContainer.Size = UDim2.new(1, 0, 1, -55)
     self.TabContainer.BackgroundTransparency = 1
     self.TabContainer.BorderSizePixel = 0
-    self.TabContainer.ScrollBarThickness = 0
+    self.TabContainer.ScrollBarThickness = 3
+    self.TabContainer.ScrollBarImageColor3 = Color3.fromRGB(80, 80, 80)
     self.TabContainer.Parent = self.Sidebar
     
     local TabLayout = Instance.new("UIListLayout")
@@ -242,15 +243,21 @@ end
 function Library:CreateContent()
     self.ContentArea = Instance.new("Frame")
     self.ContentArea.Name = "ContentArea"
-    self.ContentArea.Size = UDim2.new(1, -210, 1, -60)
-    self.ContentArea.Position = UDim2.new(0, 200, 0, 55)
-    self.ContentArea.BackgroundColor3 = Color3.fromRGB(20, 22, 26)
+    self.ContentArea.Size = UDim2.new(1, -188, 1, -65)
+    self.ContentArea.Position = UDim2.new(0, 181, 0, 58)
+    self.ContentArea.BackgroundColor3 = Color3.fromRGB(18, 20, 24)
     self.ContentArea.BorderSizePixel = 0
     self.ContentArea.Parent = self.MainFrame
     
     local ContentCorner = Instance.new("UICorner")
-    ContentCorner.CornerRadius = UDim.new(0, 10)
+    ContentCorner.CornerRadius = UDim.new(0, 8)
     ContentCorner.Parent = self.ContentArea
+    
+    local ContentStroke = Instance.new("UIStroke")
+    ContentStroke.Color = Color3.fromRGB(35, 40, 50)
+    ContentStroke.Transparency = 0.85
+    ContentStroke.Thickness = 1
+    ContentStroke.Parent = self.ContentArea
     
     self.SubTabBar = Instance.new("Frame")
     self.SubTabBar.Name = "SubTabBar"
@@ -275,16 +282,18 @@ function Library:CreateContent()
     SubTabLayout.Parent = self.SubTabContainer
     
     self.ModuleContainer = Instance.new("ScrollingFrame")
-    self.ModuleContainer.Size = UDim2.new(1, -20, 1, -60)
-    self.ModuleContainer.Position = UDim2.new(0, 10, 0, 50)
+    self.ModuleContainer.Size = UDim2.new(1, -16, 1, -55)
+    self.ModuleContainer.Position = UDim2.new(0, 8, 0, 48)
     self.ModuleContainer.BackgroundTransparency = 1
     self.ModuleContainer.BorderSizePixel = 0
-    self.ModuleContainer.ScrollBarThickness = 4
-    self.ModuleContainer.ScrollBarImageColor3 = Color3.fromRGB(60, 60, 60)
+    self.ModuleContainer.ScrollBarThickness = 3
+    self.ModuleContainer.ScrollBarImageColor3 = Color3.fromRGB(80, 80, 80)
     self.ModuleContainer.Parent = self.ContentArea
     
-    local ModuleLayout = Instance.new("UIListLayout")
-    ModuleLayout.Padding = UDim.new(0, 10)
+    local ModuleLayout = Instance.new("UIGridLayout")
+    ModuleLayout.CellSize = UDim2.new(0.48, 0, 0, 0)
+    ModuleLayout.CellPadding = UDim2.new(0.02, 0, 0, 8)
+    ModuleLayout.SortOrder = Enum.SortOrder.LayoutOrder
     ModuleLayout.Parent = self.ModuleContainer
     
     ModuleLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
@@ -488,15 +497,29 @@ function Library:CreateModule(subTab, config)
     
     local ModuleFrame = Instance.new("Frame")
     ModuleFrame.Name = Module.Name
-    ModuleFrame.Size = UDim2.new(1, 0, 0, 60)
-    ModuleFrame.BackgroundColor3 = Color3.fromRGB(25, 28, 32)
+    ModuleFrame.Size = UDim2.new(0.48, 0, 0, 55)
+    ModuleFrame.BackgroundColor3 = Color3.fromRGB(22, 24, 28)
     ModuleFrame.BorderSizePixel = 0
     ModuleFrame.Visible = false
     ModuleFrame.Parent = self.ModuleContainer
     
     local ModuleCorner = Instance.new("UICorner")
-    ModuleCorner.CornerRadius = UDim.new(0, 10)
+    ModuleCorner.CornerRadius = UDim.new(0, 8)
     ModuleCorner.Parent = ModuleFrame
+    
+    local ModuleStroke = Instance.new("UIStroke")
+    ModuleStroke.Color = Color3.fromRGB(40, 45, 55)
+    ModuleStroke.Transparency = 0.9
+    ModuleStroke.Thickness = 1
+    ModuleStroke.Parent = ModuleFrame
+    
+    local ModuleGradient = Instance.new("UIGradient")
+    ModuleGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 27, 31)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 22, 26))
+    }
+    ModuleGradient.Rotation = 45
+    ModuleGradient.Parent = ModuleFrame
     
     local ModuleHeader = Instance.new("Frame")
     ModuleHeader.Size = UDim2.new(1, 0, 0, 40)
