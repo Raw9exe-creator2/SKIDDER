@@ -659,6 +659,60 @@ function Library:create_ui()
     Minimize.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Minimize.Parent = Handler
     
+    local PlayerInfo = Instance.new('Frame')
+    PlayerInfo.Name = 'PlayerInfo'
+    PlayerInfo.Size = UDim2.new(0, 150, 0, 50)
+    PlayerInfo.Position = UDim2.new(0.026, 0, 1, -60)
+    PlayerInfo.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
+    PlayerInfo.BackgroundTransparency = 0.3
+    PlayerInfo.BorderSizePixel = 0
+    PlayerInfo.Parent = Handler
+    
+    local InfoCorner = Instance.new('UICorner')
+    InfoCorner.CornerRadius = UDim.new(0, 8)
+    InfoCorner.Parent = PlayerInfo
+    
+    local PlayerAvatar = Instance.new('ImageLabel')
+    PlayerAvatar.Name = 'Avatar'
+    PlayerAvatar.Size = UDim2.fromOffset(36, 36)
+    PlayerAvatar.Position = UDim2.fromOffset(7, 7)
+    PlayerAvatar.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+    PlayerAvatar.BorderSizePixel = 0
+    PlayerAvatar.Image = Players:GetUserThumbnailAsync(Players.LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size150x150)
+    PlayerAvatar.Parent = PlayerInfo
+    
+    local AvatarCorner = Instance.new('UICorner')
+    AvatarCorner.CornerRadius = UDim.new(1, 0)
+    AvatarCorner.Parent = PlayerAvatar
+    
+    local PlayerName = Instance.new('TextLabel')
+    PlayerName.Name = 'PlayerName'
+    PlayerName.Size = UDim2.new(1, -50, 0, 15)
+    PlayerName.Position = UDim2.fromOffset(48, 10)
+    PlayerName.BackgroundTransparency = 1
+    PlayerName.Text = Players.LocalPlayer.Name
+    PlayerName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    PlayerName.TextTransparency = 0.2
+    PlayerName.TextXAlignment = Enum.TextXAlignment.Left
+    PlayerName.TextSize = 12
+    PlayerName.Font = Enum.Font.GothamSemibold
+    PlayerName.TextTruncate = Enum.TextTruncate.AtEnd
+    PlayerName.Parent = PlayerInfo
+    
+    local PlayerDisplay = Instance.new('TextLabel')
+    PlayerDisplay.Name = 'DisplayName'
+    PlayerDisplay.Size = UDim2.new(1, -50, 0, 12)
+    PlayerDisplay.Position = UDim2.fromOffset(48, 26)
+    PlayerDisplay.BackgroundTransparency = 1
+    PlayerDisplay.Text = "@" .. Players.LocalPlayer.DisplayName
+    PlayerDisplay.TextColor3 = Color3.fromRGB(180, 180, 180)
+    PlayerDisplay.TextTransparency = 0.4
+    PlayerDisplay.TextXAlignment = Enum.TextXAlignment.Left
+    PlayerDisplay.TextSize = 10
+    PlayerDisplay.Font = Enum.Font.Gotham
+    PlayerDisplay.TextTruncate = Enum.TextTruncate.AtEnd
+    PlayerDisplay.Parent = PlayerInfo
+    
     local UIScale = Instance.new('UIScale')
     UIScale.Parent = Container    
     
