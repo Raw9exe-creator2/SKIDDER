@@ -766,6 +766,17 @@ function Library:create_ui()
     PlayerDisplay.TextTruncate = Enum.TextTruncate.AtEnd
     PlayerDisplay.Parent = PlayerInfo
     
+    local PlayerIcon = Instance.new('ImageLabel')
+    PlayerIcon.Name = 'PlayerIcon'
+    PlayerIcon.Size = UDim2.fromOffset(20, 20)
+    PlayerIcon.Position = UDim2.fromOffset(125, 15)
+    PlayerIcon.BackgroundTransparency = 1
+    PlayerIcon.Image = "rbxassetid://10734910430"
+    PlayerIcon.ImageColor3 = Color3.fromRGB(152, 181, 255)
+    PlayerIcon.ImageTransparency = 0.3
+    PlayerIcon.ScaleType = Enum.ScaleType.Fit
+    PlayerIcon.Parent = PlayerInfo
+    
     local UIScale = Instance.new('UIScale')
     UIScale.Parent = Container    
     
