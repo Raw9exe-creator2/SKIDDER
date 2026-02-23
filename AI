@@ -700,6 +700,27 @@ function Library:create_ui()
     -- ============= СТРОКА ПОИСКА (ФУНКЦИОНАЛЬНАЯ) =============
     self._all_modules = {}
     
+    -- Функции поиска (всегда доступны)
+    function self:register_module(module_frame, module_title)
+        table.insert(self._all_modules, {
+            frame = module_frame,
+            title = module_title:lower(),
+            original_title = module_title
+        })
+    end
+    
+    function self:filter_modules(search_text)
+        search_text = search_text:lower()
+        
+        for _, module in ipairs(self._all_modules) do
+            local should_show = search_text == "" or string.find(module.title, search_text, 1, true)
+            
+            if module.frame and module.frame.Parent then
+                module.frame.Visible = should_show
+            end
+        end
+    end
+    
     if self._search_settings.enabled then
         local SearchContainer = Instance.new('Frame')
         SearchContainer.Name = 'SearchContainer'
@@ -769,27 +790,6 @@ function Library:create_ui()
         ClearButton.Visible = SearchBox.Text ~= ""
         ClearButton.ZIndex = 101
         ClearButton.Parent = SearchContainer
-        
-        -- Функции поиска
-        function self:register_module(module_frame, module_title)
-            table.insert(self._all_modules, {
-                frame = module_frame,
-                title = module_title:lower(),
-                original_title = module_title
-            })
-        end
-        
-        function self:filter_modules(search_text)
-            search_text = search_text:lower()
-            
-            for _, module in ipairs(self._all_modules) do
-                local should_show = search_text == "" or string.find(module.title, search_text, 1, true)
-                
-                if module.frame and module.frame.Parent then
-                    module.frame.Visible = should_show
-                end
-            end
-        end
         
         -- Применить сохраненный поиск
         if SearchBox.Text ~= "" then
@@ -1152,7 +1152,7 @@ function Library:create_ui()
             Module.Parent = settings.section
             
             -- Регистрация модуля для поиска
-            Library:register_module(Module, settings.title or "Module")
+            self:register_module(Module, settings.title or "Module")
 
             local UIListLayout = Instance.new('UIListLayout')
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
