@@ -823,9 +823,17 @@ function Library:create_ui()
                     obj.BackgroundColor3 = theme.Accent
                 elseif obj.Name == 'InnerFrame' or obj.Name == 'PickerFrame' then
                     obj.BackgroundColor3 = theme.Element
+                elseif obj.Name == 'Header' or obj.Name == 'Handler' then
+                    obj.BackgroundColor3 = theme.Main
+                elseif obj.Name == 'Options' or obj.Name == 'Sections' then
+                    obj.BackgroundColor3 = theme.Main
+                elseif obj.Name == 'ColorCircle' then
+                    obj.BackgroundColor3 = theme.Accent
                 end
             elseif obj:IsA('ImageLabel') then
                 if obj.Name == 'Icon' or obj.Name == 'PlayerIcon' or obj.Name == 'SearchIcon' then
+                    obj.ImageColor3 = theme.Accent
+                elseif obj.Name == 'PlayerAvatar' then
                     obj.ImageColor3 = theme.Accent
                 end
             elseif obj:IsA('TextLabel') then
@@ -833,7 +841,7 @@ function Library:create_ui()
                     obj.TextColor3 = theme.Accent
                 elseif obj.Name == 'PlayerName' or obj.Name == 'Title' or obj.Name == 'Label' then
                     obj.TextColor3 = theme.Text
-                elseif obj.Name == 'Description' or obj.Name == 'PlayerDisplay' or obj.Name == 'SubText' then
+                elseif obj.Name == 'Description' or obj.Name == 'PlayerDisplay' or obj.Name == 'SubText' or obj.Name == 'HexLabel' then
                     obj.TextColor3 = theme.SubText
                 elseif obj.Parent and obj.Parent.Name == 'Tab' then
                     if obj.Parent.BackgroundTransparency < 0.9 then
@@ -841,14 +849,20 @@ function Library:create_ui()
                     else
                         obj.TextColor3 = theme.SubText
                     end
+                else
+                    obj.TextColor3 = theme.Text
                 end
             elseif obj:IsA('TextButton') then
                 if obj.Name == 'Tab' and obj.BackgroundTransparency < 0.9 then
                     obj.BackgroundColor3 = theme.Main
                 elseif obj.Name == 'Option' or obj.Name == 'Button' then
                     obj.BackgroundColor3 = theme.Element
+                    obj.TextColor3 = theme.Text
                 elseif obj.Name == 'DoneButton' or obj.Name == 'CancelButton' then
                     obj.BackgroundColor3 = theme.Accent
+                    obj.TextColor3 = theme.Text
+                elseif obj.Name == 'Colorpicker' or obj.Name == 'Keybind' or obj.Name == 'Toggle' or obj.Name == 'Checkbox' then
+                    obj.TextColor3 = theme.Text
                 end
             elseif obj:IsA('TextBox') then
                 if obj.Name == 'SearchBox' or obj.Name == 'Textbox' or obj.Name == 'HexInput' then
@@ -858,6 +872,20 @@ function Library:create_ui()
                 end
             elseif obj:IsA('UIStroke') then
                 obj.Color = theme.Border
+            elseif obj:IsA('UIGradient') then
+                if obj.Parent and (obj.Parent.Name == 'ClientName' or obj.Parent.Name == 'ModuleName') then
+                    obj.Color = ColorSequence.new({
+                        ColorSequenceKeypoint.new(0, theme.Accent),
+                        ColorSequenceKeypoint.new(0.5, theme.SubText),
+                        ColorSequenceKeypoint.new(1, theme.Border)
+                    })
+                elseif obj.Parent and obj.Parent.Parent and obj.Parent.Parent.Name == 'Tab' then
+                    obj.Color = ColorSequence.new({
+                        ColorSequenceKeypoint.new(0, theme.Text),
+                        ColorSequenceKeypoint.new(0.7, theme.SubText),
+                        ColorSequenceKeypoint.new(1, theme.Border)
+                    })
+                end
             end
         end
         
@@ -868,6 +896,8 @@ function Library:create_ui()
                     notif.BackgroundColor3 = theme.Element
                 elseif notif:IsA('TextLabel') then
                     notif.TextColor3 = theme.Text
+                elseif notif:IsA('UIStroke') then
+                    notif.Color = theme.Border
                 end
             end
         end
