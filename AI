@@ -341,7 +341,7 @@ function Library:SelectTab(tab)
     self.CurrentTab = tab
     
     if #tab.SubTabs > 0 then
-        tab:SelectSubTab(tab.SubTabs[1])
+        self:SelectSubTab(tab, tab.SubTabs[1])
     end
 end
 
@@ -389,7 +389,7 @@ function Library:CreateSubTab(tab, config)
     SubTab.Tab = tab
     
     SubTabButton.MouseButton1Click:Connect(function()
-        tab:SelectSubTab(SubTab)
+        tab.Library:SelectSubTab(tab, SubTab)
     end)
     
     table.insert(tab.SubTabs, SubTab)
