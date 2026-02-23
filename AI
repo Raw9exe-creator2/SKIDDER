@@ -2690,6 +2690,255 @@ function Library:create_ui()
                 end)
                 
                 return ButtonManager
+            end
+
+            function ModuleManager:create_colorpicker(settings: any)
+                LayoutOrderModule = LayoutOrderModule + 1
+                
+                local ColorpickerManager = {
+                    _color = settings.default or Color3.fromRGB(255, 255, 255)
+                }
+                
+                if self._size == 0 then
+                    self._size = 11
+                end
+                
+                self._size += 22
+                
+                if ModuleManager._state then
+                    Module.Size = UDim2.fromOffset(241, 93 + self._size)
+                end
+                
+                Options.Size = UDim2.fromOffset(241, self._size)
+                
+                local Colorpicker = Instance.new('TextButton')
+                Colorpicker.FontFace = Font.new('rbxasset://fonts/families/SourceSansPro.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+                Colorpicker.TextColor3 = Color3.fromRGB(0, 0, 0)
+                Colorpicker.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Colorpicker.Text = ''
+                Colorpicker.AutoButtonColor = false
+                Colorpicker.BackgroundTransparency = 1
+                Colorpicker.Name = 'Colorpicker'
+                Colorpicker.Size = UDim2.new(0, 207, 0, 17)
+                Colorpicker.BorderSizePixel = 0
+                Colorpicker.TextSize = 14
+                Colorpicker.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+                Colorpicker.Parent = Options
+                Colorpicker.LayoutOrder = LayoutOrderModule
+                
+                local Label = Instance.new('TextLabel')
+                Label.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+                Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Label.TextTransparency = 0.2
+                Label.Text = settings.title or "Color"
+                Label.Size = UDim2.new(0, 150, 0, 13)
+                Label.AnchorPoint = Vector2.new(0, 0.5)
+                Label.Position = UDim2.new(0, 0, 0.5, 0)
+                Label.BackgroundTransparency = 1
+                Label.TextXAlignment = Enum.TextXAlignment.Left
+                Label.BorderSizePixel = 0
+                Label.TextSize = 11
+                Label.Parent = Colorpicker
+                
+                local ColorBox = Instance.new('Frame')
+                ColorBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                ColorBox.AnchorPoint = Vector2.new(1, 0.5)
+                ColorBox.Position = UDim2.new(1, 0, 0.5, 0)
+                ColorBox.Name = 'ColorBox'
+                ColorBox.Size = UDim2.new(0, 30, 0, 15)
+                ColorBox.BorderSizePixel = 0
+                ColorBox.BackgroundColor3 = ColorpickerManager._color
+                ColorBox.Parent = Colorpicker
+                
+                local UICorner = Instance.new('UICorner')
+                UICorner.CornerRadius = UDim.new(0, 4)
+                UICorner.Parent = ColorBox
+                
+                local UIStroke = Instance.new('UIStroke')
+                UIStroke.Color = Color3.fromRGB(152, 181, 255)
+                UIStroke.Transparency = 0.5
+                UIStroke.Thickness = 1
+                UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+                UIStroke.Parent = ColorBox
+                
+                function ColorpickerManager:update_color(color: Color3)
+                    self._color = color
+                    ColorBox.BackgroundColor3 = color
+                    Library._config._flags[settings.flag] = {
+                        R = math.floor(color.R * 255),
+                        G = math.floor(color.G * 255),
+                        B = math.floor(color.B * 255)
+                    }
+                    Config:save(game.GameId, Library._config)
+                    settings.callback(color)
+                end
+                
+                if Library:flag_type(settings.flag, 'table') then
+                    local saved = Library._config._flags[settings.flag]
+                    if saved and saved.R and saved.G and saved.B then
+                        ColorpickerManager:update_color(Color3.fromRGB(saved.R, saved.G, saved.B))
+                    end
+                end
+                
+                Colorpicker.MouseButton1Click:Connect(function()
+                    local PickerFrame = Instance.new('Frame')
+                    PickerFrame.Name = 'ColorPickerFrame'
+                    PickerFrame.Size = UDim2.new(0, 200, 0, 150)
+                    PickerFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+                    PickerFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+                    PickerFrame.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
+                    PickerFrame.BorderSizePixel = 0
+                    PickerFrame.ZIndex = 1000
+                    PickerFrame.Parent = Library._ui
+                    
+                    local PickerCorner = Instance.new('UICorner')
+                    PickerCorner.CornerRadius = UDim.new(0, 8)
+                    PickerCorner.Parent = PickerFrame
+                    
+                    local PickerStroke = Instance.new('UIStroke')
+                    PickerStroke.Color = Color3.fromRGB(52, 66, 89)
+                    PickerStroke.Transparency = 0.5
+                    PickerStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+                    PickerStroke.Parent = PickerFrame
+                    
+                    local Title = Instance.new('TextLabel')
+                    Title.Text = settings.title or "Color Picker"
+                    Title.Size = UDim2.new(1, -20, 0, 25)
+                    Title.Position = UDim2.new(0, 10, 0, 5)
+                    Title.BackgroundTransparency = 1
+                    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    Title.TextXAlignment = Enum.TextXAlignment.Left
+                    Title.Font = Enum.Font.GothamSemibold
+                    Title.TextSize = 12
+                    Title.Parent = PickerFrame
+                    
+                    local CloseButton = Instance.new('TextButton')
+                    CloseButton.Text = "×"
+                    CloseButton.Size = UDim2.new(0, 25, 0, 25)
+                    CloseButton.Position = UDim2.new(1, -30, 0, 5)
+                    CloseButton.BackgroundTransparency = 1
+                    CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    CloseButton.Font = Enum.Font.GothamBold
+                    CloseButton.TextSize = 18
+                    CloseButton.Parent = PickerFrame
+                    
+                    local currentColor = ColorpickerManager._color
+                    local r, g, b = math.floor(currentColor.R * 255), math.floor(currentColor.G * 255), math.floor(currentColor.B * 255)
+                    
+                    local function createSlider(name, yPos, defaultValue)
+                        local SliderFrame = Instance.new('Frame')
+                        SliderFrame.Size = UDim2.new(1, -20, 0, 25)
+                        SliderFrame.Position = UDim2.new(0, 10, 0, yPos)
+                        SliderFrame.BackgroundTransparency = 1
+                        SliderFrame.Parent = PickerFrame
+                        
+                        local SliderLabel = Instance.new('TextLabel')
+                        SliderLabel.Text = name
+                        SliderLabel.Size = UDim2.new(0, 20, 1, 0)
+                        SliderLabel.BackgroundTransparency = 1
+                        SliderLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        SliderLabel.TextXAlignment = Enum.TextXAlignment.Left
+                        SliderLabel.Font = Enum.Font.Gotham
+                        SliderLabel.TextSize = 10
+                        SliderLabel.Parent = SliderFrame
+                        
+                        local SliderBar = Instance.new('Frame')
+                        SliderBar.Size = UDim2.new(1, -70, 0, 4)
+                        SliderBar.Position = UDim2.new(0, 25, 0.5, -2)
+                        SliderBar.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+                        SliderBar.BackgroundTransparency = 0.8
+                        SliderBar.BorderSizePixel = 0
+                        SliderBar.Parent = SliderFrame
+                        
+                        local SliderCorner = Instance.new('UICorner')
+                        SliderCorner.CornerRadius = UDim.new(1, 0)
+                        SliderCorner.Parent = SliderBar
+                        
+                        local SliderFill = Instance.new('Frame')
+                        SliderFill.Size = UDim2.new(defaultValue / 255, 0, 1, 0)
+                        SliderFill.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+                        SliderFill.BackgroundTransparency = 0.3
+                        SliderFill.BorderSizePixel = 0
+                        SliderFill.Parent = SliderBar
+                        
+                        local FillCorner = Instance.new('UICorner')
+                        FillCorner.CornerRadius = UDim.new(1, 0)
+                        FillCorner.Parent = SliderFill
+                        
+                        local ValueLabel = Instance.new('TextLabel')
+                        ValueLabel.Text = tostring(defaultValue)
+                        ValueLabel.Size = UDim2.new(0, 40, 1, 0)
+                        ValueLabel.Position = UDim2.new(1, -40, 0, 0)
+                        ValueLabel.BackgroundTransparency = 1
+                        ValueLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        ValueLabel.TextXAlignment = Enum.TextXAlignment.Right
+                        ValueLabel.Font = Enum.Font.Gotham
+                        ValueLabel.TextSize = 10
+                        ValueLabel.Parent = SliderFrame
+                        
+                        local dragging = false
+                        
+                        local function updateSlider()
+                            local mousePos = mouse.X
+                            local barPos = SliderBar.AbsolutePosition.X
+                            local barSize = SliderBar.AbsoluteSize.X
+                            local percentage = math.clamp((mousePos - barPos) / barSize, 0, 1)
+                            local value = math.floor(percentage * 255)
+                            
+                            SliderFill.Size = UDim2.new(percentage, 0, 1, 0)
+                            ValueLabel.Text = tostring(value)
+                            
+                            return value
+                        end
+                        
+                        SliderBar.InputBegan:Connect(function(input)
+                            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                                dragging = true
+                                local value = updateSlider()
+                                
+                                if name == "R" then r = value
+                                elseif name == "G" then g = value
+                                elseif name == "B" then b = value end
+                                
+                                ColorpickerManager:update_color(Color3.fromRGB(r, g, b))
+                            end
+                        end)
+                        
+                        Connections['slider_move_'..name] = mouse.Move:Connect(function()
+                            if dragging then
+                                local value = updateSlider()
+                                
+                                if name == "R" then r = value
+                                elseif name == "G" then g = value
+                                elseif name == "B" then b = value end
+                                
+                                ColorpickerManager:update_color(Color3.fromRGB(r, g, b))
+                            end
+                        end)
+                        
+                        Connections['slider_end_'..name] = UserInputService.InputEnded:Connect(function(input)
+                            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                                dragging = false
+                            end
+                        end)
+                    end
+                    
+                    createSlider("R", 35, r)
+                    createSlider("G", 65, g)
+                    createSlider("B", 95, b)
+                    
+                    CloseButton.MouseButton1Click:Connect(function()
+                        Connections:disconnect('slider_move_R')
+                        Connections:disconnect('slider_move_G')
+                        Connections:disconnect('slider_move_B')
+                        Connections:disconnect('slider_end_R')
+                        Connections:disconnect('slider_end_G')
+                        Connections:disconnect('slider_end_B')
+                        PickerFrame:Destroy()
+                    end)
+                end)
+                
+                return ColorpickerManager
             end                    
 
             return ModuleManager
