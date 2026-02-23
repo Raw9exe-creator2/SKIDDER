@@ -552,6 +552,21 @@ function Library:create_ui()
     Container.BorderSizePixel = 0
     Container.Parent = March
     
+    -- Тень для контейнера
+    local Shadow = Instance.new('ImageLabel')
+    Shadow.Name = 'Shadow'
+    Shadow.Size = UDim2.new(1, 47, 1, 47)
+    Shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    Shadow.BackgroundTransparency = 1
+    Shadow.Image = 'rbxassetid://5554236805'
+    Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    Shadow.ImageTransparency = 0.4
+    Shadow.ScaleType = Enum.ScaleType.Slice
+    Shadow.SliceCenter = Rect.new(23, 23, 277, 277)
+    Shadow.ZIndex = 0
+    Shadow.Parent = Container
+    
     local UICorner = Instance.new('UICorner')
     UICorner.CornerRadius = UDim.new(0, 10)
     UICorner.Parent = Container
