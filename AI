@@ -2826,6 +2826,9 @@ function Library:create_ui()
                 Colorpicker.MouseButton1Click:Connect(function()
                     Library._colorpicker_open = true
                     
+                    local MainUI = CoreGui:FindFirstChild('March')
+                    local Container = MainUI and MainUI:FindFirstChild('Container')
+                    
                     local OverlayGui = Instance.new('ScreenGui')
                     OverlayGui.Name = 'ColorPickerOverlayGui'
                     OverlayGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -2839,11 +2842,20 @@ function Library:create_ui()
                     
                     local PickerFrame = Instance.new('Frame')
                     PickerFrame.Size = UDim2.new(0, 280, 0, 250)
-                    PickerFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-                    PickerFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-                    PickerFrame.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
                     PickerFrame.BorderSizePixel = 0
+                    PickerFrame.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
                     PickerFrame.Parent = Overlay
+                    
+                    if Container then
+                        local containerPos = Container.AbsolutePosition
+                        local containerSize = Container.AbsoluteSize
+                        local centerX = containerPos.X + containerSize.X / 2
+                        local centerY = containerPos.Y + containerSize.Y / 2
+                        PickerFrame.Position = UDim2.fromOffset(centerX - 140, centerY - 125)
+                    else
+                        PickerFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+                        PickerFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+                    end
                     
                     local PickerCorner = Instance.new('UICorner')
                     PickerCorner.CornerRadius = UDim.new(0, 8)
@@ -2853,12 +2865,8 @@ function Library:create_ui()
                     PickerBlur.Size = 24
                     PickerBlur.Parent = Lighting
                     
-                    local MainUI = CoreGui:FindFirstChild('March')
-                    if MainUI then
-                        local Container = MainUI:FindFirstChild('Container')
-                        if Container then
-                            Container.BackgroundTransparency = 0.3
-                        end
+                    if Container then
+                        Container.BackgroundTransparency = 0.3
                     end
                     
                     local Title = Instance.new('TextLabel')
@@ -3099,7 +3107,304 @@ function Library:create_ui()
                 end)
                 
                 return ColorpickerManager
-            end                    
+            end
+            
+            function ModuleManager:create_keybind(settings: any)
+                LayoutOrderModule = LayoutOrderModule + 1
+                
+                local KeybindManager = {
+                    Value = settings.default or "None",
+                    Toggled = false,
+                    Mode = settings.mode or "Toggle"
+                }
+                
+                if self._size == 0 then
+                    self._size = 11
+                end
+                
+                self._size += 22
+                
+                if ModuleManager._state then
+                    Module.Size = UDim2.fromOffset(241, 93 + self._size)
+                end
+                
+                Options.Size = UDim2.fromOffset(241, self._size)
+                
+                local Picking = false
+                
+                local Keybind = Instance.new('TextButton')
+                Keybind.FontFace = Font.new('rbxasset://fonts/families/SourceSansPro.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+                Keybind.TextColor3 = Color3.fromRGB(0, 0, 0)
+                Keybind.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Keybind.Text = ''
+                Keybind.AutoButtonColor = false
+                Keybind.BackgroundTransparency = 1
+                Keybind.Name = 'Keybind'
+                Keybind.Size = UDim2.new(0, 207, 0, 17)
+                Keybind.BorderSizePixel = 0
+                Keybind.TextSize = 14
+                Keybind.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+                Keybind.Parent = Options
+                Keybind.LayoutOrder = LayoutOrderModule
+                
+                local Label = Instance.new('TextLabel')
+                Label.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+                Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Label.TextTransparency = 0.2
+                Label.Text = settings.title or "Keybind"
+                Label.Size = UDim2.new(0, 100, 0, 13)
+                Label.AnchorPoint = Vector2.new(0, 0.5)
+                Label.Position = UDim2.new(0, 0, 0.5, 0)
+                Label.BackgroundTransparency = 1
+                Label.TextXAlignment = Enum.TextXAlignment.Left
+                Label.BorderSizePixel = 0
+                Label.TextSize = 11
+                Label.Parent = Keybind
+                
+                local KeybindDisplay = Instance.new('TextLabel')
+                KeybindDisplay.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+                KeybindDisplay.Text = KeybindManager.Value
+                KeybindDisplay.TextColor3 = Color3.fromRGB(200, 200, 200)
+                KeybindDisplay.TextSize = 11
+                KeybindDisplay.TextXAlignment = Enum.TextXAlignment.Center
+                KeybindDisplay.Size = UDim2.new(0, 0, 0, 15)
+                KeybindDisplay.Position = UDim2.new(1, -5, 0.5, 0)
+                KeybindDisplay.AnchorPoint = Vector2.new(1, 0.5)
+                KeybindDisplay.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+                KeybindDisplay.BackgroundTransparency = 0.1
+                KeybindDisplay.AutomaticSize = Enum.AutomaticSize.X
+                KeybindDisplay.BorderSizePixel = 0
+                KeybindDisplay.Parent = Keybind
+                
+                local DisplayCorner = Instance.new('UICorner')
+                DisplayCorner.CornerRadius = UDim.new(0, 4)
+                DisplayCorner.Parent = KeybindDisplay
+                
+                local DisplayPadding = Instance.new('UIPadding')
+                DisplayPadding.PaddingLeft = UDim.new(0, 8)
+                DisplayPadding.PaddingRight = UDim.new(0, 8)
+                DisplayPadding.Parent = KeybindDisplay
+                
+                function KeybindManager:GetState()
+                    if UserInputService:GetFocusedTextBox() and self.Mode ~= "Always" then
+                        return false
+                    end
+                    
+                    if self.Mode == "Always" then
+                        return true
+                    elseif self.Mode == "Hold" then
+                        if self.Value == "None" then
+                            return false
+                        end
+                        
+                        local Key = self.Value
+                        if Key == "MouseLeft" or Key == "MouseRight" then
+                            return Key == "MouseLeft" and UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1)
+                                or Key == "MouseRight" and UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2)
+                        else
+                            return UserInputService:IsKeyDown(Enum.KeyCode[self.Value])
+                        end
+                    else
+                        return self.Toggled
+                    end
+                end
+                
+                function KeybindManager:SetValue(Key)
+                    self.Value = Key or "None"
+                    KeybindDisplay.Text = self.Value
+                    Library._config._flags[settings.flag] = self.Value
+                    Config:save(game.GameId, Library._config)
+                end
+                
+                if Library:flag_type(settings.flag, 'string') then
+                    KeybindManager:SetValue(Library._config._flags[settings.flag])
+                end
+                
+                Keybind.InputBegan:Connect(function(input)
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                        Picking = true
+                        KeybindDisplay.Text = "..."
+                        
+                        task.wait(0.2)
+                        
+                        local Event
+                        Event = UserInputService.InputBegan:Connect(function(input)
+                            local Key
+                            if input.UserInputType == Enum.UserInputType.Keyboard then
+                                Key = input.KeyCode.Name
+                            elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
+                                Key = "MouseLeft"
+                            elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
+                                Key = "MouseRight"
+                            end
+                            
+                            local EndedEvent
+                            EndedEvent = UserInputService.InputEnded:Connect(function(input)
+                                if input.KeyCode.Name == Key
+                                    or Key == "MouseLeft" and input.UserInputType == Enum.UserInputType.MouseButton1
+                                    or Key == "MouseRight" and input.UserInputType == Enum.UserInputType.MouseButton2 then
+                                    Picking = false
+                                    KeybindManager:SetValue(Key)
+                                    settings.callback(Key)
+                                    Event:Disconnect()
+                                    EndedEvent:Disconnect()
+                                end
+                            end)
+                        end)
+                    end
+                end)
+                
+                Connections['keybind_'..settings.flag] = UserInputService.InputBegan:Connect(function(input)
+                    if not Picking and not UserInputService:GetFocusedTextBox() then
+                        if KeybindManager.Mode == "Toggle" then
+                            local Key = KeybindManager.Value
+                            if Key == "MouseLeft" or Key == "MouseRight" then
+                                if Key == "MouseLeft" and input.UserInputType == Enum.UserInputType.MouseButton1
+                                    or Key == "MouseRight" and input.UserInputType == Enum.UserInputType.MouseButton2 then
+                                    KeybindManager.Toggled = not KeybindManager.Toggled
+                                    settings.callback(KeybindManager.Toggled)
+                                end
+                            elseif input.UserInputType == Enum.UserInputType.Keyboard then
+                                if input.KeyCode.Name == Key then
+                                    KeybindManager.Toggled = not KeybindManager.Toggled
+                                    settings.callback(KeybindManager.Toggled)
+                                end
+                            end
+                        end
+                    end
+                end)
+                
+                return KeybindManager
+            end
+            
+            function ModuleManager:create_toggle(settings: any)
+                LayoutOrderModule = LayoutOrderModule + 1
+                
+                local ToggleManager = {
+                    Value = settings.default or false
+                }
+                
+                if self._size == 0 then
+                    self._size = 11
+                end
+                
+                self._size += 22
+                
+                if ModuleManager._state then
+                    Module.Size = UDim2.fromOffset(241, 93 + self._size)
+                end
+                
+                Options.Size = UDim2.fromOffset(241, self._size)
+                
+                local Toggle = Instance.new('TextButton')
+                Toggle.FontFace = Font.new('rbxasset://fonts/families/SourceSansPro.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+                Toggle.TextColor3 = Color3.fromRGB(0, 0, 0)
+                Toggle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Toggle.Text = ''
+                Toggle.AutoButtonColor = false
+                Toggle.BackgroundTransparency = 1
+                Toggle.Name = 'Toggle'
+                Toggle.Size = UDim2.new(0, 207, 0, 17)
+                Toggle.BorderSizePixel = 0
+                Toggle.TextSize = 14
+                Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+                Toggle.Parent = Options
+                Toggle.LayoutOrder = LayoutOrderModule
+                
+                local Label = Instance.new('TextLabel')
+                Label.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+                Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Label.TextTransparency = 0.2
+                Label.Text = settings.title or "Toggle"
+                Label.Size = UDim2.new(0, 150, 0, 13)
+                Label.AnchorPoint = Vector2.new(0, 0.5)
+                Label.Position = UDim2.new(0, 0, 0.5, 0)
+                Label.BackgroundTransparency = 1
+                Label.TextXAlignment = Enum.TextXAlignment.Left
+                Label.BorderSizePixel = 0
+                Label.TextSize = 11
+                Label.Parent = Toggle
+                
+                local ToggleFrame = Instance.new('Frame')
+                ToggleFrame.Size = UDim2.fromOffset(32, 16)
+                ToggleFrame.Position = UDim2.new(1, -5, 0.5, 0)
+                ToggleFrame.AnchorPoint = Vector2.new(1, 0.5)
+                ToggleFrame.BackgroundColor3 = Color3.fromRGB(45, 55, 72)
+                ToggleFrame.BorderSizePixel = 0
+                ToggleFrame.Parent = Toggle
+                
+                local FrameCorner = Instance.new('UICorner')
+                FrameCorner.CornerRadius = UDim.new(1, 0)
+                FrameCorner.Parent = ToggleFrame
+                
+                local ToggleCircle = Instance.new('Frame')
+                ToggleCircle.Size = UDim2.fromOffset(12, 12)
+                ToggleCircle.Position = UDim2.fromOffset(2, 2)
+                ToggleCircle.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+                ToggleCircle.BorderSizePixel = 0
+                ToggleCircle.Parent = ToggleFrame
+                
+                local CircleCorner = Instance.new('UICorner')
+                CircleCorner.CornerRadius = UDim.new(1, 0)
+                CircleCorner.Parent = ToggleCircle
+                
+                local CircleGlow = Instance.new('ImageLabel')
+                CircleGlow.Size = UDim2.fromOffset(24, 24)
+                CircleGlow.Position = UDim2.fromOffset(-6, -6)
+                CircleGlow.BackgroundTransparency = 1
+                CircleGlow.Image = "rbxassetid://4155801252"
+                CircleGlow.ImageColor3 = Color3.fromRGB(152, 181, 255)
+                CircleGlow.ImageTransparency = 1
+                CircleGlow.Parent = ToggleCircle
+                
+                function ToggleManager:SetValue(value)
+                    self.Value = value
+                    
+                    if value then
+                        TweenService:Create(ToggleFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                            BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+                        }):Play()
+                        
+                        TweenService:Create(ToggleCircle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                            Position = UDim2.fromOffset(18, 2),
+                            BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                        }):Play()
+                        
+                        TweenService:Create(CircleGlow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                            ImageTransparency = 0.5
+                        }):Play()
+                    else
+                        TweenService:Create(ToggleFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                            BackgroundColor3 = Color3.fromRGB(45, 55, 72)
+                        }):Play()
+                        
+                        TweenService:Create(ToggleCircle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                            Position = UDim2.fromOffset(2, 2),
+                            BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+                        }):Play()
+                        
+                        TweenService:Create(CircleGlow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                            ImageTransparency = 1
+                        }):Play()
+                    end
+                    
+                    Library._config._flags[settings.flag] = value
+                    Config:save(game.GameId, Library._config)
+                    settings.callback(value)
+                end
+                
+                if Library:flag_type(settings.flag, 'boolean') then
+                    ToggleManager:SetValue(Library._config._flags[settings.flag])
+                else
+                    ToggleManager:SetValue(ToggleManager.Value)
+                end
+                
+                Toggle.MouseButton1Click:Connect(function()
+                    ToggleManager:SetValue(not ToggleManager.Value)
+                end)
+                
+                return ToggleManager
+            end
 
             return ModuleManager
         end
