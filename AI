@@ -697,7 +697,9 @@ function Library:create_ui()
     local UIScale = Instance.new('UIScale')
     UIScale.Parent = Container
     
-    -- ============= СТРОКА ПОИСКА (ВИЗУАЛЬНО) =============
+    -- ============= СТРОКА ПОИСКА (ФУНКЦИОНАЛЬНАЯ) =============
+    self._all_modules = {}
+    
     if self._search_settings.enabled then
         local SearchContainer = Instance.new('Frame')
         SearchContainer.Name = 'SearchContainer'
@@ -738,12 +740,13 @@ function Library:create_ui()
         SearchIcon.Parent = SearchContainer
         
         local SearchBox = Instance.new('TextBox')
+        SearchBox.Name = 'SearchBox'
         SearchBox.Size = UDim2.new(1, -60, 1, 0)
         SearchBox.Position = UDim2.new(0, 32, 0, 0)
         SearchBox.BackgroundTransparency = 1
         SearchBox.PlaceholderText = "Search modules..."
         SearchBox.PlaceholderColor3 = Color3.fromRGB(100, 110, 130)
-        SearchBox.Text = ""
+        SearchBox.Text = Library._config._flags["_search_text"] or ""
         SearchBox.TextColor3 = Color3.fromRGB(200, 210, 230)
         SearchBox.TextSize = 13
         SearchBox.Font = Enum.Font.Gotham
@@ -754,6 +757,7 @@ function Library:create_ui()
         
         -- Кнопка X для очистки
         local ClearButton = Instance.new('TextButton')
+        ClearButton.Name = 'ClearButton'
         ClearButton.Size = UDim2.new(0, 24, 0, 24)
         ClearButton.Position = UDim2.new(1, -28, 0.5, 0)
         ClearButton.AnchorPoint = Vector2.new(0, 0.5)
@@ -762,14 +766,43 @@ function Library:create_ui()
         ClearButton.TextColor3 = Color3.fromRGB(150, 160, 180)
         ClearButton.TextSize = 18
         ClearButton.Font = Enum.Font.GothamBold
-        ClearButton.Visible = false
+        ClearButton.Visible = SearchBox.Text ~= ""
         ClearButton.ZIndex = 101
         ClearButton.Parent = SearchContainer
+        
+        -- Функции поиска
+        function self:register_module(module_frame, module_title)
+            table.insert(self._all_modules, {
+                frame = module_frame,
+                title = module_title:lower(),
+                original_title = module_title
+            })
+        end
+        
+        function self:filter_modules(search_text)
+            search_text = search_text:lower()
+            
+            for _, module in ipairs(self._all_modules) do
+                local should_show = search_text == "" or string.find(module.title, search_text, 1, true)
+                
+                if module.frame and module.frame.Parent then
+                    module.frame.Visible = should_show
+                end
+            end
+        end
+        
+        -- Применить сохраненный поиск
+        if SearchBox.Text ~= "" then
+            self:filter_modules(SearchBox.Text)
+        end
         
         -- Показать/скрыть кнопку X
         SearchBox.Changed:Connect(function(prop)
             if prop == "Text" then
                 ClearButton.Visible = SearchBox.Text ~= ""
+                Library._config._flags["_search_text"] = SearchBox.Text
+                Config:save(game.GameId, Library._config)
+                self:filter_modules(SearchBox.Text)
             end
         end)
         
@@ -1117,6 +1150,9 @@ function Library:create_ui()
             Module.BorderSizePixel = 0
             Module.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
             Module.Parent = settings.section
+            
+            -- Регистрация модуля для поиска
+            Library:register_module(Module, settings.title or "Module")
 
             local UIListLayout = Instance.new('UIListLayout')
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
