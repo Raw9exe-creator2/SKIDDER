@@ -620,14 +620,14 @@ function Library:create_ui()
     ClientName.TextTransparency = 0
     ClientName.Text = 'VODKA'
     ClientName.Name = 'ClientName'
-    ClientName.Size = UDim2.new(0, 60, 0, 16)
+    ClientName.Size = UDim2.new(0, 80, 0, 20)
     ClientName.AnchorPoint = Vector2.new(0, 0.5)
-    ClientName.Position = UDim2.new(0.0560000017285347, 0, 0.054999999701976776, 0)
+    ClientName.Position = UDim2.new(0.08, 0, 0.055, 0)
     ClientName.BackgroundTransparency = 1
     ClientName.TextXAlignment = Enum.TextXAlignment.Left
     ClientName.BorderSizePixel = 0
     ClientName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    ClientName.TextSize = 15
+    ClientName.TextSize = 18
     ClientName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     ClientName.Parent = Handler
     
@@ -672,6 +672,15 @@ function Library:create_ui()
     UICorner.CornerRadius = UDim.new(1, 0)
     UICorner.Parent = Pin
     
+    local PinGradient = Instance.new('UIGradient')
+    PinGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(152, 181, 255)),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(100, 150, 255)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(80, 120, 200))
+    }
+    PinGradient.Rotation = 90
+    PinGradient.Parent = Pin
+    
     local Icon = Instance.new('ImageLabel')
     Icon.ImageColor3 = Color3.fromRGB(152, 181, 255)
     Icon.ScaleType = Enum.ScaleType.Fit
@@ -679,12 +688,21 @@ function Library:create_ui()
     Icon.AnchorPoint = Vector2.new(0, 0.5)
     Icon.Image = 'rbxassetid://107819132007001'
     Icon.BackgroundTransparency = 1
-    Icon.Position = UDim2.new(0.02500000037252903, 0, 0.054999999701976776, 0)
+    Icon.Position = UDim2.new(0.025, 0, 0.055, 0)
     Icon.Name = 'Icon'
-    Icon.Size = UDim2.new(0, 18, 0, 18)
+    Icon.Size = UDim2.new(0, 22, 0, 22)
     Icon.BorderSizePixel = 0
     Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Icon.Parent = Handler
+    
+    -- Градиент для иконки
+    local IconGradient = Instance.new('UIGradient')
+    IconGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(152, 181, 255)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 150, 255))
+    }
+    IconGradient.Parent = Icon
     
     local Divider = Instance.new('Frame')
     Divider.Name = 'Divider'
@@ -1240,6 +1258,14 @@ function Library:create_ui()
             ModuleName.TextSize = 13
             ModuleName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ModuleName.Parent = Header
+            
+            local ModuleGradient = Instance.new('UIGradient')
+            ModuleGradient.Color = ColorSequence.new{
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(152, 181, 255)),
+                ColorSequenceKeypoint.new(0.5, Color3.fromRGB(100, 150, 255)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(80, 120, 200))
+            }
+            ModuleGradient.Parent = ModuleName
             
             local Description = Instance.new('TextLabel')
             Description.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
