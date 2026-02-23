@@ -2753,14 +2753,27 @@ function Library:create_ui()
                 Label.TextSize = 11
                 Label.Parent = Colorpicker
                 
+                local ColorDisplay = Instance.new('Frame')
+                ColorDisplay.AnchorPoint = Vector2.new(1, 0.5)
+                ColorDisplay.Position = UDim2.new(1, 0, 0.5, 0)
+                ColorDisplay.Name = 'ColorDisplay'
+                ColorDisplay.Size = UDim2.new(0, 70, 0, 15)
+                ColorDisplay.BorderSizePixel = 0
+                ColorDisplay.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+                ColorDisplay.Parent = Colorpicker
+                
+                local DisplayCorner = Instance.new('UICorner')
+                DisplayCorner.CornerRadius = UDim.new(0, 4)
+                DisplayCorner.Parent = ColorDisplay
+                
                 local ColorCircle = Instance.new('Frame')
-                ColorCircle.AnchorPoint = Vector2.new(1, 0.5)
-                ColorCircle.Position = UDim2.new(1, -50, 0.5, 0)
+                ColorCircle.AnchorPoint = Vector2.new(0, 0.5)
+                ColorCircle.Position = UDim2.new(0, 4, 0.5, 0)
                 ColorCircle.Name = 'ColorCircle'
                 ColorCircle.Size = UDim2.new(0, 10, 0, 10)
                 ColorCircle.BorderSizePixel = 0
                 ColorCircle.BackgroundColor3 = Color
-                ColorCircle.Parent = Colorpicker
+                ColorCircle.Parent = ColorDisplay
                 
                 local CircleCorner = Instance.new('UICorner')
                 CircleCorner.CornerRadius = UDim.new(1, 0)
@@ -2770,14 +2783,14 @@ function Library:create_ui()
                 HexLabel.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal)
                 HexLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
                 HexLabel.Text = colorToHex(Color)
-                HexLabel.Size = UDim2.new(0, 45, 0, 13)
-                HexLabel.AnchorPoint = Vector2.new(1, 0.5)
-                HexLabel.Position = UDim2.new(1, 0, 0.5, 0)
+                HexLabel.Size = UDim2.new(1, -18, 1, 0)
+                HexLabel.AnchorPoint = Vector2.new(0, 0.5)
+                HexLabel.Position = UDim2.new(0, 18, 0.5, 0)
                 HexLabel.BackgroundTransparency = 1
-                HexLabel.TextXAlignment = Enum.TextXAlignment.Right
+                HexLabel.TextXAlignment = Enum.TextXAlignment.Center
                 HexLabel.BorderSizePixel = 0
                 HexLabel.TextSize = 9
-                HexLabel.Parent = Colorpicker
+                HexLabel.Parent = ColorDisplay
                 
                 function ColorpickerManager:Display()
                     local NewColor = Color3.fromHSV(self.Hue, self.Sat, self.Vib)
