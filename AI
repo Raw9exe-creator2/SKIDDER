@@ -665,6 +665,10 @@ function Library:create_ui()
     self._ui = March
 
     local function on_drag(input: InputObject, process: boolean)
+        if Library._colorpicker_open then
+            return
+        end
+        
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then 
             self._dragging = true
             self._drag_start = input.Position
@@ -691,6 +695,10 @@ function Library:create_ui()
     end
 
     local function drag(input: InputObject, process: boolean)
+        if Library._colorpicker_open then
+            return
+        end
+        
         if not self._dragging then
             return
         end
@@ -2816,6 +2824,8 @@ function Library:create_ui()
                 end
                 
                 Colorpicker.MouseButton1Click:Connect(function()
+                    Library._colorpicker_open = true
+                    
                     local OverlayGui = Instance.new('ScreenGui')
                     OverlayGui.Name = 'ColorPickerOverlayGui'
                     OverlayGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -2981,7 +2991,8 @@ function Library:create_ui()
                     
                     SatVibMap.InputBegan:Connect(function(input)
                         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                            while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
+                            local dragging = true
+                            while dragging and UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
                                 local MinX = SatVibMap.AbsolutePosition.X
                                 local MaxX = MinX + SatVibMap.AbsoluteSize.X
                                 local MouseX = math.clamp(mouse.X, MinX, MaxX)
@@ -2998,7 +3009,8 @@ function Library:create_ui()
                     
                     HueSlider.InputBegan:Connect(function(input)
                         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                            while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
+                            local dragging = true
+                            while dragging and UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
                                 local MinY = HueSlider.AbsolutePosition.Y
                                 local MaxY = MinY + HueSlider.AbsoluteSize.Y
                                 local MouseY = math.clamp(mouse.Y, MinY, MaxY)
@@ -3021,16 +3033,19 @@ function Library:create_ui()
                     
                     DoneButton.MouseButton1Click:Connect(function()
                         ColorpickerManager:Display()
+                        Library._colorpicker_open = false
                         if MainBlur then MainBlur:Destroy() end
                         OverlayGui:Destroy()
                     end)
                     
                     CancelButton.MouseButton1Click:Connect(function()
+                        Library._colorpicker_open = false
                         if MainBlur then MainBlur:Destroy() end
                         OverlayGui:Destroy()
                     end)
                     
                     CloseButton.MouseButton1Click:Connect(function()
+                        Library._colorpicker_open = false
                         if MainBlur then MainBlur:Destroy() end
                         OverlayGui:Destroy()
                     end)
@@ -3043,6 +3058,7 @@ function Library:create_ui()
                             
                             if mousePos.X < framePos.X or mousePos.X > framePos.X + frameSize.X or
                                mousePos.Y < framePos.Y or mousePos.Y > framePos.Y + frameSize.Y then
+                                Library._colorpicker_open = false
                                 if MainBlur then MainBlur:Destroy() end
                                 OverlayGui:Destroy()
                             end
