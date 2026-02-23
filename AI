@@ -2849,12 +2849,16 @@ function Library:create_ui()
                     PickerCorner.CornerRadius = UDim.new(0, 8)
                     PickerCorner.Parent = PickerFrame
                     
+                    local PickerBlur = Instance.new('BlurEffect')
+                    PickerBlur.Size = 24
+                    PickerBlur.Parent = Lighting
+                    
                     local MainUI = CoreGui:FindFirstChild('March')
-                    local MainBlur = nil
                     if MainUI then
-                        MainBlur = Instance.new('BlurEffect')
-                        MainBlur.Size = 15
-                        MainBlur.Parent = Lighting
+                        local Container = MainUI:FindFirstChild('Container')
+                        if Container then
+                            Container.BackgroundTransparency = 0.3
+                        end
                     end
                     
                     local Title = Instance.new('TextLabel')
@@ -3034,19 +3038,40 @@ function Library:create_ui()
                     DoneButton.MouseButton1Click:Connect(function()
                         ColorpickerManager:Display()
                         Library._colorpicker_open = false
-                        if MainBlur then MainBlur:Destroy() end
+                        if PickerBlur then PickerBlur:Destroy() end
+                        local MainUI = CoreGui:FindFirstChild('March')
+                        if MainUI then
+                            local Container = MainUI:FindFirstChild('Container')
+                            if Container then
+                                Container.BackgroundTransparency = 0.05
+                            end
+                        end
                         OverlayGui:Destroy()
                     end)
                     
                     CancelButton.MouseButton1Click:Connect(function()
                         Library._colorpicker_open = false
-                        if MainBlur then MainBlur:Destroy() end
+                        if PickerBlur then PickerBlur:Destroy() end
+                        local MainUI = CoreGui:FindFirstChild('March')
+                        if MainUI then
+                            local Container = MainUI:FindFirstChild('Container')
+                            if Container then
+                                Container.BackgroundTransparency = 0.05
+                            end
+                        end
                         OverlayGui:Destroy()
                     end)
                     
                     CloseButton.MouseButton1Click:Connect(function()
                         Library._colorpicker_open = false
-                        if MainBlur then MainBlur:Destroy() end
+                        if PickerBlur then PickerBlur:Destroy() end
+                        local MainUI = CoreGui:FindFirstChild('March')
+                        if MainUI then
+                            local Container = MainUI:FindFirstChild('Container')
+                            if Container then
+                                Container.BackgroundTransparency = 0.05
+                            end
+                        end
                         OverlayGui:Destroy()
                     end)
                     
@@ -3059,7 +3084,14 @@ function Library:create_ui()
                             if mousePos.X < framePos.X or mousePos.X > framePos.X + frameSize.X or
                                mousePos.Y < framePos.Y or mousePos.Y > framePos.Y + frameSize.Y then
                                 Library._colorpicker_open = false
-                                if MainBlur then MainBlur:Destroy() end
+                                if PickerBlur then PickerBlur:Destroy() end
+                                local MainUI = CoreGui:FindFirstChild('March')
+                                if MainUI then
+                                    local Container = MainUI:FindFirstChild('Container')
+                                    if Container then
+                                        Container.BackgroundTransparency = 0.05
+                                    end
+                                end
                                 OverlayGui:Destroy()
                             end
                         end
