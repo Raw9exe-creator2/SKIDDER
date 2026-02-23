@@ -799,13 +799,59 @@ function Library:create_ui()
         
         for _, obj in ui:GetDescendants() do
             if obj:IsA('Frame') or obj:IsA('ScrollingFrame') then
-                if obj.Name == 'Module' or obj.Name == 'PlayerInfo' or obj.Name == 'SearchBox' then
+                if obj.Name == 'Module' then
+                    obj.BackgroundColor3 = theme.Main
+                elseif obj.Name == 'PlayerInfo' or obj.Name == 'SearchBox' then
                     obj.BackgroundColor3 = theme.Main
                 elseif obj.Name == 'ColorDisplay' or obj.Name == 'KeybindDisplay' then
                     obj.BackgroundColor3 = theme.Element
+                elseif obj.Name == 'Paragraph' or obj.Name == 'Textbox' then
+                    obj.BackgroundColor3 = theme.Element
+                elseif obj.Name == 'SliderBar' or obj.Name == 'DropdownFrame' then
+                    obj.BackgroundColor3 = theme.Element
+                elseif obj.Name == 'SliderFill' then
+                    obj.BackgroundColor3 = theme.Accent
+                elseif obj.Name == 'Toggle' and obj.Parent and obj.Parent.Name == 'Header' then
+                    if obj.BackgroundTransparency < 0.5 then
+                        obj.BackgroundColor3 = theme.Accent
+                    end
+                elseif obj.Name == 'Circle' and obj.Parent and obj.Parent.Name == 'Toggle' then
+                    if obj.BackgroundTransparency < 0.5 then
+                        obj.BackgroundColor3 = theme.Accent
+                    end
+                elseif obj.Name == 'ToggleFrame' then
+                    if obj.BackgroundTransparency < 0.5 then
+                        obj.BackgroundColor3 = theme.Accent
+                    end
+                elseif obj.Name == 'ToggleCircle' and obj.Parent and obj.Parent.Name == 'ToggleFrame' then
+                    if obj.BackgroundTransparency < 0.5 then
+                        obj.BackgroundColor3 = theme.Accent
+                    end
+                elseif obj.Name == 'Keybind' and obj.Parent and obj.Parent.Name == 'Header' then
+                    obj.BackgroundColor3 = theme.Accent
+                elseif obj.Name == 'Pin' then
+                    obj.BackgroundColor3 = theme.Accent
                 end
-            elseif obj:IsA('ImageLabel') and (obj.Name == 'Icon' or obj.Name == 'PlayerIcon') then
-                obj.ImageColor3 = theme.Accent
+            elseif obj:IsA('ImageLabel') then
+                if obj.Name == 'Icon' or obj.Name == 'PlayerIcon' then
+                    obj.ImageColor3 = theme.Accent
+                end
+            elseif obj:IsA('TextLabel') then
+                if obj.Name == 'ClientName' or obj.Name == 'ModuleName' then
+                    obj.TextColor3 = theme.Accent
+                elseif obj.Parent and obj.Parent.Name == 'Tab' then
+                    if obj.Parent.BackgroundTransparency < 0.9 then
+                        obj.TextColor3 = theme.Accent
+                    end
+                end
+            elseif obj:IsA('TextButton') then
+                if obj.Name == 'Tab' and obj.BackgroundTransparency < 0.9 then
+                    obj.BackgroundColor3 = theme.Main
+                elseif obj.Name == 'Option' then
+                    obj.BackgroundColor3 = theme.Element
+                elseif obj.Name == 'Button' then
+                    obj.BackgroundColor3 = theme.Element
+                end
             elseif obj:IsA('UIStroke') then
                 obj.Color = theme.Border
             end
