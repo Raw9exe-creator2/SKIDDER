@@ -339,7 +339,9 @@ local Library = {
 
     _dragging = false,
     _drag_start = nil,
-    _container_position = nil
+    _container_position = nil,
+    
+    _search_modules = {}
 }
 Library.__index = Library
 
@@ -680,18 +682,9 @@ function Library:create_ui()
     SearchPadding.PaddingRight = UDim.new(0, 8)
     SearchPadding.Parent = SearchBox
     
-    self._search_modules = {}
-    
-    function self:register_module(module_frame, module_name)
-        table.insert(self._search_modules, {
-            frame = module_frame,
-            name = module_name:lower()
-        })
-    end
-    
-    function self:filter_modules(query)
+    local function filter_modules(query)
         query = query:lower()
-        for _, module_data in ipairs(self._search_modules) do
+        for _, module_data in ipairs(Library._search_modules) do
             if query == "" or module_data.name:find(query, 1, true) then
                 module_data.frame.Visible = true
             else
@@ -701,7 +694,7 @@ function Library:create_ui()
     end
     
     SearchBox:GetPropertyChangedSignal("Text"):Connect(function()
-        self:filter_modules(SearchBox.Text)
+        filter_modules(SearchBox.Text)
     end)
     
     local Minimize = Instance.new('TextButton')
@@ -1123,7 +1116,12 @@ function Library:create_ui()
             Module.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
             Module.Parent = settings.section
             
-            Library:register_module(Module, settings.title or "Module")
+            if Library._search_modules then
+                table.insert(Library._search_modules, {
+                    frame = Module,
+                    name = (settings.title or "Module"):lower()
+                })
+            end
 
             local UIListLayout = Instance.new('UIListLayout')
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
