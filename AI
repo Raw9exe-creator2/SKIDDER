@@ -290,9 +290,8 @@ function Library:CreateContent()
     self.ModuleContainer.ScrollBarImageColor3 = Color3.fromRGB(80, 80, 80)
     self.ModuleContainer.Parent = self.ContentArea
     
-    local ModuleLayout = Instance.new("UIGridLayout")
-    ModuleLayout.CellSize = UDim2.new(0.48, 0, 0, 0)
-    ModuleLayout.CellPadding = UDim2.new(0.02, 0, 0, 8)
+    local ModuleLayout = Instance.new("UIListLayout")
+    ModuleLayout.Padding = UDim.new(0, 8)
     ModuleLayout.SortOrder = Enum.SortOrder.LayoutOrder
     ModuleLayout.Parent = self.ModuleContainer
     
@@ -497,8 +496,8 @@ function Library:CreateModule(subTab, config)
     
     local ModuleFrame = Instance.new("Frame")
     ModuleFrame.Name = Module.Name
-    ModuleFrame.Size = UDim2.new(0.48, 0, 0, 55)
-    ModuleFrame.BackgroundColor3 = Color3.fromRGB(22, 24, 28)
+    ModuleFrame.Size = UDim2.new(1, 0, 0, 55)
+    ModuleFrame.BackgroundColor3 = Color3.fromRGB(20, 22, 26)
     ModuleFrame.BorderSizePixel = 0
     ModuleFrame.Visible = false
     ModuleFrame.Parent = self.ModuleContainer
@@ -508,18 +507,10 @@ function Library:CreateModule(subTab, config)
     ModuleCorner.Parent = ModuleFrame
     
     local ModuleStroke = Instance.new("UIStroke")
-    ModuleStroke.Color = Color3.fromRGB(40, 45, 55)
-    ModuleStroke.Transparency = 0.9
+    ModuleStroke.Color = Color3.fromRGB(35, 40, 50)
+    ModuleStroke.Transparency = 0.92
     ModuleStroke.Thickness = 1
     ModuleStroke.Parent = ModuleFrame
-    
-    local ModuleGradient = Instance.new("UIGradient")
-    ModuleGradient.Color = ColorSequence.new{
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 27, 31)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 22, 26))
-    }
-    ModuleGradient.Rotation = 45
-    ModuleGradient.Parent = ModuleFrame
     
     local ModuleHeader = Instance.new("Frame")
     ModuleHeader.Size = UDim2.new(1, 0, 0, 40)
