@@ -32,6 +32,9 @@ function convertStringToTable(inputString)
 end
 
 function convertTableToString(inputTable)
+    if type(inputTable) ~= "table" then
+        return tostring(inputTable)
+    end
     return table.concat(inputTable, ", ")
 end
 
