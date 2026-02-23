@@ -799,15 +799,15 @@ function Library:create_ui()
         
         for _, obj in ui:GetDescendants() do
             if obj:IsA('Frame') or obj:IsA('ScrollingFrame') then
-                if obj.Name == 'Module' then
+                if obj.Name == 'Container' then
                     obj.BackgroundColor3 = theme.Main
-                elseif obj.Name == 'PlayerInfo' or obj.Name == 'SearchBox' then
+                elseif obj.Name == 'Module' or obj.Name == 'PlayerInfo' or obj.Name == 'SearchBox' then
                     obj.BackgroundColor3 = theme.Main
                 elseif obj.Name == 'ColorDisplay' or obj.Name == 'KeybindDisplay' then
                     obj.BackgroundColor3 = theme.Element
-                elseif obj.Name == 'Paragraph' or obj.Name == 'Textbox' then
+                elseif obj.Name == 'Paragraph' or obj.Name == 'Textbox' or obj.Name == 'TextboxFrame' then
                     obj.BackgroundColor3 = theme.Element
-                elseif obj.Name == 'SliderBar' or obj.Name == 'DropdownFrame' then
+                elseif obj.Name == 'SliderBar' or obj.Name == 'DropdownFrame' or obj.Name == 'DropdownHolder' then
                     obj.BackgroundColor3 = theme.Element
                 elseif obj.Name == 'SliderFill' then
                     obj.BackgroundColor3 = theme.Accent
@@ -829,11 +829,15 @@ function Library:create_ui()
                     end
                 elseif obj.Name == 'Keybind' and obj.Parent and obj.Parent.Name == 'Header' then
                     obj.BackgroundColor3 = theme.Accent
-                elseif obj.Name == 'Pin' then
+                elseif obj.Name == 'Pin' or obj.Name == 'Divider' then
                     obj.BackgroundColor3 = theme.Accent
+                elseif obj.Name == 'InnerFrame' then
+                    obj.BackgroundColor3 = theme.Element
+                elseif obj.Name == 'ColorPickerOverlayGui' or obj.Name == 'PickerFrame' then
+                    obj.BackgroundColor3 = theme.Main
                 end
             elseif obj:IsA('ImageLabel') then
-                if obj.Name == 'Icon' or obj.Name == 'PlayerIcon' then
+                if obj.Name == 'Icon' or obj.Name == 'PlayerIcon' or obj.Name == 'SearchIcon' then
                     obj.ImageColor3 = theme.Accent
                 end
             elseif obj:IsA('TextLabel') then
@@ -851,9 +855,24 @@ function Library:create_ui()
                     obj.BackgroundColor3 = theme.Element
                 elseif obj.Name == 'Button' then
                     obj.BackgroundColor3 = theme.Element
+                elseif obj.Name == 'DoneButton' or obj.Name == 'CancelButton' then
+                    obj.BackgroundColor3 = theme.Accent
+                end
+            elseif obj:IsA('TextBox') then
+                if obj.Name == 'SearchBox' or obj.Name == 'Textbox' or obj.Name == 'HexInput' then
+                    obj.BackgroundColor3 = theme.Element
                 end
             elseif obj:IsA('UIStroke') then
                 obj.Color = theme.Border
+            end
+        end
+        
+        local notifContainer = CoreGui.RobloxGui:FindFirstChild("RobloxCoreGuis")
+        if notifContainer then
+            for _, notif in notifContainer:GetDescendants() do
+                if notif:IsA('Frame') and notif.Name == 'InnerFrame' then
+                    notif.BackgroundColor3 = theme.Element
+                end
             end
         end
         
