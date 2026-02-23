@@ -1013,9 +1013,6 @@ function Library:create_ui()
         
         Library.SendNotification({title="Theme",text="Changed to "..theme.Name,duration=2})
     end
-        
-        Library.SendNotification({title="Theme",text="Changed to "..theme.Name,duration=2})
-    end
     
     IconButton.MouseButton1Click:Connect(function()
         Library._current_theme = Library._current_theme % #Library._themes + 1
