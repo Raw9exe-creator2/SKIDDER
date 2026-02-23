@@ -50,7 +50,8 @@ local mouse = Players.LocalPlayer:GetMouse()
 local old_March = CoreGui:FindFirstChild('March')
 
 if old_March then
-    Debris:AddItem(old_March, 0)
+    old_March:Destroy()
+    task.wait(0.1)
 end
 
 if not isfolder("March") then
@@ -64,16 +65,23 @@ local Connections = setmetatable({
             return
         end
     
-        self[connection]:Disconnect()
+        if self[connection].Disconnect then
+            self[connection]:Disconnect()
+        end
         self[connection] = nil
     end,
     disconnect_all = function(self)
-        for _, value in self do
+        for key, value in pairs(self) do
             if typeof(value) == 'function' then
                 continue
             end
     
-            value:Disconnect()
+            if value and value.Disconnect then
+                pcall(function()
+                    value:Disconnect()
+                end)
+            end
+            self[key] = nil
         end
     end
 }, Connections)
@@ -633,22 +641,20 @@ function Library:create_ui()
     
     -- Анимация градиента
     task.spawn(function()
-        while true do
+        while ClientName and ClientName.Parent and UIGradient and UIGradient.Parent do
             for i = 0, 1, 0.01 do
-                if UIGradient and UIGradient.Parent then
-                    UIGradient.Offset = Vector2.new(i, 0)
-                    task.wait(0.03)
-                else
-                    break
+                if not (UIGradient and UIGradient.Parent and ClientName.Parent) then
+                    return
                 end
+                UIGradient.Offset = Vector2.new(i, 0)
+                task.wait(0.03)
             end
             for i = 1, 0, -0.01 do
-                if UIGradient and UIGradient.Parent then
-                    UIGradient.Offset = Vector2.new(i, 0)
-                    task.wait(0.03)
-                else
-                    break
+                if not (UIGradient and UIGradient.Parent and ClientName.Parent) then
+                    return
                 end
+                UIGradient.Offset = Vector2.new(i, 0)
+                task.wait(0.03)
             end
         end
     end)
