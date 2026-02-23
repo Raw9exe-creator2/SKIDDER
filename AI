@@ -2794,13 +2794,15 @@ function Library:create_ui()
                 end
                 
                 Colorpicker.MouseButton1Click:Connect(function()
-                    local Overlay = Instance.new('Frame')
+                    local Overlay = Instance.new('TextButton')
                     Overlay.Name = 'ColorPickerOverlay'
                     Overlay.Size = UDim2.new(1, 0, 1, 0)
                     Overlay.Position = UDim2.new(0, 0, 0, 0)
                     Overlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
                     Overlay.BackgroundTransparency = 0.5
                     Overlay.BorderSizePixel = 0
+                    Overlay.Text = ''
+                    Overlay.AutoButtonColor = false
                     Overlay.ZIndex = 999
                     Overlay.Parent = Library._ui
                     
