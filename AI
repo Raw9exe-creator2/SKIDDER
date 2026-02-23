@@ -179,9 +179,10 @@ function Library.new(config)
     UICorner.Parent = self.MainFrame
     
     local UIStroke = Instance.new("UIStroke")
-    UIStroke.Color = Color3.fromRGB(60, 70, 90)
-    UIStroke.Transparency = 0.7
+    UIStroke.Color = Color3.fromRGB(52, 66, 89)
+    UIStroke.Transparency = 0.5
     UIStroke.Thickness = 1
+    UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     UIStroke.Parent = self.MainFrame
     
     self:CreateTopBar()
@@ -492,7 +493,8 @@ function Library:CreateTab(config)
     TabIcon.Position = UDim2.new(0, 10, 0.5, -8)
     TabIcon.BackgroundTransparency = 1
     TabIcon.Image = Tab.Icon
-    TabIcon.ImageColor3 = Color3.fromRGB(150, 150, 150)
+    TabIcon.ImageColor3 = Color3.fromRGB(255, 255, 255)
+    TabIcon.ImageTransparency = 0.8
     TabIcon.Parent = TabButton
     
     local TabLabel = Instance.new("TextLabel")
@@ -500,11 +502,20 @@ function Library:CreateTab(config)
     TabLabel.Position = UDim2.new(0, 32, 0, 0)
     TabLabel.BackgroundTransparency = 1
     TabLabel.Text = Tab.Name
-    TabLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
+    TabLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TabLabel.TextTransparency = 0.7
     TabLabel.TextSize = 11
     TabLabel.Font = Enum.Font.Gotham
     TabLabel.TextXAlignment = Enum.TextXAlignment.Left
     TabLabel.Parent = TabButton
+    
+    local UIGradient = Instance.new("UIGradient")
+    UIGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+        ColorSequenceKeypoint.new(0.7, Color3.fromRGB(155, 155, 155)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(58, 58, 58))
+    }
+    UIGradient.Parent = TabLabel
     
     Tab.Button = TabButton
     Tab.Icon = TabIcon
@@ -527,13 +538,33 @@ end
 function Library:SelectTab(tab)
     for _, t in pairs(self.Tabs) do
         t.Button.BackgroundColor3 = Color3.fromRGB(25, 28, 32)
-        t.Icon.ImageColor3 = Color3.fromRGB(150, 150, 150)
-        t.Label.TextColor3 = Color3.fromRGB(150, 150, 150)
+        t.Icon.ImageColor3 = Color3.fromRGB(255, 255, 255)
+        t.Icon.ImageTransparency = 0.8
+        t.Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+        t.Label.TextTransparency = 0.7
+        
+        TweenService:Create(t.Button, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+            BackgroundTransparency = 1
+        }):Play()
+        
+        TweenService:Create(t.Label.UIGradient, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+            Offset = Vector2.new(0, 0)
+        }):Play()
     end
     
-    tab.Button.BackgroundColor3 = Color3.fromRGB(100, 120, 255)
-    tab.Icon.ImageColor3 = Color3.fromRGB(255, 255, 255)
-    tab.Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    tab.Button.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
+    tab.Icon.ImageColor3 = Color3.fromRGB(152, 181, 255)
+    tab.Icon.ImageTransparency = 0.2
+    tab.Label.TextColor3 = Color3.fromRGB(152, 181, 255)
+    tab.Label.TextTransparency = 0.2
+    
+    TweenService:Create(tab.Button, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+        BackgroundTransparency = 0.5
+    }):Play()
+    
+    TweenService:Create(tab.Label.UIGradient, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+        Offset = Vector2.new(1, 0)
+    }):Play()
     
     for _, child in pairs(self.SubTabContainer:GetChildren()) do
         if child:IsA("TextButton") then
@@ -576,7 +607,8 @@ function Library:CreateSubTab(tab, config)
     SubTabIcon.Position = UDim2.new(0, 8, 0.5, -7)
     SubTabIcon.BackgroundTransparency = 1
     SubTabIcon.Image = SubTab.Icon
-    SubTabIcon.ImageColor3 = Color3.fromRGB(150, 150, 150)
+    SubTabIcon.ImageColor3 = Color3.fromRGB(255, 255, 255)
+    SubTabIcon.ImageTransparency = 0.7
     SubTabIcon.Parent = SubTabButton
     
     local SubTabLabel = Instance.new("TextLabel")
@@ -584,11 +616,21 @@ function Library:CreateSubTab(tab, config)
     SubTabLabel.Position = UDim2.new(0, 28, 0, 0)
     SubTabLabel.BackgroundTransparency = 1
     SubTabLabel.Text = SubTab.Name
-    SubTabLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
+    SubTabLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SubTabLabel.TextTransparency = 0.6
     SubTabLabel.TextSize = 10
     SubTabLabel.Font = Enum.Font.Gotham
     SubTabLabel.TextXAlignment = Enum.TextXAlignment.Left
     SubTabLabel.Parent = SubTabButton
+    
+    local UIGradient = Instance.new("UIGradient")
+    UIGradient.Transparency = NumberSequence.new{
+        NumberSequenceKeypoint.new(0, 0),
+        NumberSequenceKeypoint.new(0.704, 0),
+        NumberSequenceKeypoint.new(0.872, 0.3625),
+        NumberSequenceKeypoint.new(1, 1)
+    }
+    UIGradient.Parent = SubTabLabel
     
     SubTab.Button = SubTabButton
     SubTab.Icon = SubTabIcon
@@ -608,17 +650,19 @@ end
 function Library:SelectSubTab(tab, subTab)
     for _, st in pairs(tab.SubTabs) do
         st.Button.BackgroundColor3 = Color3.fromRGB(25, 28, 32)
-        st.Icon.ImageColor3 = Color3.fromRGB(150, 150, 150)
-        st.Label.TextColor3 = Color3.fromRGB(150, 150, 150)
+        st.Icon.ImageColor3 = Color3.fromRGB(255, 255, 255)
+        st.Icon.ImageTransparency = 0.7
+        st.Label.TextTransparency = 0.6
         
         for _, module in pairs(st.Modules) do
             module.Frame.Visible = false
         end
     end
     
-    subTab.Button.BackgroundColor3 = Color3.fromRGB(80, 100, 220)
+    subTab.Button.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
     subTab.Icon.ImageColor3 = Color3.fromRGB(255, 255, 255)
-    subTab.Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    subTab.Icon.ImageTransparency = 0.2
+    subTab.Label.TextTransparency = 0.2
     
     for _, module in pairs(subTab.Modules) do
         module.Frame.Visible = true
@@ -645,9 +689,10 @@ function Library:CreateModule(subTab, config)
     ModuleCorner.Parent = ModuleFrame
     
     local ModuleStroke = Instance.new("UIStroke")
-    ModuleStroke.Color = Color3.fromRGB(35, 40, 50)
-    ModuleStroke.Transparency = 0.92
+    ModuleStroke.Color = Color3.fromRGB(52, 66, 89)
+    ModuleStroke.Transparency = 0.5
     ModuleStroke.Thickness = 1
+    ModuleStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     ModuleStroke.Parent = ModuleFrame
     
     local ModuleHeader = Instance.new("Frame")
@@ -660,7 +705,8 @@ function Library:CreateModule(subTab, config)
     ModuleIcon.Position = UDim2.new(0, 10, 0, 7)
     ModuleIcon.BackgroundTransparency = 1
     ModuleIcon.Image = config.Icon or "rbxassetid://6031360365"
-    ModuleIcon.ImageColor3 = Color3.fromRGB(120, 140, 255)
+    ModuleIcon.ImageColor3 = Color3.fromRGB(152, 181, 255)
+    ModuleIcon.ImageTransparency = 0.7
     ModuleIcon.Parent = ModuleHeader
     
     local ModuleTitle = Instance.new("TextLabel")
@@ -668,7 +714,8 @@ function Library:CreateModule(subTab, config)
     ModuleTitle.Position = UDim2.new(0, 34, 0, 8)
     ModuleTitle.BackgroundTransparency = 1
     ModuleTitle.Text = Module.Name
-    ModuleTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ModuleTitle.TextColor3 = Color3.fromRGB(152, 181, 255)
+    ModuleTitle.TextTransparency = 0.2
     ModuleTitle.TextSize = 12
     ModuleTitle.Font = Enum.Font.GothamBold
     ModuleTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -714,7 +761,8 @@ function Library:CreateModule(subTab, config)
     
     local ToggleButton = Instance.new("TextButton")
     ToggleButton.Size = UDim2.new(0, 40, 0, 22)
-    ToggleButton.BackgroundColor3 = Color3.fromRGB(35, 38, 42)
+    ToggleButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    ToggleButton.BackgroundTransparency = 0.7
     ToggleButton.Text = ""
     ToggleButton.Parent = ButtonContainer
     
@@ -725,7 +773,8 @@ function Library:CreateModule(subTab, config)
     local ToggleCircle = Instance.new("Frame")
     ToggleCircle.Size = UDim2.new(0, 18, 0, 18)
     ToggleCircle.Position = UDim2.new(0, 2, 0.5, -9)
-    ToggleCircle.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    ToggleCircle.BackgroundColor3 = Color3.fromRGB(66, 80, 115)
+    ToggleCircle.BackgroundTransparency = 0.2
     ToggleCircle.BorderSizePixel = 0
     ToggleCircle.Parent = ToggleButton
     
@@ -738,11 +787,21 @@ function Library:CreateModule(subTab, config)
     ToggleButton.MouseButton1Click:Connect(function()
         toggled = not toggled
         if toggled then
-            TweenService:Create(ToggleButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(100, 120, 255)}):Play()
-            TweenService:Create(ToggleCircle, TweenInfo.new(0.2), {Position = UDim2.new(1, -20, 0.5, -9), BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+            TweenService:Create(ToggleButton, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+            }):Play()
+            TweenService:Create(ToggleCircle, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                Position = UDim2.new(0, 20, 0.5, -9),
+                BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+            }):Play()
         else
-            TweenService:Create(ToggleButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(35, 38, 42)}):Play()
-            TweenService:Create(ToggleCircle, TweenInfo.new(0.2), {Position = UDim2.new(0, 2, 0.5, -9), BackgroundColor3 = Color3.fromRGB(60, 60, 60)}):Play()
+            TweenService:Create(ToggleButton, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+            }):Play()
+            TweenService:Create(ToggleCircle, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                Position = UDim2.new(0, 2, 0.5, -9),
+                BackgroundColor3 = Color3.fromRGB(66, 80, 115)
+            }):Play()
         end
         if config.Callback then
             config.Callback(toggled)
@@ -778,62 +837,88 @@ function Library:AddCheckbox(module, config)
     
     local CheckboxFrame = Instance.new("Frame")
     CheckboxFrame.Size = UDim2.new(1, 0, 0, 28)
-    CheckboxFrame.BackgroundColor3 = Color3.fromRGB(30, 33, 37)
+    CheckboxFrame.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+    CheckboxFrame.BackgroundTransparency = 0.1
     CheckboxFrame.BorderSizePixel = 0
     CheckboxFrame.Parent = module.ElementContainer
     
     local CheckCorner = Instance.new("UICorner")
-    CheckCorner.CornerRadius = UDim.new(0, 6)
+    CheckCorner.CornerRadius = UDim.new(0, 4)
     CheckCorner.Parent = CheckboxFrame
     
     local CheckButton = Instance.new("TextButton")
-    CheckButton.Size = UDim2.new(0, 18, 0, 18)
-    CheckButton.Position = UDim2.new(0, 8, 0.5, -9)
-    CheckButton.BackgroundColor3 = Color3.fromRGB(40, 43, 47)
+    CheckButton.Size = UDim2.new(0, 15, 0, 15)
+    CheckButton.Position = UDim2.new(1, -15, 0.5, -7.5)
+    CheckButton.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+    CheckButton.BackgroundTransparency = 0.9
     CheckButton.BorderSizePixel = 0
     CheckButton.Text = ""
     CheckButton.Parent = CheckboxFrame
     
     local ButtonCorner = Instance.new("UICorner")
-    ButtonCorner.CornerRadius = UDim.new(0, 5)
+    ButtonCorner.CornerRadius = UDim.new(0, 4)
     ButtonCorner.Parent = CheckButton
     
-    local CheckIcon = Instance.new("TextLabel")
-    CheckIcon.Size = UDim2.new(1, 0, 1, 0)
-    CheckIcon.BackgroundTransparency = 1
-    CheckIcon.Text = "✓"
-    CheckIcon.TextColor3 = Color3.fromRGB(255, 255, 255)
-    CheckIcon.TextSize = 13
-    CheckIcon.Font = Enum.Font.GothamBold
-    CheckIcon.Visible = false
-    CheckIcon.Parent = CheckButton
+    local Fill = Instance.new("Frame")
+    Fill.Size = UDim2.new(0, 0, 0, 0)
+    Fill.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Fill.AnchorPoint = Vector2.new(0.5, 0.5)
+    Fill.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+    Fill.BackgroundTransparency = 0.2
+    Fill.BorderSizePixel = 0
+    Fill.Parent = CheckButton
+    
+    local FillCorner = Instance.new("UICorner")
+    FillCorner.CornerRadius = UDim.new(0, 3)
+    FillCorner.Parent = Fill
     
     local CheckLabel = Instance.new("TextLabel")
-    CheckLabel.Size = UDim2.new(1, -36, 1, 0)
-    CheckLabel.Position = UDim2.new(0, 32, 0, 0)
+    CheckLabel.Size = UDim2.new(1, -25, 1, 0)
+    CheckLabel.Position = UDim2.new(0, 8, 0, 0)
     CheckLabel.BackgroundTransparency = 1
     CheckLabel.Text = config.Name or "Checkbox"
-    CheckLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+    CheckLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    CheckLabel.TextTransparency = 0.2
     CheckLabel.TextSize = 11
-    CheckLabel.Font = Enum.Font.Gotham
+    CheckLabel.Font = Enum.Font.GothamBold
     CheckLabel.TextXAlignment = Enum.TextXAlignment.Left
     CheckLabel.Parent = CheckboxFrame
     
     local checked = config.Default or false
     
     if checked then
-        CheckButton.BackgroundColor3 = Color3.fromRGB(100, 120, 255)
-        CheckIcon.Visible = true
+        CheckButton.BackgroundTransparency = 0.7
+        Fill.Size = UDim2.new(0, 9, 0, 9)
     end
+    
+    CheckboxFrame.MouseEnter:Connect(function()
+        TweenService:Create(CheckboxFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+            BackgroundColor3 = Color3.fromRGB(42, 50, 66)
+        }):Play()
+    end)
+    
+    CheckboxFrame.MouseLeave:Connect(function()
+        TweenService:Create(CheckboxFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+            BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+        }):Play()
+    end)
     
     CheckButton.MouseButton1Click:Connect(function()
         checked = not checked
         if checked then
-            TweenService:Create(CheckButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(100, 120, 255)}):Play()
-            CheckIcon.Visible = true
+            TweenService:Create(CheckButton, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                BackgroundTransparency = 0.7
+            }):Play()
+            TweenService:Create(Fill, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                Size = UDim2.new(0, 9, 0, 9)
+            }):Play()
         else
-            TweenService:Create(CheckButton, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(40, 43, 47)}):Play()
-            CheckIcon.Visible = false
+            TweenService:Create(CheckButton, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                BackgroundTransparency = 0.9
+            }):Play()
+            TweenService:Create(Fill, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                Size = UDim2.new(0, 0, 0, 0)
+            }):Play()
         end
         if config.Callback then
             config.Callback(checked)
@@ -849,40 +934,45 @@ function Library:AddSlider(module, config)
     
     local SliderFrame = Instance.new("Frame")
     SliderFrame.Size = UDim2.new(1, 0, 0, 40)
-    SliderFrame.BackgroundColor3 = Color3.fromRGB(30, 33, 37)
+    SliderFrame.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+    SliderFrame.BackgroundTransparency = 0.1
     SliderFrame.BorderSizePixel = 0
     SliderFrame.Parent = module.ElementContainer
     
     local SliderCorner = Instance.new("UICorner")
-    SliderCorner.CornerRadius = UDim.new(0, 6)
+    SliderCorner.CornerRadius = UDim2.new(0, 4)
     SliderCorner.Parent = SliderFrame
     
     local SliderLabel = Instance.new("TextLabel")
     SliderLabel.Size = UDim2.new(0.7, 0, 0, 16)
-    SliderLabel.Position = UDim2.new(0, 8, 0, 6)
+    SliderLabel.Position = UDim2.new(0, 8, 0, 4)
     SliderLabel.BackgroundTransparency = 1
     SliderLabel.Text = config.Name or "Slider"
-    SliderLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+    SliderLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    SliderLabel.TextTransparency = 0.2
     SliderLabel.TextSize = 11
-    SliderLabel.Font = Enum.Font.Gotham
+    SliderLabel.Font = Enum.Font.GothamBold
     SliderLabel.TextXAlignment = Enum.TextXAlignment.Left
     SliderLabel.Parent = SliderFrame
     
     local ValueLabel = Instance.new("TextLabel")
     ValueLabel.Size = UDim2.new(0.3, -8, 0, 16)
-    ValueLabel.Position = UDim2.new(0.7, 0, 0, 6)
+    ValueLabel.Position = UDim2.new(0.7, 0, 0, 4)
     ValueLabel.BackgroundTransparency = 1
     ValueLabel.Text = tostring(config.Default or config.Min)
-    ValueLabel.TextColor3 = Color3.fromRGB(100, 120, 255)
-    ValueLabel.TextSize = 11
+    ValueLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ValueLabel.TextTransparency = 0.2
+    ValueLabel.TextSize = 10
     ValueLabel.Font = Enum.Font.GothamBold
     ValueLabel.TextXAlignment = Enum.TextXAlignment.Right
     ValueLabel.Parent = SliderFrame
     
     local SliderBar = Instance.new("Frame")
-    SliderBar.Size = UDim2.new(1, -16, 0, 5)
-    SliderBar.Position = UDim2.new(0, 8, 1, -11)
-    SliderBar.BackgroundColor3 = Color3.fromRGB(40, 43, 47)
+    SliderBar.Size = UDim2.new(1, -16, 0, 4)
+    SliderBar.Position = UDim2.new(0, 8, 1, -9)
+    SliderBar.AnchorPoint = Vector2.new(0, 1)
+    SliderBar.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+    SliderBar.BackgroundTransparency = 0.9
     SliderBar.BorderSizePixel = 0
     SliderBar.Parent = SliderFrame
     
@@ -892,13 +982,45 @@ function Library:AddSlider(module, config)
     
     local SliderFill = Instance.new("Frame")
     SliderFill.Size = UDim2.new(0, 0, 1, 0)
-    SliderFill.BackgroundColor3 = Color3.fromRGB(100, 120, 255)
+    SliderFill.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+    SliderFill.BackgroundTransparency = 0.5
     SliderFill.BorderSizePixel = 0
     SliderFill.Parent = SliderBar
     
     local FillCorner = Instance.new("UICorner")
-    FillCorner.CornerRadius = UDim.new(1, 0)
+    FillCorner.CornerRadius = UDim.new(0, 3)
     FillCorner.Parent = SliderFill
+    
+    local UIGradient = Instance.new("UIGradient")
+    UIGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(79, 79, 79))
+    }
+    UIGradient.Parent = SliderFill
+    
+    local Circle = Instance.new("Frame")
+    Circle.Size = UDim2.new(0, 6, 0, 6)
+    Circle.Position = UDim2.new(1, 0, 0.5, 0)
+    Circle.AnchorPoint = Vector2.new(1, 0.5)
+    Circle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Circle.BorderSizePixel = 0
+    Circle.Parent = SliderFill
+    
+    local CircleCorner = Instance.new("UICorner")
+    CircleCorner.CornerRadius = UDim.new(1, 0)
+    CircleCorner.Parent = Circle
+    
+    SliderFrame.MouseEnter:Connect(function()
+        TweenService:Create(SliderFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+            BackgroundColor3 = Color3.fromRGB(42, 50, 66)
+        }):Play()
+    end)
+    
+    SliderFrame.MouseLeave:Connect(function()
+        TweenService:Create(SliderFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+            BackgroundColor3 = Color3.fromRGB(32, 38, 51)
+        }):Play()
+    end)
     
     local dragging = false
     local value = config.Default or config.Min
@@ -909,7 +1031,11 @@ function Library:AddSlider(module, config)
         local pos = math.clamp((input.Position.X - SliderBar.AbsolutePosition.X) / SliderBar.AbsoluteSize.X, 0, 1)
         value = math.floor(min + (max - min) * pos)
         ValueLabel.Text = tostring(value) .. (config.Suffix or "")
-        SliderFill.Size = UDim2.new(pos, 0, 1, 0)
+        
+        TweenService:Create(SliderFill, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+            Size = UDim2.new(pos, 0, 1, 0)
+        }):Play()
+        
         if config.Callback then
             config.Callback(value)
         end
