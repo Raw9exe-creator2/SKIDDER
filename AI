@@ -2711,6 +2711,13 @@ function Library:create_ui()
                 
                 Options.Size = UDim2.fromOffset(241, self._size)
                 
+                local function colorToHex(color)
+                    return string.format("#%02X%02X%02X", 
+                        math.floor(color.R * 255), 
+                        math.floor(color.G * 255), 
+                        math.floor(color.B * 255))
+                end
+                
                 local Colorpicker = Instance.new('TextButton')
                 Colorpicker.FontFace = Font.new('rbxasset://fonts/families/SourceSansPro.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal)
                 Colorpicker.TextColor3 = Color3.fromRGB(0, 0, 0)
@@ -2731,7 +2738,7 @@ function Library:create_ui()
                 Label.TextColor3 = Color3.fromRGB(255, 255, 255)
                 Label.TextTransparency = 0.2
                 Label.Text = settings.title or "Color"
-                Label.Size = UDim2.new(0, 150, 0, 13)
+                Label.Size = UDim2.new(0, 100, 0, 13)
                 Label.AnchorPoint = Vector2.new(0, 0.5)
                 Label.Position = UDim2.new(0, 0, 0.5, 0)
                 Label.BackgroundTransparency = 1
@@ -2740,30 +2747,36 @@ function Library:create_ui()
                 Label.TextSize = 11
                 Label.Parent = Colorpicker
                 
-                local ColorBox = Instance.new('Frame')
-                ColorBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
-                ColorBox.AnchorPoint = Vector2.new(1, 0.5)
-                ColorBox.Position = UDim2.new(1, 0, 0.5, 0)
-                ColorBox.Name = 'ColorBox'
-                ColorBox.Size = UDim2.new(0, 30, 0, 15)
-                ColorBox.BorderSizePixel = 0
-                ColorBox.BackgroundColor3 = ColorpickerManager._color
-                ColorBox.Parent = Colorpicker
+                local ColorCircle = Instance.new('Frame')
+                ColorCircle.AnchorPoint = Vector2.new(1, 0.5)
+                ColorCircle.Position = UDim2.new(1, -50, 0.5, 0)
+                ColorCircle.Name = 'ColorCircle'
+                ColorCircle.Size = UDim2.new(0, 10, 0, 10)
+                ColorCircle.BorderSizePixel = 0
+                ColorCircle.BackgroundColor3 = ColorpickerManager._color
+                ColorCircle.Parent = Colorpicker
                 
-                local UICorner = Instance.new('UICorner')
-                UICorner.CornerRadius = UDim.new(0, 4)
-                UICorner.Parent = ColorBox
+                local CircleCorner = Instance.new('UICorner')
+                CircleCorner.CornerRadius = UDim.new(1, 0)
+                CircleCorner.Parent = ColorCircle
                 
-                local UIStroke = Instance.new('UIStroke')
-                UIStroke.Color = Color3.fromRGB(152, 181, 255)
-                UIStroke.Transparency = 0.5
-                UIStroke.Thickness = 1
-                UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-                UIStroke.Parent = ColorBox
+                local HexLabel = Instance.new('TextLabel')
+                HexLabel.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+                HexLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
+                HexLabel.Text = colorToHex(ColorpickerManager._color)
+                HexLabel.Size = UDim2.new(0, 45, 0, 13)
+                HexLabel.AnchorPoint = Vector2.new(1, 0.5)
+                HexLabel.Position = UDim2.new(1, 0, 0.5, 0)
+                HexLabel.BackgroundTransparency = 1
+                HexLabel.TextXAlignment = Enum.TextXAlignment.Right
+                HexLabel.BorderSizePixel = 0
+                HexLabel.TextSize = 9
+                HexLabel.Parent = Colorpicker
                 
                 function ColorpickerManager:update_color(color: Color3)
                     self._color = color
-                    ColorBox.BackgroundColor3 = color
+                    ColorCircle.BackgroundColor3 = color
+                    HexLabel.Text = colorToHex(color)
                     Library._config._flags[settings.flag] = {
                         R = math.floor(color.R * 255),
                         G = math.floor(color.G * 255),
