@@ -989,6 +989,7 @@ function Library:create_ui()
 
     function self:create_tab(title: string, icon: string)
         local TabManager = {}
+        local LibraryRef = self  -- Сохраняем ссылку на Library
 
         local LayoutOrder = 0;
 
@@ -1152,7 +1153,7 @@ function Library:create_ui()
             Module.Parent = settings.section
             
             -- Регистрация модуля для поиска
-            self:register_module(Module, settings.title or "Module")
+            LibraryRef:register_module(Module, settings.title or "Module")
 
             local UIListLayout = Instance.new('UIListLayout')
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
