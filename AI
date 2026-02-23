@@ -3326,7 +3326,7 @@ function Library:create_ui()
                 Label.Parent = Toggle
                 
                 local ToggleFrame = Instance.new('Frame')
-                ToggleFrame.Size = UDim2.fromOffset(32, 16)
+                ToggleFrame.Size = UDim2.fromOffset(40, 20)
                 ToggleFrame.Position = UDim2.new(1, -5, 0.5, 0)
                 ToggleFrame.AnchorPoint = Vector2.new(1, 0.5)
                 ToggleFrame.BackgroundColor3 = Color3.fromRGB(45, 55, 72)
@@ -3338,7 +3338,7 @@ function Library:create_ui()
                 FrameCorner.Parent = ToggleFrame
                 
                 local ToggleCircle = Instance.new('Frame')
-                ToggleCircle.Size = UDim2.fromOffset(12, 12)
+                ToggleCircle.Size = UDim2.fromOffset(16, 16)
                 ToggleCircle.Position = UDim2.fromOffset(2, 2)
                 ToggleCircle.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
                 ToggleCircle.BorderSizePixel = 0
@@ -3348,14 +3348,26 @@ function Library:create_ui()
                 CircleCorner.CornerRadius = UDim.new(1, 0)
                 CircleCorner.Parent = ToggleCircle
                 
-                local CircleGlow = Instance.new('ImageLabel')
-                CircleGlow.Size = UDim2.fromOffset(24, 24)
+                local CircleGlow = Instance.new('Frame')
+                CircleGlow.Size = UDim2.fromOffset(28, 28)
                 CircleGlow.Position = UDim2.fromOffset(-6, -6)
+                CircleGlow.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
                 CircleGlow.BackgroundTransparency = 1
-                CircleGlow.Image = "rbxassetid://4155801252"
-                CircleGlow.ImageColor3 = Color3.fromRGB(152, 181, 255)
-                CircleGlow.ImageTransparency = 1
+                CircleGlow.BorderSizePixel = 0
+                CircleGlow.ZIndex = 0
                 CircleGlow.Parent = ToggleCircle
+                
+                local GlowCorner = Instance.new('UICorner')
+                GlowCorner.CornerRadius = UDim.new(1, 0)
+                GlowCorner.Parent = CircleGlow
+                
+                local GlowGradient = Instance.new('UIGradient')
+                GlowGradient.Transparency = NumberSequence.new({
+                    NumberSequenceKeypoint.new(0, 1),
+                    NumberSequenceKeypoint.new(0.5, 0.3),
+                    NumberSequenceKeypoint.new(1, 1)
+                })
+                GlowGradient.Parent = CircleGlow
                 
                 function ToggleManager:SetValue(value)
                     self.Value = value
@@ -3366,12 +3378,12 @@ function Library:create_ui()
                         }):Play()
                         
                         TweenService:Create(ToggleCircle, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-                            Position = UDim2.fromOffset(18, 2),
+                            Position = UDim2.fromOffset(22, 2),
                             BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                         }):Play()
                         
                         TweenService:Create(CircleGlow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-                            ImageTransparency = 0.5
+                            BackgroundTransparency = 0.3
                         }):Play()
                     else
                         TweenService:Create(ToggleFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
@@ -3384,7 +3396,7 @@ function Library:create_ui()
                         }):Play()
                         
                         TweenService:Create(CircleGlow, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-                            ImageTransparency = 1
+                            BackgroundTransparency = 1
                         }):Play()
                     end
                     
