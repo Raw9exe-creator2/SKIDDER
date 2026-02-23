@@ -621,9 +621,6 @@ function Library:CreateModule(subTab, config)
     return Module
 end
 
-return Library
-
-
 function Library:AddCheckbox(module, config)
     local Checkbox = {}
     
@@ -791,3 +788,6 @@ function Library:AddSlider(module, config)
     
     return Slider
 end
+
+
+return Library
