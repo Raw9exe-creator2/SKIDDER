@@ -2794,17 +2794,22 @@ function Library:create_ui()
                 end
                 
                 Colorpicker.MouseButton1Click:Connect(function()
+                    local OverlayGui = Instance.new('ScreenGui')
+                    OverlayGui.Name = 'ColorPickerOverlayGui'
+                    OverlayGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+                    OverlayGui.Parent = CoreGui
+                    
                     local Overlay = Instance.new('TextButton')
                     Overlay.Name = 'ColorPickerOverlay'
                     Overlay.Size = UDim2.new(1, 0, 1, 0)
                     Overlay.Position = UDim2.new(0, 0, 0, 0)
                     Overlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-                    Overlay.BackgroundTransparency = 0.5
+                    Overlay.BackgroundTransparency = 0.3
                     Overlay.BorderSizePixel = 0
                     Overlay.Text = ''
                     Overlay.AutoButtonColor = false
-                    Overlay.ZIndex = 999
-                    Overlay.Parent = Library._ui
+                    Overlay.ZIndex = 10
+                    Overlay.Parent = OverlayGui
                     
                     local PickerFrame = Instance.new('Frame')
                     PickerFrame.Name = 'ColorPickerFrame'
@@ -2813,7 +2818,7 @@ function Library:create_ui()
                     PickerFrame.AnchorPoint = Vector2.new(0.5, 0.5)
                     PickerFrame.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
                     PickerFrame.BorderSizePixel = 0
-                    PickerFrame.ZIndex = 1000
+                    PickerFrame.ZIndex = 11
                     PickerFrame.Parent = Overlay
                     
                     local PickerCorner = Instance.new('UICorner')
@@ -2835,6 +2840,7 @@ function Library:create_ui()
                     Title.TextXAlignment = Enum.TextXAlignment.Left
                     Title.Font = Enum.Font.GothamSemibold
                     Title.TextSize = 12
+                    Title.ZIndex = 12
                     Title.Parent = PickerFrame
                     
                     local CloseButton = Instance.new('TextButton')
@@ -2845,6 +2851,7 @@ function Library:create_ui()
                     CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
                     CloseButton.Font = Enum.Font.GothamBold
                     CloseButton.TextSize = 18
+                    CloseButton.ZIndex = 12
                     CloseButton.Parent = PickerFrame
                     
                     local currentColor = ColorpickerManager._color
@@ -2959,14 +2966,12 @@ function Library:create_ui()
                         Connections:disconnect('slider_end_R')
                         Connections:disconnect('slider_end_G')
                         Connections:disconnect('slider_end_B')
-                        Overlay:Destroy()
+                        OverlayGui:Destroy()
                     end
                     
                     CloseButton.MouseButton1Click:Connect(closeColorPicker)
                     
-                    Overlay.MouseButton1Click:Connect(function()
-                        closeColorPicker()
-                    end)
+                    Overlay.MouseButton1Click:Connect(closeColorPicker)
                     
                     PickerFrame.MouseButton1Click:Connect(function()
                     end)
