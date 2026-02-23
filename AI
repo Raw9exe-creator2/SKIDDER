@@ -67,6 +67,23 @@ function Library.new(title)
         self.ScreenGui:Destroy()
     end)
     
+    self.SearchBox = Instance.new("TextBox")
+    self.SearchBox.Name = "SearchBox"
+    self.SearchBox.Size = UDim2.new(0, 200, 0, 25)
+    self.SearchBox.Position = UDim2.new(0.5, -100, 0, 7.5)
+    self.SearchBox.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
+    self.SearchBox.PlaceholderText = "🔍 Search"
+    self.SearchBox.PlaceholderColor3 = Color3.fromRGB(150, 150, 150)
+    self.SearchBox.Text = ""
+    self.SearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    self.SearchBox.TextSize = 12
+    self.SearchBox.Font = Enum.Font.Gotham
+    self.SearchBox.Parent = self.TopBar
+    
+    local SearchCorner = Instance.new("UICorner")
+    SearchCorner.CornerRadius = UDim.new(0, 6)
+    SearchCorner.Parent = self.SearchBox
+    
     self.TabContainer = Instance.new("Frame")
     self.TabContainer.Name = "TabContainer"
     self.TabContainer.Size = UDim2.new(0, 150, 1, -50)
@@ -123,22 +140,38 @@ function Library:MakeDraggable(frame, dragHandle)
     end)
 end
 
-function Library:CreateTab(name)
+function Library:CreateTab(name, icon)
     local Tab = {}
     
     local TabButton = Instance.new("TextButton")
     TabButton.Name = name
-    TabButton.Size = UDim2.new(1, 0, 0, 35)
+    TabButton.Size = UDim2.new(1, 0, 0, 40)
     TabButton.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
-    TabButton.Text = name
-    TabButton.TextColor3 = Color3.fromRGB(200, 200, 200)
-    TabButton.TextSize = 14
-    TabButton.Font = Enum.Font.Gotham
+    TabButton.Text = ""
     TabButton.Parent = self.TabContainer
     
     local TabCorner = Instance.new("UICorner")
-    TabCorner.CornerRadius = UDim.new(0, 6)
+    TabCorner.CornerRadius = UDim.new(0, 8)
     TabCorner.Parent = TabButton
+    
+    local TabIcon = Instance.new("ImageLabel")
+    TabIcon.Size = UDim2.new(0, 20, 0, 20)
+    TabIcon.Position = UDim2.new(0, 10, 0.5, -10)
+    TabIcon.BackgroundTransparency = 1
+    TabIcon.Image = icon or "rbxassetid://6031360365"
+    TabIcon.ImageColor3 = Color3.fromRGB(200, 200, 200)
+    TabIcon.Parent = TabButton
+    
+    local TabLabel = Instance.new("TextLabel")
+    TabLabel.Size = UDim2.new(1, -45, 1, 0)
+    TabLabel.Position = UDim2.new(0, 40, 0, 0)
+    TabLabel.BackgroundTransparency = 1
+    TabLabel.Text = name
+    TabLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+    TabLabel.TextSize = 13
+    TabLabel.Font = Enum.Font.Gotham
+    TabLabel.TextXAlignment = Enum.TextXAlignment.Left
+    TabLabel.Parent = TabButton
     
     local TabContent = Instance.new("ScrollingFrame")
     TabContent.Name = name .. "Content"
@@ -162,17 +195,21 @@ function Library:CreateTab(name)
     TabButton.MouseButton1Click:Connect(function()
         for _, tab in pairs(self.Tabs) do
             tab.Button.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
-            tab.Button.TextColor3 = Color3.fromRGB(200, 200, 200)
+            tab.Icon.ImageColor3 = Color3.fromRGB(200, 200, 200)
+            tab.Label.TextColor3 = Color3.fromRGB(200, 200, 200)
             tab.Content.Visible = false
         end
         
-        TabButton.BackgroundColor3 = Color3.fromRGB(80, 80, 255)
-        TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TabButton.BackgroundColor3 = Color3.fromRGB(70, 70, 200)
+        TabIcon.ImageColor3 = Color3.fromRGB(255, 255, 255)
+        TabLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
         TabContent.Visible = true
         self.CurrentTab = Tab
     end)
     
     Tab.Button = TabButton
+    Tab.Icon = TabIcon
+    Tab.Label = TabLabel
     Tab.Content = TabContent
     Tab.Library = self
     
@@ -450,8 +487,9 @@ function Library:CreateTab(name)
     table.insert(self.Tabs, Tab)
     
     if #self.Tabs == 1 then
-        TabButton.BackgroundColor3 = Color3.fromRGB(80, 80, 255)
-        TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TabButton.BackgroundColor3 = Color3.fromRGB(70, 70, 200)
+        TabIcon.ImageColor3 = Color3.fromRGB(255, 255, 255)
+        TabLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
         TabContent.Visible = true
         self.CurrentTab = Tab
     end
