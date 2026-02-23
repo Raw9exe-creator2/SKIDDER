@@ -50,8 +50,7 @@ local mouse = Players.LocalPlayer:GetMouse()
 local old_March = CoreGui:FindFirstChild('March')
 
 if old_March then
-    old_March:Destroy()
-    task.wait(0.1)
+    Debris:AddItem(old_March, 0)
 end
 
 if not isfolder("March") then
@@ -65,23 +64,16 @@ local Connections = setmetatable({
             return
         end
     
-        if self[connection].Disconnect then
-            self[connection]:Disconnect()
-        end
+        self[connection]:Disconnect()
         self[connection] = nil
     end,
     disconnect_all = function(self)
-        for key, value in pairs(self) do
+        for _, value in self do
             if typeof(value) == 'function' then
                 continue
             end
     
-            if value and value.Disconnect then
-                pcall(function()
-                    value:Disconnect()
-                end)
-            end
-            self[key] = nil
+            value:Disconnect()
         end
     end
 }, Connections)
@@ -352,22 +344,10 @@ local Library = {
 Library.__index = Library
 
 
-function Library.new(search_settings)
-    search_settings = search_settings or {}
-    
+function Library.new()
     local self = setmetatable({
         _loaded = false,
         _tab = 0,
-        _search_settings = {
-            enabled = search_settings.enabled ~= false,
-            position_x = search_settings.position_x or 0.53,
-            position_y = search_settings.position_y or 0.10,
-            offset_x = search_settings.offset_x or -187,
-            offset_y = search_settings.offset_y or -31,
-            width = search_settings.width or 501,
-            height = search_settings.height or 20,
-            transparency = search_settings.transparency or 0.27
-        }
     }, Library)
     
     self:create_ui()
@@ -560,21 +540,6 @@ function Library:create_ui()
     Container.BorderSizePixel = 0
     Container.Parent = March
     
-    -- Тень для контейнера
-    local Shadow = Instance.new('ImageLabel')
-    Shadow.Name = 'Shadow'
-    Shadow.Size = UDim2.new(1, 47, 1, 47)
-    Shadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-    Shadow.AnchorPoint = Vector2.new(0.5, 0.5)
-    Shadow.BackgroundTransparency = 1
-    Shadow.Image = 'rbxassetid://5554236805'
-    Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-    Shadow.ImageTransparency = 0.4
-    Shadow.ScaleType = Enum.ScaleType.Slice
-    Shadow.SliceCenter = Rect.new(23, 23, 277, 277)
-    Shadow.ZIndex = 0
-    Shadow.Parent = Container
-    
     local UICorner = Instance.new('UICorner')
     UICorner.CornerRadius = UDim.new(0, 10)
     UICorner.Parent = Container
@@ -615,49 +580,28 @@ function Library:create_ui()
     UIListLayout.Parent = Tabs
     
     local ClientName = Instance.new('TextLabel')
-    ClientName.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    ClientName.TextColor3 = Color3.fromRGB(255, 255, 255)
-    ClientName.TextTransparency = 0
-    ClientName.Text = 'VODKA'
+    ClientName.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+    ClientName.TextColor3 = Color3.fromRGB(152, 181, 255)
+    ClientName.TextTransparency = 0.20000000298023224
+    ClientName.Text = 'March'
     ClientName.Name = 'ClientName'
-    ClientName.Size = UDim2.new(0, 80, 0, 20)
+    ClientName.Size = UDim2.new(0, 31, 0, 13)
     ClientName.AnchorPoint = Vector2.new(0, 0.5)
-    ClientName.Position = UDim2.new(0.08, 0, 0.055, 0)
+    ClientName.Position = UDim2.new(0.0560000017285347, 0, 0.054999999701976776, 0)
     ClientName.BackgroundTransparency = 1
     ClientName.TextXAlignment = Enum.TextXAlignment.Left
     ClientName.BorderSizePixel = 0
     ClientName.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    ClientName.TextSize = 18
+    ClientName.TextSize = 13
     ClientName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     ClientName.Parent = Handler
     
     local UIGradient = Instance.new('UIGradient')
     UIGradient.Color = ColorSequence.new{
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(30, 50, 100)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(155, 155, 155)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
     }
     UIGradient.Parent = ClientName
-    
-    -- Анимация градиента
-    task.spawn(function()
-        while ClientName and ClientName.Parent and UIGradient and UIGradient.Parent do
-            for i = 0, 1, 0.01 do
-                if not (UIGradient and UIGradient.Parent and ClientName.Parent) then
-                    return
-                end
-                UIGradient.Offset = Vector2.new(i, 0)
-                task.wait(0.03)
-            end
-            for i = 1, 0, -0.01 do
-                if not (UIGradient and UIGradient.Parent and ClientName.Parent) then
-                    return
-                end
-                UIGradient.Offset = Vector2.new(i, 0)
-                task.wait(0.03)
-            end
-        end
-    end)
     
     local Pin = Instance.new('Frame')
     Pin.Name = 'Pin'
@@ -672,15 +616,6 @@ function Library:create_ui()
     UICorner.CornerRadius = UDim.new(1, 0)
     UICorner.Parent = Pin
     
-    local PinGradient = Instance.new('UIGradient')
-    PinGradient.Color = ColorSequence.new{
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(152, 181, 255)),
-        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(100, 150, 255)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(80, 120, 200))
-    }
-    PinGradient.Rotation = 90
-    PinGradient.Parent = Pin
-    
     local Icon = Instance.new('ImageLabel')
     Icon.ImageColor3 = Color3.fromRGB(152, 181, 255)
     Icon.ScaleType = Enum.ScaleType.Fit
@@ -688,21 +623,12 @@ function Library:create_ui()
     Icon.AnchorPoint = Vector2.new(0, 0.5)
     Icon.Image = 'rbxassetid://107819132007001'
     Icon.BackgroundTransparency = 1
-    Icon.Position = UDim2.new(0.025, 0, 0.055, 0)
+    Icon.Position = UDim2.new(0.02500000037252903, 0, 0.054999999701976776, 0)
     Icon.Name = 'Icon'
-    Icon.Size = UDim2.new(0, 22, 0, 22)
+    Icon.Size = UDim2.new(0, 18, 0, 18)
     Icon.BorderSizePixel = 0
     Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Icon.Parent = Handler
-    
-    -- Градиент для иконки
-    local IconGradient = Instance.new('UIGradient')
-    IconGradient.Color = ColorSequence.new{
-        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(152, 181, 255)),
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 150, 255))
-    }
-    IconGradient.Parent = Icon
     
     local Divider = Instance.new('Frame')
     Divider.Name = 'Divider'
@@ -734,122 +660,7 @@ function Library:create_ui()
     Minimize.Parent = Handler
     
     local UIScale = Instance.new('UIScale')
-    UIScale.Parent = Container
-    
-    -- ============= СТРОКА ПОИСКА (ФУНКЦИОНАЛЬНАЯ) =============
-    self._all_modules = {}
-    
-    -- Функции поиска (всегда доступны)
-    function self:register_module(module_frame, module_title)
-        table.insert(self._all_modules, {
-            frame = module_frame,
-            title = module_title:lower(),
-            original_title = module_title
-        })
-    end
-    
-    function self:filter_modules(search_text)
-        search_text = search_text:lower()
-        
-        for _, module in ipairs(self._all_modules) do
-            local should_show = search_text == "" or string.find(module.title, search_text, 1, true)
-            
-            if module.frame and module.frame.Parent then
-                module.frame.Visible = should_show
-            end
-        end
-    end
-    
-    if self._search_settings.enabled then
-        local SearchContainer = Instance.new('Frame')
-        SearchContainer.Name = 'SearchContainer'
-        SearchContainer.Size = UDim2.new(0, self._search_settings.width, 0, self._search_settings.height)
-        SearchContainer.Position = UDim2.new(
-            self._search_settings.position_x, 
-            self._search_settings.offset_x, 
-            self._search_settings.position_y, 
-            self._search_settings.offset_y
-        )
-        SearchContainer.BackgroundColor3 = Color3.fromRGB(20, 24, 32)
-        SearchContainer.BackgroundTransparency = self._search_settings.transparency
-        SearchContainer.ZIndex = 100
-        SearchContainer.Parent = Handler
-        
-        local SearchCorner = Instance.new('UICorner')
-        SearchCorner.CornerRadius = UDim.new(0, 6)
-        SearchCorner.Parent = SearchContainer
-        
-        local SearchStroke = Instance.new('UIStroke')
-        SearchStroke.Color = Color3.fromRGB(60, 70, 90)
-        SearchStroke.Transparency = 0.8
-        SearchStroke.Thickness = 1
-        SearchStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-        SearchStroke.Parent = SearchContainer
-        
-        -- Иконка поиска
-        local SearchIcon = Instance.new('ImageLabel')
-        SearchIcon.Name = 'SearchIcon'
-        SearchIcon.Size = UDim2.new(0, 16, 0, 16)
-        SearchIcon.Position = UDim2.new(0, 10, 0.5, 0)
-        SearchIcon.AnchorPoint = Vector2.new(0, 0.5)
-        SearchIcon.BackgroundTransparency = 1
-        SearchIcon.Image = 'rbxassetid://10747381992'
-        SearchIcon.ImageColor3 = Color3.fromRGB(120, 130, 150)
-        SearchIcon.ImageTransparency = 0.3
-        SearchIcon.ZIndex = 101
-        SearchIcon.Parent = SearchContainer
-        
-        local SearchBox = Instance.new('TextBox')
-        SearchBox.Name = 'SearchBox'
-        SearchBox.Size = UDim2.new(1, -60, 1, 0)
-        SearchBox.Position = UDim2.new(0, 32, 0, 0)
-        SearchBox.BackgroundTransparency = 1
-        SearchBox.PlaceholderText = "Search modules..."
-        SearchBox.PlaceholderColor3 = Color3.fromRGB(100, 110, 130)
-        SearchBox.Text = Library._config._flags["_search_text"] or ""
-        SearchBox.TextColor3 = Color3.fromRGB(200, 210, 230)
-        SearchBox.TextSize = 13
-        SearchBox.Font = Enum.Font.Gotham
-        SearchBox.ClearTextOnFocus = false
-        SearchBox.TextXAlignment = Enum.TextXAlignment.Left
-        SearchBox.ZIndex = 101
-        SearchBox.Parent = SearchContainer
-        
-        -- Кнопка X для очистки
-        local ClearButton = Instance.new('TextButton')
-        ClearButton.Name = 'ClearButton'
-        ClearButton.Size = UDim2.new(0, 24, 0, 24)
-        ClearButton.Position = UDim2.new(1, -28, 0.5, 0)
-        ClearButton.AnchorPoint = Vector2.new(0, 0.5)
-        ClearButton.BackgroundTransparency = 1
-        ClearButton.Text = "×"
-        ClearButton.TextColor3 = Color3.fromRGB(150, 160, 180)
-        ClearButton.TextSize = 18
-        ClearButton.Font = Enum.Font.GothamBold
-        ClearButton.Visible = SearchBox.Text ~= ""
-        ClearButton.ZIndex = 101
-        ClearButton.Parent = SearchContainer
-        
-        -- Применить сохраненный поиск
-        if SearchBox.Text ~= "" then
-            self:filter_modules(SearchBox.Text)
-        end
-        
-        -- Показать/скрыть кнопку X
-        SearchBox.Changed:Connect(function(prop)
-            if prop == "Text" then
-                ClearButton.Visible = SearchBox.Text ~= ""
-                Library._config._flags["_search_text"] = SearchBox.Text
-                Config:save(game.GameId, Library._config)
-                self:filter_modules(SearchBox.Text)
-            end
-        end)
-        
-        -- Очистка текста
-        ClearButton.MouseButton1Click:Connect(function()
-            SearchBox.Text = ""
-        end)
-    end
+    UIScale.Parent = Container    
     
     self._ui = March
 
@@ -1028,7 +839,6 @@ function Library:create_ui()
 
     function self:create_tab(title: string, icon: string)
         local TabManager = {}
-        local LibraryRef = self  -- Сохраняем ссылку на Library
 
         local LayoutOrder = 0;
 
@@ -1102,12 +912,12 @@ function Library:create_ui()
         LeftSection.Name = 'LeftSection'
         LeftSection.AutomaticCanvasSize = Enum.AutomaticSize.XY
         LeftSection.ScrollBarThickness = 0
-        LeftSection.Size = UDim2.new(0, 243, 0, 400)
+        LeftSection.Size = UDim2.new(0, 243, 0, 445)
         LeftSection.Selectable = false
         LeftSection.AnchorPoint = Vector2.new(0, 0.5)
         LeftSection.ScrollBarImageTransparency = 1
         LeftSection.BackgroundTransparency = 1
-        LeftSection.Position = UDim2.new(0.2594326436519623, 0, 0.52, 0)
+        LeftSection.Position = UDim2.new(0.2594326436519623, 0, 0.5, 0)
         LeftSection.BorderColor3 = Color3.fromRGB(0, 0, 0)
         LeftSection.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         LeftSection.BorderSizePixel = 0
@@ -1129,12 +939,12 @@ function Library:create_ui()
         RightSection.Name = 'RightSection'
         RightSection.AutomaticCanvasSize = Enum.AutomaticSize.XY
         RightSection.ScrollBarThickness = 0
-        RightSection.Size = UDim2.new(0, 243, 0, 400)
+        RightSection.Size = UDim2.new(0, 243, 0, 445)
         RightSection.Selectable = false
         RightSection.AnchorPoint = Vector2.new(0, 0.5)
         RightSection.ScrollBarImageTransparency = 1
         RightSection.BackgroundTransparency = 1
-        RightSection.Position = UDim2.new(0.6290000081062317, 0, 0.52, 0)
+        RightSection.Position = UDim2.new(0.6290000081062317, 0, 0.5, 0)
         RightSection.BorderColor3 = Color3.fromRGB(0, 0, 0)
         RightSection.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         RightSection.BorderSizePixel = 0
@@ -1190,9 +1000,6 @@ function Library:create_ui()
             Module.BorderSizePixel = 0
             Module.BackgroundColor3 = Color3.fromRGB(22, 28, 38)
             Module.Parent = settings.section
-            
-            -- Регистрация модуля для поиска
-            LibraryRef:register_module(Module, settings.title or "Module")
 
             local UIListLayout = Instance.new('UIListLayout')
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -1258,14 +1065,6 @@ function Library:create_ui()
             ModuleName.TextSize = 13
             ModuleName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ModuleName.Parent = Header
-            
-            local ModuleGradient = Instance.new('UIGradient')
-            ModuleGradient.Color = ColorSequence.new{
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(152, 181, 255)),
-                ColorSequenceKeypoint.new(0.5, Color3.fromRGB(100, 150, 255)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(80, 120, 200))
-            }
-            ModuleGradient.Parent = ModuleName
             
             local Description = Instance.new('TextLabel')
             Description.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
@@ -2823,6 +2622,74 @@ function Library:create_ui()
                 end;
             
                 return FeatureContainer
+            end
+
+            function ModuleManager:create_button(settings: any)
+                LayoutOrderModule = LayoutOrderModule + 1
+                
+                local ButtonManager = {}
+                
+                if self._size == 0 then
+                    self._size = 11
+                end
+                
+                self._size += 22
+                
+                if ModuleManager._state then
+                    Module.Size = UDim2.fromOffset(241, 93 + self._size)
+                end
+                
+                Options.Size = UDim2.fromOffset(241, self._size)
+                
+                local Button = Instance.new('TextButton')
+                Button.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
+                Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Button.TextTransparency = 0.2
+                Button.BorderColor3 = Color3.fromRGB(0, 0, 0)
+                Button.Text = settings.title or "Button"
+                Button.AutoButtonColor = false
+                Button.BackgroundTransparency = 0.9
+                Button.Name = 'Button'
+                Button.Size = UDim2.new(0, 207, 0, 17)
+                Button.BorderSizePixel = 0
+                Button.TextSize = 11
+                Button.BackgroundColor3 = Color3.fromRGB(152, 181, 255)
+                Button.Parent = Options
+                Button.LayoutOrder = LayoutOrderModule
+                
+                local UICorner = Instance.new('UICorner')
+                UICorner.CornerRadius = UDim.new(0, 4)
+                UICorner.Parent = Button
+                
+                Button.MouseEnter:Connect(function()
+                    TweenService:Create(Button, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                        BackgroundTransparency = 0.7
+                    }):Play()
+                end)
+                
+                Button.MouseLeave:Connect(function()
+                    TweenService:Create(Button, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                        BackgroundTransparency = 0.9
+                    }):Play()
+                end)
+                
+                Button.MouseButton1Click:Connect(function()
+                    TweenService:Create(Button, TweenInfo.new(0.1, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                        BackgroundTransparency = 0.5
+                    }):Play()
+                    
+                    task.wait(0.1)
+                    
+                    TweenService:Create(Button, TweenInfo.new(0.2, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                        BackgroundTransparency = 0.9
+                    }):Play()
+                    
+                    if settings.callback then
+                        settings.callback()
+                    end
+                end)
+                
+                return ButtonManager
             end                    
 
             return ModuleManager
@@ -2848,4 +2715,4 @@ function Library:create_ui()
     return self
 end
 
-return Library.new()
+return Library
