@@ -2821,13 +2821,10 @@ function Library:create_ui()
                     OverlayGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
                     OverlayGui.Parent = CoreGui
                     
-                    local Overlay = Instance.new('TextButton')
+                    local Overlay = Instance.new('Frame')
                     Overlay.Size = UDim2.new(1, 0, 1, 0)
-                    Overlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-                    Overlay.BackgroundTransparency = 0.3
+                    Overlay.BackgroundTransparency = 1
                     Overlay.BorderSizePixel = 0
-                    Overlay.Text = ''
-                    Overlay.AutoButtonColor = false
                     Overlay.Parent = OverlayGui
                     
                     local PickerFrame = Instance.new('Frame')
@@ -2841,6 +2838,14 @@ function Library:create_ui()
                     local PickerCorner = Instance.new('UICorner')
                     PickerCorner.CornerRadius = UDim.new(0, 8)
                     PickerCorner.Parent = PickerFrame
+                    
+                    local MainUI = CoreGui:FindFirstChild('March')
+                    local MainBlur = nil
+                    if MainUI then
+                        MainBlur = Instance.new('BlurEffect')
+                        MainBlur.Size = 15
+                        MainBlur.Parent = Lighting
+                    end
                     
                     local Title = Instance.new('TextLabel')
                     Title.Text = settings.title or "Color Picker"
@@ -3016,22 +3021,33 @@ function Library:create_ui()
                     
                     DoneButton.MouseButton1Click:Connect(function()
                         ColorpickerManager:Display()
+                        if MainBlur then MainBlur:Destroy() end
                         OverlayGui:Destroy()
                     end)
                     
                     CancelButton.MouseButton1Click:Connect(function()
+                        if MainBlur then MainBlur:Destroy() end
                         OverlayGui:Destroy()
                     end)
                     
                     CloseButton.MouseButton1Click:Connect(function()
+                        if MainBlur then MainBlur:Destroy() end
                         OverlayGui:Destroy()
                     end)
                     
-                    Overlay.MouseButton1Click:Connect(function()
-                        OverlayGui:Destroy()
+                    Overlay.InputBegan:Connect(function(input)
+                        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                            local mousePos = UserInputService:GetMouseLocation()
+                            local framePos = PickerFrame.AbsolutePosition
+                            local frameSize = PickerFrame.AbsoluteSize
+                            
+                            if mousePos.X < framePos.X or mousePos.X > framePos.X + frameSize.X or
+                               mousePos.Y < framePos.Y or mousePos.Y > framePos.Y + frameSize.Y then
+                                if MainBlur then MainBlur:Destroy() end
+                                OverlayGui:Destroy()
+                            end
+                        end
                     end)
-                    
-                    PickerFrame.MouseButton1Click:Connect(function() end)
                 end)
                 
                 return ColorpickerManager
